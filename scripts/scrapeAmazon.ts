@@ -42,8 +42,11 @@ async function scrapeAmazon({ category, searchUrls, maxItems = 10 }: ScrapeOptio
     
     console.log(`Found ${items.length} items. Formatting for Supabase...`);
     
+    const scrapedAsins: string[] = [];
+    
     for (const item of items) {
       if (!item.asin || !item.title) continue;
+      scrapedAsins.push(item.asin);
       
       // Basic price cleaning
       let priceVal = 0;
@@ -115,7 +118,44 @@ async function scrapeAmazon({ category, searchUrls, maxItems = 10 }: ScrapeOptio
       }
     }
     
-    console.log("Scraping and DB insertion complete!");
+    // Check for products in this category that are no longer in the top results
+    if (scrapedAsins.length > 0) {
+      console.log(`\nChecking for outdated products in category '${category}'...`);
+      
+      // Fetch all currently active products for this category
+      const { data: existingProducts, error: fetchError } = await supabase
+        .from('products')
+        .select('amazon_asin')
+        .eq('category', category)
+        .eq('status', 'active');
+        
+      if (fetchError) {
+        console.error("Error fetching existing products:", fetchError.message);
+      } else if (existingProducts) {
+        // Find products that are in the database but were not scraped just now
+        const asinsToDeactivate = existingProducts
+          .map(p => p.amazon_asin)
+          .filter(asin => !scrapedAsins.includes(asin));
+          
+        if (asinsToDeactivate.length > 0) {
+          console.log(`Found ${asinsToDeactivate.length} products to deactivate.`);
+          const { error: updateError } = await supabase
+            .from('products')
+            .update({ status: 'inactive' })
+            .in('amazon_asin', asinsToDeactivate);
+            
+          if (updateError) {
+            console.error("Error deactivating products:", updateError.message);
+          } else {
+            console.log(`Successfully deactivated outdated products.`);
+          }
+        } else {
+          console.log("No outdated products found to deactivate. Catalog is clean.");
+        }
+      }
+    }
+
+    console.log("\nScraping and DB insertion complete!");
 
   } catch (error) {
     console.error("Scraping failed:", error);
