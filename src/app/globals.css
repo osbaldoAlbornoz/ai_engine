@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  
+  /* Force sharp edges across the board */
+  --radius-xs: 0px;
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --radius-2xl: 0px;
+  --radius-3xl: 0px;
+  --radius-4xl: 0px;
+  --radius-full: 0px;
+
+  --font-sans: var(--font-jetbrains-mono), ui-monospace, monospace;
+  --font-heading: var(--font-orbitron), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+  --animate-border-beam: border-beam calc(var(--duration)*1s) infinite linear;
+  @keyframes border-beam {
+    100% {
+      offset-distance: 100%;
+    }
+  }
+}
+
+:root {
+  --background: #050505;
+  --foreground: #F8FAFC;
+  --card: #09090b;
+  --card-foreground: #F8FAFC;
+  --border: #1E293B;
+  --primary: #00E5FF;
+  --primary-foreground: #000000;
+  --accent: #FF00FF;
+  --accent-foreground: #ffffff;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-orbitron), ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: 0.05em;
+  }
+  
+  /* Ensure images match the aesthetic */
+  img {
+    border-radius: 0 !important;
+    filter: contrast(110%) saturate(110%);
+  }
+
+  /* Force all buttons and inputs to have sharp corners */
+  button, input, select, textarea {
+    border-radius: 0 !important;
+  }
+}
+
+@utility font-heading {
+  font-family: var(--font-orbitron), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Cyberpunk structural utilities (overriding previous glassmorphism) */
+@layer utilities {
+  .glass {
+    background: var(--background);
+    backdrop-filter: none;
+    border: 1px solid var(--primary);
+    border-radius: 0 !important;
+    box-shadow: 0 0 15px rgba(0, 229, 255, 0.15);
+  }
+  
+  .glass-dark {
+    background: #000000;
+    backdrop-filter: none;
+    border: 1px solid var(--border);
+    border-radius: 0 !important;
+    box-shadow: inset 0 0 20px rgba(0, 229, 255, 0.05);
+  }
+}
+
+/* Custom Semantic Text Utilities */
+@utility text-subtitle {
+  @apply font-heading tracking-wide;
+}
+
+@utility text-neon {
+  color: var(--color-primary);
+  text-shadow: 0 0 10px var(--color-primary), 0 0 20px rgba(0, 229, 255, 0.5);
+}
+
+@utility text-neon-accent {
+  color: var(--color-accent);
+  text-shadow: 0 0 10px var(--color-accent), 0 0 20px rgba(255, 0, 255, 0.5);
+}
+
+@utility text-label {
+  @apply font-heading uppercase tracking-widest font-bold;
+}
+
+@utility bg-cyber-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 229, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 229, 255, 0.1) 1px, transparent 1px);
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-150%) skewX(-20deg);
+  }
+  100% {
+    transform: translateX(150%) skewX(-20deg);
+  }
+}
+
+@layer utilities {
+  .bg-carbon-fiber {
+    background-color: #050505;
+    background-image: 
+      linear-gradient(45deg, #101010 25%, transparent 25%, transparent 75%, #101010 75%, #101010),
+      linear-gradient(45deg, #101010 25%, transparent 25%, transparent 75%, #101010 75%, #101010);
+    background-size: 10px 10px;
+    background-position: 0 0, 5px 5px;
+  }
+}
