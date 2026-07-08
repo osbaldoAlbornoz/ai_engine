@@ -102,7 +102,7 @@ async function scrapeAmazon({ category, searchUrls, maxItems = 10 }: ScrapeOptio
         status: 'active'
       };
 
-      console.log(`Upserting ${product.name.substring(0, 50)}... [category: ${finalCategory}]`);
+      console.log(`Upserting ${String(product.name).substring(0, 50)}... [category: ${finalCategory}]`);
       
       const { error } = await supabase
         .from('products')
