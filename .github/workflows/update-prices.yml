@@ -1,0 +1,31 @@
+name: Daily Catalog Update
+
+on:
+  schedule:
+    # Se ejecuta a las 00:00 UTC todos los días
+    - cron: '0 0 * * *'
+  workflow_dispatch: # Permite ejecución manual desde la interfaz de GitHub
+
+jobs:
+  update-catalog:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run update catalog script
+        run: npx tsx scripts/update-catalog.ts
+        env:
+          APIFY_TOKEN: ${{ secrets.APIFY_TOKEN }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
