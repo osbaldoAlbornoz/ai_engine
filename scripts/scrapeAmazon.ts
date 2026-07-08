@@ -46,7 +46,7 @@ async function scrapeAmazon({ category, searchUrls, maxItems = 10 }: ScrapeOptio
     
     for (const item of items) {
       if (!item.asin || !item.title) continue;
-      scrapedAsins.push(item.asin);
+      scrapedAsins.push(String(item.asin));
       
       // Basic price cleaning
       let priceVal = 0;
@@ -73,8 +73,8 @@ async function scrapeAmazon({ category, searchUrls, maxItems = 10 }: ScrapeOptio
       
       const features = Array.isArray(item.features) ? item.features : [];
       let specs: Record<string, string> = {};
-      if (item.productInformation) specs = { ...specs, ...item.productInformation };
-      if (item.specifications) specs = { ...specs, ...item.specifications };
+      if (item.productInformation && typeof item.productInformation === 'object') specs = { ...specs, ...(item.productInformation as Record<string, string>) };
+      if (item.specifications && typeof item.specifications === 'object') specs = { ...specs, ...(item.specifications as Record<string, string>) };
       if (Array.isArray(item.attributes)) {
         item.attributes.forEach((attr: any) => {
           if (attr.key && attr.value) {
