@@ -788,7 +788,7 @@ export function CompareTool() {
                         interval={0}
                       />
                       <Tooltip
-                        formatter={(value: number, name: string, props: any) => {
+                        formatter={(value: any, name: any, props: any) => {
                           const dataKey = props.dataKey;
                           const rawValue = props.payload[`${dataKey}_raw`];
                           return [rawValue, name];

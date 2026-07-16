@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
-import { HardwareProduct } from "@/data/hardware";
+import { HardwareProduct } from "@/types/product";
 import { AlertTriangle, CheckCircle2, Cpu, MemoryStick, Zap } from "lucide-react";
 import { calculateAIScore, assignTier } from "@/utils/scoring";
 

@@ -10,7 +10,7 @@ import type { NextRequest } from 'next/server';
  * - If user hits "/splash" and HAS the cookie → redirect to / (no going back)
  * - Everything else: pass through
  */
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const hasEntered = request.cookies.get('aiEngineEntered')?.value === 'true';
 

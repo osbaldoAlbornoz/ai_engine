@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 import { motion } from "framer-motion";
-import { HardwareProduct } from "@/data/hardware";
+import { HardwareProduct } from "@/types/product";
 import { calculateAIScore, assignTier, tierStyles, calculateValueRating } from "@/utils/scoring";
 import { Activity, Brain, Zap, BarChart3, Database, CheckCircle2, XCircle, DollarSign, Cpu } from "lucide-react";
 
@@ -20,7 +20,7 @@ export function AIAnalysis({ product }: AIAnalysisProps) {
   const insights = useMemo(() => {
     const list = [];
     const specs = product.specs;
-    const lowerSpecs = Object.fromEntries(Object.entries(specs).map(([k, v]) => [k.toLowerCase(), v.toLowerCase()]));
+    const lowerSpecs = Object.fromEntries(Object.entries(specs).map(([k, v]) => [k.toLowerCase(), String(v).toLowerCase()]));
 
     // AI specific insights
     if (lowerSpecs["tensor cores"] || lowerSpecs["npu"] || lowerSpecs["ai engine"]) {

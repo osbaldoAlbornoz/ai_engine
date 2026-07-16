@@ -2,6 +2,14 @@
  * Product type definition for AI Engine
  * This type is used across the application for product data from Supabase
  */
+export type Category = 'gpus' | 'laptops' | 'npus' | 'workstations';
+
+export interface BenchmarkData {
+  model: string;
+  metric: string;
+  value: number;
+}
+
 export interface Product {
   id?: string;
   amazon_asin?: string;
@@ -25,9 +33,13 @@ export interface Product {
     [key: string]: string | number | undefined;
   };
   features?: string[];
+  pros?: string[];
+  cons?: string[];
   rating?: number;
   reviewsCount?: number;
   isPopular?: boolean;
   status?: string;
   ai_score?: number;
 }
+
+export type HardwareProduct = Product;

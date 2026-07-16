@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { BenchmarkData } from "@/data/hardware";
+import { BenchmarkData } from "@/types/product";
 import { Zap } from "lucide-react";
 
 interface Props {

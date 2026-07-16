@@ -1,5 +1,5 @@
 import CatalogViewer from "@/components/catalog/CatalogViewer";
-import { Category } from "@/data/hardware";
+import { Category } from "@/types/product";
 import { notFound } from "next/navigation";
 
 export function generateStaticParams() {

@@ -321,7 +321,7 @@ export function getBestUseCase(product: {
 }
 
 // Helpers para parsear specs
-function parseVRAM(product: { name?: string; specs?: Record<string, any> }): number | null {
+function parseVRAM(product: { name?: string; specs?: Record<string, any>; category?: string }): number | null {
   const specs = product.specs || {};
   const name = (product.name || '').toLowerCase();
 

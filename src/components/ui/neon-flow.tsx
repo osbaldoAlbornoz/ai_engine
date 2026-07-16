@@ -33,6 +33,7 @@ export function TubesBackground({
 
       try {
         // Import from local node_modules instead of CDN to avoid CSP and Webpack issues
+        // @ts-ignore
         const module = await import('threejs-components/build/cursors/tubes1.min.js');
         const TubesCursor = module.default;
 
