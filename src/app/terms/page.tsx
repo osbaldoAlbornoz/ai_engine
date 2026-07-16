@@ -29,10 +29,16 @@ export default function TermsOfServicePage() {
 
           <h2 className="text-2xl font-bold text-white font-heading mt-8 mb-4">3. Accuracy of Information</h2>
           <p>
-            While we strive to ensure that product specifications, AI scores, benchmarks, and prices are accurate and up-to-date, we cannot guarantee the complete accuracy of all information on the Site. Product details, availability, and pricing on Amazon.com may change without our immediate knowledge. 
+            While we strive to provide accurate and up-to-date product specifications, AI performance scores, benchmarks, and pricing information, we cannot guarantee that all information displayed on the Site is complete, current, or error-free.
           </p>
           <p>
-            Always verify the specifications, price, and availability on the seller's website before making a purchase. AiEngine is not responsible for any discrepancies between the information on our Site and the final seller's platform.
+            Technical specifications are collected from manufacturer documentation, publicly available technical data, and other reliable sources. Product configurations may vary depending on the specific model, region, retailer, or seller listing.
+          </p>
+          <p>
+            Prices, availability, promotions, and product details on third-party websites, including Amazon.com, may change without notice.
+          </p>
+          <p>
+            Before making a purchase decision, users should verify the final specifications, price, and availability directly on the retailer's or manufacturer's website. AiEngine is not responsible for discrepancies between information displayed on the Site and the final product listing provided by third-party sellers.
           </p>
 
           <h2 className="text-2xl font-bold text-white font-heading mt-8 mb-4">4. Limitation of Liability</h2>

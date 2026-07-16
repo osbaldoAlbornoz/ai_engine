@@ -39,31 +39,28 @@ export function SplashScreen() {
     };
   }, []);
 
-  // Custom premium easing curve (Apple-like smooth snap)
-  const premiumEase = [0.22, 1, 0.36, 1];
-
   return (
     <AnimatePresence>
       {isLoading && (
         <motion.div
-          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#030303] overflow-hidden"
+          className="fixed inset-0 z-100 flex flex-col items-center justify-center bg-[#030303] overflow-hidden"
           initial={{ opacity: 1 }}
           exit={{ 
             opacity: 0, 
             scale: 1.4, // Fly-through effect
             filter: "blur(10px)",
-            transition: { duration: 0.7, ease: premiumEase } 
+            transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } 
           }}
         >
           {/* =========================================================================
               GLOBAL BACKGROUND: Deep space/tech noise + 21st.dev Particles
              ========================================================================= */}
           {/* Subtle grid */}
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:60px_60px] [mask-image:radial-gradient(ellipse_70%_70%_at_50%_50%,#000_60%,transparent_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-size-[60px_60px] mask-[radial-gradient(ellipse_70%_70%_at_50%_50%,#000_60%,transparent_100%)]" />
           
           {/* Noise Texture for premium matte feel */}
           <div
-            className="absolute inset-0 w-full h-full opacity-[0.05] pointer-events-none mix-blend-overlay"
+            className="absolute inset-0 w-full h-full opacity-5 pointer-events-none mix-blend-overlay"
             style={{
               backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
             }}
@@ -73,7 +70,7 @@ export function SplashScreen() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 2, ease: premiumEase }}
+            transition={{ duration: 2, ease: [0.22, 1, 0.36, 1] }}
             className="absolute inset-0 z-0"
           >
             <Particles
@@ -92,7 +89,7 @@ export function SplashScreen() {
             className="absolute inset-0 flex items-center justify-center opacity-40"
             initial={{ opacity: 0 }}
             animate={{ opacity: [0, 1, 0] }}
-            transition={{ duration: 1.5, ease: premiumEase }}
+            transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
           >
             <svg width="400" height="400" viewBox="0 0 400 400" className="absolute">
               <motion.path
@@ -119,26 +116,26 @@ export function SplashScreen() {
              ========================================================================= */}
           <motion.div
             className="absolute flex items-center justify-center z-10"
-            style={{ perspective: 1200 }}
+            style={{ perspective: '1200px' }}
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: [0, 1, 1, 0], scale: [0.5, 1, 1.2, 4] }}
-            transition={{ delay: 1.2, duration: 1.6, ease: premiumEase }}
+            transition={{ delay: 1.2, duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
           >
             {/* Outer 3D Ring */}
             <motion.div 
-              className="absolute w-[22rem] h-[22rem] border-t-[1px] border-b-[2px] border-primary/40 rounded-full"
+              className="absolute w-88 h-88 border-t border-b-2 border-primary/40 rounded-full"
               animate={{ rotateX: 360, rotateY: 180, rotateZ: 90 }}
               transition={{ duration: 3, ease: "linear" }}
             />
             {/* Middle 3D Ring */}
             <motion.div 
-              className="absolute w-[18rem] h-[18rem] border-[1px] border-dashed border-white/20 rounded-full"
+              className="absolute w-72 h-72 border border-dashed border-white/20 rounded-full"
               animate={{ rotateX: -180, rotateY: 360, rotateZ: -180 }}
               transition={{ duration: 4, ease: "linear" }}
             />
             {/* Inner 3D Ring */}
             <motion.div 
-              className="absolute w-[14rem] h-[14rem] border-[2px] border-accent/60 rounded-full shadow-[0_0_40px_rgba(var(--accent),0.3)]"
+              className="absolute w-56 h-56 border-2 border-accent/60 rounded-full shadow-[0_0_40px_rgba(var(--accent),0.3)]"
               animate={{ rotateX: -180, rotateY: -360, rotateZ: -90 }}
               transition={{ duration: 2.5, ease: "linear" }}
             />
@@ -158,21 +155,21 @@ export function SplashScreen() {
           <motion.div
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: [0, 1, 0.25], scale: [0, 3, 1.8] }}
-            transition={{ delay: 2.5, duration: 2.5, ease: premiumEase }}
+            transition={{ delay: 2.5, duration: 2.5, ease: [0.22, 1, 0.36, 1] }}
             className="absolute z-10 flex items-center justify-center pointer-events-none"
           >
-            <div className="absolute w-[60rem] h-[15rem] bg-gradient-to-r from-primary/0 via-primary/50 to-primary/0 blur-[80px] mix-blend-screen transform -rotate-12" />
-            <div className="absolute w-[40rem] h-[8rem] bg-gradient-to-r from-accent/0 via-accent/40 to-accent/0 blur-[60px] mix-blend-screen transform -rotate-12" />
-            <div className="absolute w-[20rem] h-[4rem] bg-white/30 blur-[40px] mix-blend-screen transform -rotate-12" />
+            <div className="absolute w-240 h-60 bg-linear-to-r from-primary/0 via-primary/50 to-primary/0 blur-[80px] mix-blend-screen transform -rotate-12" />
+            <div className="absolute w-160 h-32 bg-linear-to-r from-accent/0 via-accent/40 to-accent/0 blur-[60px] mix-blend-screen transform -rotate-12" />
+            <div className="absolute w-[20rem] h-16 bg-white/30 blur-2xl mix-blend-screen transform -rotate-12" />
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0, scale: 0.8, filter: "blur(30px)", letterSpacing: "0.8em", y: 20 }}
             animate={{ opacity: 1, scale: 1, filter: "blur(0px)", letterSpacing: "0em", y: 0 }}
-            transition={{ delay: 2.5, duration: 1.8, ease: premiumEase }}
+            transition={{ delay: 2.5, duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
             className="absolute z-20 flex flex-col items-center"
           >
-            <h1 className="text-5xl md:text-8xl font-heading font-black text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-white/40 uppercase drop-shadow-[0_0_50px_rgba(255,255,255,0.4)]">
+            <h1 className="text-5xl md:text-8xl font-heading font-black text-transparent bg-clip-text bg-linear-to-b from-white via-white to-white/40 uppercase drop-shadow-[0_0_50px_rgba(255,255,255,0.4)]">
               AiEngine
             </h1>
           </motion.div>
@@ -181,10 +178,10 @@ export function SplashScreen() {
               PHASE 4 (4.5s - 7.0s): Tech Loading Data UI
              ========================================================================= */}
           <motion.div 
-            className="absolute mt-48 flex flex-col items-center z-20 w-full max-w-[400px] px-6"
+            className="absolute mt-48 flex flex-col items-center z-20 w-full max-w-sm px-6"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 4.5, duration: 0.8, ease: premiumEase }}
+            transition={{ delay: 4.5, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
             {/* Tech Data Headers */}
             <div className="flex justify-between w-full mb-3 text-[10px] md:text-xs font-mono tracking-[0.2em] uppercase">
@@ -196,7 +193,7 @@ export function SplashScreen() {
             </div>
             
             {/* Precision Loading Bar */}
-            <div className="w-full h-[1px] bg-white/10 relative">
+            <div className="w-full h-px bg-white/10 relative overflow-hidden">
               <motion.div
                 className="absolute top-0 left-0 h-full bg-white shadow-[0_0_15px_rgba(255,255,255,0.8)]"
                 initial={{ width: "0%" }}
@@ -219,17 +216,17 @@ export function SplashScreen() {
           <motion.div
             initial={{ opacity: 0, y: 15, filter: "blur(8px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ delay: 5.2, duration: 1.0, ease: premiumEase }}
+            transition={{ delay: 5.2, duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
             className="absolute mt-72 flex flex-col items-center z-10"
           >
             <div className="flex items-center gap-3 mb-4 opacity-50">
-               <div className="w-8 h-[1px] bg-gradient-to-r from-transparent to-white" />
+               <div className="w-8 h-px bg-linear-to-r from-transparent to-white" />
                <Terminal size={14} className="text-white" />
-               <div className="w-8 h-[1px] bg-gradient-to-l from-transparent to-white" />
+               <div className="w-8 h-px bg-linear-to-l from-transparent to-white" />
             </div>
             <h2 className="text-[10px] md:text-xs font-heading font-semibold tracking-[0.4em] text-white/70 uppercase text-center leading-relaxed">
               High-Performance <br className="sm:hidden" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent font-black">AI Hardware</span>
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-accent font-black">AI Hardware</span>
             </h2>
           </motion.div>
 

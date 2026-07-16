@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono, Orbitron } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
-import { ThreeColumnLayout } from "@/components/layout/ThreeColumnLayout";
+import { QueryProvider } from "@/lib/QueryProvider";
+import { Suspense } from "react";
+import { LayoutContent } from "@/components/layout/LayoutContent";
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -46,8 +46,6 @@ export const metadata: Metadata = {
   }
 };
 
-import { NewSplashScreen } from "@/components/ui/NewSplashScreen";
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -57,22 +55,17 @@ export default function RootLayout({
     <html
       lang="en"
       className={`h-full antialiased ${jetbrainsMono.variable} ${orbitron.variable}`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col relative bg-background text-foreground font-sans">
-        <NewSplashScreen />
-        {/* Optional background glow effect */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
-          <div className="absolute -top-[40%] -left-[10%] w-[70%] h-[70%] rounded-full bg-primary/5 blur-[120px]" />
-          <div className="absolute top-[60%] -right-[10%] w-[60%] h-[60%] rounded-full bg-accent/5 blur-[120px]" />
-        </div>
-
-        <ThreeColumnLayout>
-          <Navbar />
-          <main className="flex-grow flex flex-col">
-            {children}
-          </main>
-          <Footer />
-        </ThreeColumnLayout>
+      <body 
+        className="min-h-full flex flex-col relative bg-background text-foreground font-sans"
+        suppressHydrationWarning
+      >
+        <QueryProvider>
+          <Suspense fallback={null}>
+            <LayoutContent>{children}</LayoutContent>
+          </Suspense>
+        </QueryProvider>
       </body>
     </html>
   );

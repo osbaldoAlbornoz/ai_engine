@@ -1,16 +1,36 @@
 import { NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
+import { z } from "zod";
+
+// Schema de validación con Zod
+const alertSchema = z.object({
+  email: z.string().email("Invalid email address"),
+  productId: z.string().min(10, "Invalid product ID (ASIN)"),
+  productName: z.string().optional(),
+  baselinePrice: z.number().positive().optional()
+});
 
 export async function POST(request: Request) {
   try {
-    const { email, productId, productName, baselinePrice } = await request.json();
-
-    if (!email || !productId) {
+    const body = await request.json();
+    
+    // Validar datos de entrada con Zod
+    const validationResult = alertSchema.safeParse(body);
+    
+    if (!validationResult.success) {
       return NextResponse.json(
-        { error: "Email and productId are required" },
+        { 
+          error: "Invalid data",
+          details: validationResult.error.issues.map((issue) => ({
+            field: String(issue.path.join('.')),
+            message: issue.message
+          }))
+        },
         { status: 400 }
       );
     }
+    
+    const { email, productId, productName, baselinePrice } = validationResult.data;
 
     // Insert into Supabase table
     const { data, error } = await supabase

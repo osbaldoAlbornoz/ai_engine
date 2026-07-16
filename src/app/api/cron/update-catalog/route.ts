@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { ApifyClient } from 'apify-client';
-import { createClient } from '@supabase/supabase-js';
+import { supabaseAdmin } from '@/lib/supabase';
 
 // Add export const maxDuration = 300; to allow for Vercel Pro max duration (5 mins)
 export const maxDuration = 300;
@@ -14,20 +14,17 @@ export async function GET(request: Request) {
     }
 
     const APIFY_TOKEN = process.env.APIFY_TOKEN;
-    const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-    if (!APIFY_TOKEN || !SUPABASE_URL || !SUPABASE_KEY) {
-      return NextResponse.json({ error: "Missing required environment variables." }, { status: 500 });
+    if (!APIFY_TOKEN) {
+      return NextResponse.json({ error: "Missing APIFY_TOKEN in environment" }, { status: 500 });
     }
 
     const apifyClient = new ApifyClient({ token: APIFY_TOKEN });
-    const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
     console.log("Starting cron catalog update...");
 
-    // 1. Fetch all currently active products from Supabase
-    const { data: activeProducts, error: fetchError } = await supabase
+    // 1. Fetch all currently active products from Supabase (usamos supabaseAdmin para bypass RLS)
+    const { data: activeProducts, error: fetchError } = await supabaseAdmin
       .from('products')
       .select('id, amazon_asin, name, price, specs')
       .eq('status', 'active');
@@ -82,7 +79,7 @@ export async function GET(request: Request) {
       if (item.productInformation && typeof item.productInformation === 'object') specs = { ...specs, ...(item.productInformation as Record<string, string>) };
       if (item.specifications && typeof item.specifications === 'object') specs = { ...specs, ...(item.specifications as Record<string, string>) };
       if (Array.isArray(item.attributes)) {
-        item.attributes.forEach((attr: any) => {
+        item.attributes.forEach((attr: { key?: string; value?: string }) => {
           if (attr.key && attr.value) {
             specs[attr.key] = attr.value;
           }
@@ -105,7 +102,7 @@ export async function GET(request: Request) {
       const scrapeResult = scrapedData.get(product.amazon_asin);
       
       if (scrapeResult && scrapeResult.price > 0) {
-        let updates: any = { updated_at: new Date().toISOString() };
+        const updates: Record<string, string | number | Date | Record<string, string>> = { updated_at: new Date().toISOString() };
         let hasUpdates = false;
 
         if (scrapeResult.price !== product.price) {
@@ -120,7 +117,7 @@ export async function GET(request: Request) {
         }
 
         if (hasUpdates) {
-          const { error: updateError } = await supabase
+          const { error: updateError } = await supabaseAdmin
             .from('products')
             .update(updates)
             .eq('id', product.id);

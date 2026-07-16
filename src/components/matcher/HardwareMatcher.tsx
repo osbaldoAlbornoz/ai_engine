@@ -13,7 +13,22 @@ import { UseCase, Budget, FormFactor, MatcherAnswers, getTopMatches, MatchResult
 import Link from "next/link";
 import Image from "next/image";
 import { supabase } from "@/lib/supabase";
-import { hardwareData, Category, HardwareProduct } from "@/data/hardware";
+import { Product } from "@/types/product";
+import { useQuery } from '@tanstack/react-query';
+
+type Category = "gpus" | "laptops" | "npus" | "workstations";
+
+interface HardwareProduct extends Product {
+  image_url: string;
+  amazon_url: string;
+  original_price?: number;
+  features: string[];
+  // Legacy aliases
+  image?: string;
+  amazonUrl?: string;
+  originalPrice?: number;
+  keyFeatures?: string[];
+}
 
 // --- Wizard Data ---
 const USE_CASES = [
@@ -40,7 +55,6 @@ export function HardwareMatcher() {
   const [step, setStep] = useState(1);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [results, setResults] = useState<MatchResult[]>([]);
-  const [products, setProducts] = useState<HardwareProduct[]>(hardwareData);
   
   const [answers, setAnswers] = useState<MatcherAnswers>({
     useCase: "learning",
@@ -48,34 +62,41 @@ export function HardwareMatcher() {
     formFactor: "any"
   });
 
-  useEffect(() => {
-    const fetchProducts = async () => {
+  const { data: products = [] } = useQuery({
+    queryKey: ['activeProducts'],
+    queryFn: async () => {
       const { data, error } = await supabase.from('products').select('*').eq('status', 'active');
-      if (data && !error) {
-        const dbProducts = data.map(dbProd => ({
-          id: dbProd.id,
-          name: dbProd.name,
-          category: (dbProd.category || "gpus") as Category,
-          brand: dbProd.brand || "Unknown",
-          price: dbProd.price || 0,
-          originalPrice: dbProd.original_price || undefined,
-          image: dbProd.image_url || "",
-          amazonUrl: dbProd.amazon_url || "#",
-          specs: dbProd.specs || {},
-          keyFeatures: dbProd.features || [],
-        }));
-        
-        const dbCategories = new Set(dbProducts.map(p => p.category));
-        const filteredStatic = hardwareData.filter(p => !dbCategories.has(p.category));
-        
-        setProducts([...dbProducts, ...filteredStatic]);
-      } else if (error) {
-        console.error("Error fetching products from Supabase:", error);
-        // Fallback to initial hardwareData is already handled by useState initialization
-      }
-    };
-    fetchProducts();
-  }, []);
+      if (error) throw error;
+      return data;
+    },
+    select: (data) => {
+      return data.map(dbProd => ({
+        id: dbProd.id,
+        amazon_asin: dbProd.amazon_asin,
+        name: dbProd.name,
+        description: (dbProd.features && dbProd.features.length > 0) ? dbProd.features[0] : "High-performance AI hardware",
+        category: (dbProd.category || "gpus") as Category,
+        brand: dbProd.brand || "Unknown",
+        price: dbProd.price || 0,
+        original_price: dbProd.original_price,
+        image_url: dbProd.image_url || "",
+        amazon_url: dbProd.amazon_url || "#",
+        specs: dbProd.specs || {},
+        features: dbProd.features || [],
+        rating: dbProd.rating,
+        reviewsCount: dbProd.reviews_count,
+        isPopular: dbProd.is_popular,
+        status: dbProd.status,
+        ai_score: dbProd.ai_score,
+        // Legacy aliases for backward compatibility
+        image: dbProd.image_url || "",
+        amazonUrl: dbProd.amazon_url || "#",
+        originalPrice: dbProd.original_price,
+        keyFeatures: dbProd.features || [],
+      }));
+    },
+    staleTime: 1000 * 60 * 5, // Cache for 5 minutes
+  });
 
   const handleSelectUseCase = (id: UseCase) => {
     setAnswers(prev => ({ ...prev, useCase: id }));
@@ -307,9 +328,10 @@ export function HardwareMatcher() {
                         
                         <div className="relative h-48 w-full bg-black overflow-hidden">
                           <Image 
-                            src={result.product.image} 
+                            src={result.product.image || "/images/GPU_1024.png"} 
                             alt={result.product.name}
                             fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                             className="object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-500"
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] to-transparent" />

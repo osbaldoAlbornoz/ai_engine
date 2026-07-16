@@ -3,9 +3,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ShoppingCart, Cpu, Zap, Star, HardDrive } from 'lucide-react';
-import { Product } from '@/data/products';
+import { Product } from '@/types/product';
 import Link from 'next/link';
-
+import Image from 'next/image';
 export function ProductCard({ product }: { product: Product }) {
   return (
     <motion.div
@@ -31,11 +31,15 @@ export function ProductCard({ product }: { product: Product }) {
         {/* Pedestal glow at the bottom */}
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-1/4 bg-primary/10 blur-2xl rounded-full pointer-events-none group-hover:bg-primary/20 transition-all duration-500"></div>
 
-        <img
-          src={product.imageUrl}
-          alt={product.title}
-          className="relative z-10 w-full h-full object-contain p-8 group-hover:scale-110 transition-transform duration-500 mix-blend-multiply saturate-110 drop-shadow-2xl"
-        />
+        <div className="relative z-10 w-full h-full p-8 group-hover:scale-110 transition-transform duration-500 mix-blend-multiply saturate-110 drop-shadow-2xl">
+          <Image
+            src={product.imageUrl || product.image_url || '/images/GPU_1024.png'}
+            alt={product.name}
+            fill
+            className="object-contain"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
+        </div>
 
         {product.isPopular && (
           <div className="absolute top-4 left-4 z-10 bg-black/60 backdrop-blur-md border border-white/10 border-l-2 border-l-primary px-3 py-1.5 text-[10px] uppercase font-mono tracking-widest text-white shadow-lg flex items-center gap-2">
@@ -59,7 +63,7 @@ export function ProductCard({ product }: { product: Product }) {
             )}
           </div>
           <Link href={`/product/${product.id}`} className="hover:opacity-80 transition-opacity">
-            <h3 className="text-lg font-bold text-zinc-100 leading-tight mb-2 line-clamp-2">{product.title}</h3>
+            <h3 className="text-lg font-bold text-zinc-100 leading-tight mb-2 line-clamp-2">{product.name}</h3>
           </Link>
           <p className="text-sm text-zinc-400 line-clamp-2 mb-4 leading-relaxed">{product.description}</p>
 
@@ -95,7 +99,7 @@ export function ProductCard({ product }: { product: Product }) {
             <span className="font-heading text-xl font-bold text-white tracking-tight">{product.price > 0 ? `$${product.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : "Varies"}</span>
           </div>
           <a
-            href={product.affiliateUrl}
+            href={product.affiliateUrl || product.amazon_url}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 px-5 py-2.5 bg-primary/10 hover:bg-primary border border-primary/30 hover:border-primary text-primary hover:text-[#050505] rounded-none transition-all duration-300 shadow-[0_0_15px_rgba(0,229,255,0.1)] hover:shadow-[0_0_20px_rgba(0,229,255,0.4)] relative overflow-hidden group/btn"

@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, Zap, Cpu, Laptop, CircuitBoard, Target } from "lucide-react";
+import { ArrowRight, Zap, Cpu, Laptop, CircuitBoard, Target, Server } from "lucide-react";
 import dynamic from 'next/dynamic';
 const Spline = dynamic(() => import('@splinetool/react-spline'), {
   ssr: false,
@@ -11,21 +11,49 @@ const Spline = dynamic(() => import('@splinetool/react-spline'), {
 import { BorderRotate } from "@/components/ui/animated-gradient-border";
 import { BrandMarquee } from "@/components/ui/brand-marquee";
 import { ScrollIndicator } from "@/components/ui/scroll-indicator";
-import { TubesBackground } from "@/components/ui/neon-flow";
+const TubesBackground = dynamic(() => import("@/components/ui/neon-flow").then(mod => mod.TubesBackground), {
+  ssr: false
+});
+import { useState, useEffect } from "react";
+
+function DelayedSpline() {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    // Delay Spline load by 2 seconds so TubesBackground can initialize its WebGL context first
+    const t = setTimeout(() => setShow(true), 2500);
+    return () => clearTimeout(t);
+  }, []);
+
+  if (!show) return null;
+
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 1 }}
+      className="absolute flex items-center justify-center w-[280px] h-[280px] xl:w-[320px] xl:h-[320px] right-[-60px] xl:right-[-100px] top-[40%] -translate-y-1/2 pointer-events-auto z-10"
+    >
+      <Spline scene="https://prod.spline.design/GrcaP5js8LN5vDWi/scene.splinecode" />
+    </motion.div>
+  );
+}
 
 export interface TopProduct {
   id: string;
   name: string;
   specs: Record<string, string>;
+  aiScore?: number | null;
 }
 
 interface HeroSectionProps {
   topGPU?: TopProduct | null;
   topLaptop?: TopProduct | null;
   topNPU?: TopProduct | null;
+  topWorkstation?: TopProduct | null;
 }
 
-export function HeroSection({ topGPU, topLaptop, topNPU }: HeroSectionProps) {
+export function HeroSection({ topGPU, topLaptop, topNPU, topWorkstation }: HeroSectionProps) {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -133,15 +161,8 @@ export function HeroSection({ topGPU, topLaptop, topNPU }: HeroSectionProps) {
               <TubesBackground className="w-full h-full relative !min-h-0 !bg-transparent" enableClickInteraction={false} />
             </motion.div>
 
-            {/* Main Visual Image - Spline Robot */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, delay: 0.2 }}
-              className="absolute flex items-center justify-center w-[280px] h-[280px] xl:w-[320px] xl:h-[320px] right-[-60px] xl:right-[-100px] top-[40%] -translate-y-1/2 pointer-events-auto z-10"
-            >
-              <Spline scene="https://prod.spline.design/GrcaP5js8LN5vDWi/scene.splinecode" />
-            </motion.div>
+            {/* Main Visual Image - Spline Robot (Delayed to avoid WebGL crash with TubesBackground) */}
+            <DelayedSpline />
           </div>
         </div>
 
@@ -160,7 +181,7 @@ export function HeroSection({ topGPU, topLaptop, topNPU }: HeroSectionProps) {
           </div>
         </motion.div>
 
-        {/* BOTTOM: 3 Featured Hardware Cards — landscape rectangles */}
+        {/* BOTTOM: 4 Featured Hardware Cards — landscape rectangles */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -241,6 +262,33 @@ export function HeroSection({ topGPU, topLaptop, topNPU }: HeroSectionProps) {
                     <h3 className="font-heading font-bold text-base sm:text-lg text-primary leading-tight tracking-wide drop-shadow-[0_0_12px_rgba(0,229,255,0.6)] line-clamp-2" title={topNPU?.name}>{topNPU?.name || "Snapdragon X Elite"}</h3>
                     <p className="font-sans text-xs text-slate-300 mt-1.5 opacity-90 font-medium line-clamp-2">
                       {topNPU?.specs['Processor Series'] || topNPU?.specs['Total AI TOPS'] || topNPU?.specs['AI Performance'] || ""} • {topNPU?.specs['Processor'] || topNPU?.specs['Architecture'] || ""}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </BorderRotate>
+          </Link>
+
+          {/* Workstation Card */}
+          <Link href={topWorkstation ? `/product/${topWorkstation.id}` : "/category/workstations"} className="flex-1 block">
+            <BorderRotate
+              className="w-full cursor-pointer transition-transform hover:-translate-y-1 duration-300 h-full"
+              gradientColors={{ primary: "#FFD700", secondary: "#FFA500", accent: "#FFD700" }}
+              animationMode="rotate-on-hover"
+              backgroundColor="#050505"
+              spotlight={true}
+            >
+              <div className="relative p-5 flex flex-col justify-between h-full min-h-[140px]">
+                <div className="absolute top-0 left-0 w-24 h-24 bg-amber-500/5 blur-[20px] rounded-none mix-blend-screen pointer-events-none"></div>
+                <div className="relative z-10 h-full flex flex-col justify-between gap-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-label text-[10px] text-amber-500">Top Workstation</span>
+                    <Server className="h-5 w-5 text-amber-500 flex-shrink-0 drop-shadow-[0_0_8px_rgba(255,165,0,0.8)]" />
+                  </div>
+                  <div>
+                    <h3 className="font-heading font-bold text-base sm:text-lg text-amber-500 leading-tight tracking-wide drop-shadow-[0_0_12px_rgba(255,215,0,0.6)] line-clamp-2" title={topWorkstation?.name}>{topWorkstation?.name || "Dell Precision 7960"}</h3>
+                    <p className="font-sans text-xs text-slate-300 mt-1.5 opacity-90 font-medium line-clamp-2">
+                      {topWorkstation?.specs['Processor'] || topWorkstation?.specs['CPU'] || ""} • {topWorkstation?.specs['Memory'] || topWorkstation?.specs['RAM'] || ""}
                     </p>
                   </div>
                 </div>

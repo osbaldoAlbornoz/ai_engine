@@ -1,15 +1,33 @@
 import { MetadataRoute } from 'next';
-import { hardwareData } from '@/data/hardware';
+import { createClient } from "@supabase/supabase-js";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://aiengine.example.com';
+  let products: any[] = [];
 
-  const products = hardwareData.map((product) => ({
-    url: `${baseUrl}/product/${product.id}`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly' as const,
-    priority: 0.8,
-  }));
+  try {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    if (supabaseUrl && supabaseKey) {
+      const supabase = createClient(supabaseUrl, supabaseKey);
+      const { data } = await supabase
+        .from("products")
+        .select("id")
+        .in("category", ["gpus", "laptops", "npus", "workstations"])
+        .eq("status", "active");
+
+      if (data) {
+        products = data.map((product) => ({
+          url: `${baseUrl}/product/${product.id}`,
+          lastModified: new Date(),
+          changeFrequency: 'weekly' as const,
+          priority: 0.8,
+        }));
+      }
+    }
+  } catch (error) {
+    console.error("Error generating sitemap", error);
+  }
 
   return [
     {

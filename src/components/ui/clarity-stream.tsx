@@ -109,8 +109,26 @@ export const ClarityStream = ({
       ctx.globalCompositeOperation = "lighter";
       ctx.lineWidth = THREAD_WIDTH;
 
+      // Precompute the ribbon centerlines and twists for this frame
+      // This is a massive optimization for Firefox, reducing noise3D calls by 98.7%
+      const ribbonData = [];
+      const step = 4;
+      for (let r = 0; r < RIBBON_COUNT; r++) {
+        const points = [];
+        for (let px = 0; px <= w; px += step) {
+          const nx = px / w;
+          const wave1 = noise3D.current(nx * 1.2 + t * 0.8, r * 10, t * 0.2);
+          const wave2 = noise3D.current(nx * 0.7 - t * 0.5, r * 10 + 5, t * 0.3) * 0.5;
+          const centerY = h * 0.5 + (wave1 + wave2) * h * 0.25;
+          const twist = noise3D.current(nx * 1.5 - t * 0.6, r * 20, t * 0.4);
+          points.push({ px, centerY, twist });
+        }
+        ribbonData.push(points);
+      }
+
       for (let r = 0; r < RIBBON_COUNT; r++) {
         const palette = palettes[r % palettes.length];
+        const points = ribbonData[r];
 
         for (let i = 0; i < THREADS_PER_RIBBON; i++) {
           const normalPos = i / (THREADS_PER_RIBBON - 1); // 0.0 to 1.0
@@ -122,26 +140,16 @@ export const ClarityStream = ({
           ctx.strokeStyle = `rgba(${col.r},${col.g},${col.b},${col.a * 0.15})`;
 
           // Spread determines how far this thread is from the ribbon's centerline
-          // Mapping 0..1 to -1..1, then multiplying by MAX_SPREAD
           const spread = (normalPos - 0.5) * 2.0 * MAX_SPREAD;
 
-          // Step through the x-axis
-          for (let px = 0; px <= w; px += 4) {
-            const nx = px / w;
-
-            // Centerline path of the ribbon (different for each ribbon r)
-            const wave1 = noise3D.current(nx * 1.2 + t * 0.8, r * 10, t * 0.2);
-            const wave2 = noise3D.current(nx * 0.7 - t * 0.5, r * 10 + 5, t * 0.3) * 0.5;
-            const centerY = h * 0.5 + (wave1 + wave2) * h * 0.25;
-
-            // Twist factor creates the 3D ribbon folds.
-            // When twist = 0, spread is 0, meaning all threads converge to a single line.
-            const twist = noise3D.current(nx * 1.5 - t * 0.6, r * 20, t * 0.4);
+          // Step through the precomputed points
+          for (let pIdx = 0; pIdx < points.length; pIdx++) {
+            const { px, centerY, twist } = points[pIdx];
             
             // Apply the twist to the spread to calculate the final vertical position
             const y = centerY + spread * twist;
 
-            if (px === 0) {
+            if (pIdx === 0) {
               ctx.moveTo(px, y);
             } else {
               ctx.lineTo(px, y);

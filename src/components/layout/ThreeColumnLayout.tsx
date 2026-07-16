@@ -132,15 +132,6 @@ export function ThreeColumnLayout({ children }: ThreeColumnLayoutProps) {
       >
         {height > 0 && <SidebarBorder side="left" height={height} />}
         <div className="relative w-full h-full overflow-hidden">
-          <div
-            className="absolute inset-0 z-0 mix-blend-lighten"
-            style={{
-              backgroundImage: "url('/images/ai_processor_vertical.png')",
-              backgroundSize: "135% auto",
-              backgroundPosition: "top center",
-              backgroundRepeat: "repeat-y"
-            }}
-          />
           <div className="relative z-10 w-full h-full overflow-y-auto flex flex-col items-center [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {[...Array(8)].map((_, i) => (
               <div key={i} className="w-full relative z-10" style={{ marginTop: i === 0 ? "0" : "15%" }}>
@@ -164,15 +155,6 @@ export function ThreeColumnLayout({ children }: ThreeColumnLayoutProps) {
       >
         {height > 0 && <SidebarBorder side="right" height={height} />}
         <div className="relative w-full h-full overflow-hidden">
-          <div
-            className="absolute inset-0 z-0 mix-blend-lighten"
-            style={{
-              backgroundImage: "url('/images/ai_processor_vertical.png')",
-              backgroundSize: "135% auto",
-              backgroundPosition: "top center",
-              backgroundRepeat: "repeat-y"
-            }}
-          />
           <div className="relative z-10 w-full h-full overflow-y-auto flex flex-col items-center [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {[...Array(8)].map((_, i) => (
               <div key={i} className="w-full relative z-10" style={{ marginTop: i === 0 ? "0" : "15%" }}>

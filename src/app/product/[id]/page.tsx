@@ -1,5 +1,24 @@
-import { hardwareData, HardwareProduct, Category } from "@/data/hardware";
+import { Product } from "@/types/product";
 import { notFound } from "next/navigation";
+
+type Category = "gpus" | "laptops" | "npus" | "workstations";
+
+interface HardwareProduct extends Product {
+  image_url: string;
+  amazon_url: string;
+  original_price?: number;
+  features: string[];
+  pros?: string[];
+  cons?: string[];
+  gallery?: string[];
+  affiliateLinks?: { name: string; url: string; price: number }[];
+  benchmarks?: any[];
+  // Legacy aliases for backward compatibility
+  image?: string;
+  amazonUrl?: string;
+  originalPrice?: number;
+  keyFeatures?: string[];
+}
 import Link from "next/link";
 import { ShoppingCart, CheckCircle2, ChevronRight, Cpu } from "lucide-react";
 import { Metadata } from "next";
@@ -33,17 +52,24 @@ function getSupabase() {
 function mapDbProduct(row: any): HardwareProduct {
   return {
     id: row.id,
+    amazon_asin: row.amazon_asin,
     name: row.name ?? "Unknown Product",
+    description: "High-performance AI hardware",
     category: (row.category ?? "gpus") as Category,
     brand: row.brand ?? "Unknown",
     price: row.price ?? 0,
-    originalPrice: row.original_price ?? undefined,
-    image: row.image_url ?? "",
-    amazonUrl: row.amazon_url ?? "#",
+    original_price: row.original_price ?? undefined,
+    image_url: row.image_url ?? "",
+    amazon_url: row.amazon_url ?? "#",
     specs: typeof row.specs === "object" && row.specs !== null ? row.specs : {},
-    keyFeatures: Array.isArray(row.features) ? row.features : [],
-    pros: [],
-    cons: [],
+    features: Array.isArray(row.features) ? row.features : [],
+    pros: Array.isArray(row.pros) ? row.pros : [],
+    cons: Array.isArray(row.cons) ? row.cons : [],
+    rating: row.rating,
+    reviewsCount: row.reviews_count,
+    isPopular: row.is_popular,
+    status: row.status,
+    ai_score: row.ai_score,
   };
 }
 
@@ -59,10 +85,6 @@ async function getProduct(id: string): Promise<HardwareProduct | null> {
   if (!error && data) {
     return mapDbProduct(data);
   }
-
-  // 2. Fall back to static data
-  const staticProduct = hardwareData.find((p) => p.id === id);
-  if (staticProduct) return staticProduct;
 
   return null;
 }
@@ -81,9 +103,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 // Only pre-render static slugs at build time; DB products are rendered on demand
 export function generateStaticParams() {
-  return hardwareData.map((p) => ({
-    id: p.id,
-  }));
+  return [];
 }
 
 export default async function ProductPage({ params }: Props) {
@@ -98,7 +118,7 @@ export default async function ProductPage({ params }: Props) {
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.name,
-    image: product.image,
+    image: product.image_url || product.image,
     description: `Check out the specs, benchmarks, and price for ${product.name}. Perfect for AI development and inference.`,
     brand: {
       "@type": "Brand",
@@ -122,14 +142,14 @@ export default async function ProductPage({ params }: Props) {
       {/* Background glow effects */}
       <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-accent/10 rounded-full blur-[100px] pointer-events-none" />
-      
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
+
         {/* Breadcrumb */}
         <nav className="flex items-center gap-2 text-sm text-zinc-400 mb-8 font-heading">
           <Link href="/" className="hover:text-primary transition-colors">Home</Link>
           <ChevronRight className="w-4 h-4" />
-          <Link href="/#featured" className="hover:text-primary transition-colors capitalize">{product.category}</Link>
+          <Link href={`/category/${product.category.toLowerCase()}`} className="hover:text-primary transition-colors capitalize">{product.category}</Link>
           <ChevronRight className="w-4 h-4" />
           <span className="text-zinc-100">{product.brand}</span>
         </nav>
@@ -137,9 +157,9 @@ export default async function ProductPage({ params }: Props) {
         {/* Hero Section */}
         <FadeIn delay={0.1} className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mb-16">
           {/* Image Gallery */}
-          <ProductGallery 
-            images={product.gallery || (product.image ? [product.image] : [])} 
-            productName={product.name} 
+          <ProductGallery
+            images={product.gallery && product.gallery.length > 0 ? product.gallery : (product.image_url ? [product.image_url] : (product.image ? [product.image] : []))}
+            productName={product.name}
           />
 
           {/* Product Info */}
@@ -165,9 +185,9 @@ export default async function ProductPage({ params }: Props) {
             </div>
 
             {/* Key Features */}
-            {product.keyFeatures.length > 0 && (
+            {(product.keyFeatures || product.features || []).length > 0 && (
               <div className="space-y-3 mt-4">
-                {product.keyFeatures.map((feature, idx) => (
+                {(product.keyFeatures || product.features || []).map((feature, idx) => (
                   <div key={idx} className="flex items-start gap-3">
                     <CheckCircle2 className="w-5 h-5 text-accent shrink-0 mt-0.5" />
                     <span className="text-zinc-300">{feature}</span>
@@ -196,7 +216,7 @@ export default async function ProductPage({ params }: Props) {
                   ))
                 ) : (
                   <Link
-                    href={product.amazonUrl}
+                    href={product.amazonUrl || product.amazon_url || "#"}
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                     className="group relative inline-flex items-center justify-center gap-3 w-full sm:w-auto bg-[#050505] border border-accent/50 text-white hover:text-[#050505] overflow-hidden px-8 py-4 font-heading font-bold text-lg uppercase tracking-wider transition-all duration-300 hover:scale-[1.02] shadow-[0_0_20px_rgba(255,0,255,0.15)] hover:shadow-[0_0_40px_rgba(255,0,255,0.6)]"
@@ -208,9 +228,9 @@ export default async function ProductPage({ params }: Props) {
                     <div className="absolute inset-0 border-2 border-transparent group-hover:border-white/20 transition-colors z-20 pointer-events-none" />
                   </Link>
                 )}
-                
+
                 {/* Price Drop Alert Lead Capture */}
-                <PriceAlert productId={product.id} productName={product.name} baselinePrice={product.price} />
+                <PriceAlert productId={product.id || ""} productName={product.name} baselinePrice={product.price || 0} />
               </div>
               <p className="text-xs text-zinc-500 mt-4 max-w-sm">
                 * As an affiliate, we earn from qualifying purchases.
@@ -231,7 +251,7 @@ export default async function ProductPage({ params }: Props) {
               <Cpu className="w-8 h-8 text-primary" />
               Technical Specifications
             </h2>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {Object.entries(product.specs).map(([key, value]) => (
                 <div key={key} className="relative bg-[#050505] border border-white/5 p-6 flex flex-col group hover:border-primary/50 transition-all duration-300 overflow-hidden shadow-[inset_0_0_30px_rgba(0,0,0,0.5)] hover:shadow-[inset_0_0_40px_rgba(0,229,255,0.1)]">

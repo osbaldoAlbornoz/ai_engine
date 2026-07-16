@@ -1,56 +1,62 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { sampleProducts, Product } from '@/data/products';
+import React, { useState } from 'react';
+import { Product } from '@/types/product';
 import { ProductCard } from './ProductCard';
 import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '@/lib/supabase';
+import { useQuery } from '@tanstack/react-query';
 
 const CATEGORIES = ["All", "GPU", "Laptop", "NPU", "Workstation"];
+
+// Función para mapear datos de Supabase a Product
+function mapDbToProduct(dbProd: any): Product {
+  return {
+    id: dbProd.id,
+    amazon_asin: dbProd.amazon_asin,
+    name: dbProd.name,
+    description: (dbProd.features && dbProd.features.length > 0) ? dbProd.features[0] : "High-performance AI hardware",
+    price: dbProd.price || 0,
+    original_price: dbProd.original_price,
+    imageUrl: dbProd.image_url || "/images/GPU_1024.png",
+    image_url: dbProd.image_url,
+    affiliateUrl: dbProd.amazon_url || "#",
+    amazon_url: dbProd.amazon_url,
+    brand: dbProd.brand || "Unknown",
+    category: dbProd.category === 'gpus' ? 'GPU' : dbProd.category === 'laptops' ? 'Laptop' : dbProd.category === 'npus' ? 'NPU' : dbProd.category === 'workstations' ? 'Workstation' : 'Unknown',
+    specs: {
+      vram: dbProd.specs?.VRAM || undefined,
+      memory: dbProd.specs?.['Unified Memory'] || dbProd.specs?.Memory || undefined,
+      tops: dbProd.specs?.['Total AI TOPS'] || undefined,
+      storage: dbProd.specs?.Storage || undefined,
+      tdp: dbProd.specs?.TDP || undefined,
+    },
+    features: dbProd.features,
+    rating: dbProd.rating || 4.5,
+    reviewsCount: dbProd.reviews_count || undefined,
+    isPopular: dbProd.is_popular || false,
+    status: dbProd.status,
+    ai_score: dbProd.ai_score,
+  };
+}
 
 export function CatalogSection() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
-  const [products, setProducts] = useState<Product[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   
   const ITEMS_PER_PAGE = 12;
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      setIsLoading(true);
+  // Usar React Query para cachear datos compartidos con otros componentes
+  const { data: products = [], isLoading } = useQuery({
+    queryKey: ['activeProducts'],
+    queryFn: async () => {
       const { data, error } = await supabase.from('products').select('*').eq('status', 'active');
-      if (data && !error) {
-        const dbProducts: Product[] = data.map(dbProd => ({
-          id: dbProd.id,
-          title: dbProd.name,
-          description: (dbProd.features && dbProd.features.length > 0) ? dbProd.features[0] : "High-performance AI hardware",
-          price: dbProd.price || 0,
-          imageUrl: dbProd.image_url || "/images/GPU_1024.png",
-          affiliateUrl: dbProd.amazon_url || "#",
-          brand: dbProd.brand || "Unknown",
-          category: dbProd.category === 'gpus' ? 'GPU' : dbProd.category === 'laptops' ? 'Laptop' : dbProd.category === 'npus' ? 'NPU' : dbProd.category === 'workstations' ? 'Workstation' : 'Unknown',
-          specs: {
-            vram: dbProd.specs?.VRAM || undefined,
-            memory: dbProd.specs?.['Unified Memory'] || dbProd.specs?.Memory || undefined,
-            tops: dbProd.specs?.['Total AI TOPS'] || undefined,
-            storage: dbProd.specs?.Storage || undefined,
-            tdp: dbProd.specs?.TDP || undefined,
-          },
-          rating: dbProd.rating || 4.5,
-          reviewsCount: dbProd.reviews_count || Math.floor(Math.random() * 500) + 10,
-          isPopular: dbProd.is_popular || false,
-        }));
-        
-        setProducts(dbProducts);
-      } else {
-        setProducts(sampleProducts);
-      }
-      setIsLoading(false);
-    };
-    
-    fetchProducts();
-  }, []);
+      if (error) throw error;
+      return data;
+    },
+    select: (data) => data.map(mapDbToProduct),
+    staleTime: 1000 * 60 * 5, // Cache for 5 minutes
+  });
 
   const handleCategoryChange = (cat: string) => {
     setActiveCategory(cat);

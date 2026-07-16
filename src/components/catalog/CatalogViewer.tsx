@@ -2,7 +2,16 @@
 
 import { useState, useMemo, useEffect } from "react";
 import { motion } from "framer-motion";
-import { hardwareData, Category, HardwareProduct } from "@/data/hardware";
+import { Product } from "@/types/product";
+
+type Category = "gpus" | "laptops" | "npus" | "workstations";
+
+interface CatalogProduct extends Product {
+  image: string;
+  amazonUrl: string;
+  originalPrice?: number;
+  keyFeatures: string[];
+}
 import Link from "next/link";
 import { ShoppingCart, Filter, X, Search, ChevronRight, ChevronDown } from "lucide-react";
 import { supabase } from "@/lib/supabase";
@@ -15,17 +24,18 @@ const containerVariants = {
       staggerChildren: 0.1
     }
   }
-};
+} as const;
 
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } }
-};
+  show: { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 300, damping: 24 } }
+} as const;
 
 export default function CatalogViewer({ initialCategory = "all" }: { initialCategory?: Category | "all" }) {
-  const [products, setProducts] = useState<HardwareProduct[]>(hardwareData);
+  const [products, setProducts] = useState<CatalogProduct[]>([]);
   const [activeCategory, setActiveCategory] = useState<Category | "all">(initialCategory);
   const [activeBrand, setActiveBrand] = useState<string>("all");
+  const [maxPriceLimit, setMaxPriceLimit] = useState<number>(5000);
   const [maxPrice, setMaxPrice] = useState<number>(5000);
   const [searchQuery, setSearchQuery] = useState("");
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
@@ -57,25 +67,56 @@ export default function CatalogViewer({ initialCategory = "all" }: { initialCate
   useEffect(() => {
     const fetchProducts = async () => {
       setIsLoading(true);
+      console.log("🔍 Fetching products from Supabase...");
       const { data, error } = await supabase.from('products').select('*').eq('status', 'active');
+      if (error) {
+        console.error("❌ Supabase error:", error);
+      }
+      console.log("📦 Total products from DB:", data?.length || 0);
       if (data && !error) {
-        const dbProducts = data.map(dbProd => ({
+        const dbProducts: CatalogProduct[] = data.map(dbProd => ({
           id: dbProd.id,
+          amazon_asin: dbProd.amazon_asin,
           name: dbProd.name,
+          description: (dbProd.features && dbProd.features.length > 0) ? dbProd.features[0] : "High-performance AI hardware",
           category: (dbProd.category || "gpus") as Category,
           brand: dbProd.brand || "Unknown",
           price: dbProd.price || 0,
           originalPrice: dbProd.original_price || undefined,
-          image: dbProd.image_url || "",
+          original_price: dbProd.original_price,
+          image: dbProd.image_url || "/images/GPU_1024.png",
+          image_url: dbProd.image_url,
           amazonUrl: dbProd.amazon_url || "#",
+          amazon_url: dbProd.amazon_url,
           specs: dbProd.specs || {},
           keyFeatures: dbProd.features || [],
+          features: dbProd.features,
+          rating: dbProd.rating,
+          reviewsCount: dbProd.reviews_count,
+          isPopular: dbProd.is_popular,
+          status: dbProd.status,
+          ai_score: dbProd.ai_score,
         }));
         
-        const dbCategories = new Set(dbProducts.map(p => p.category));
-        const filteredStatic = hardwareData.filter(p => !dbCategories.has(p.category));
+        console.log("✅ Products after mapping:", dbProducts.length);
+        console.log("📊 Products by category:", dbProducts.reduce((acc, p) => {
+          acc[p.category] = (acc[p.category] || 0) + 1;
+          return acc;
+        }, {} as Record<string, number>));
+        console.log("📊 Products with price = 0:", dbProducts.filter(p => p.price === 0).length);
+        console.log("📊 Products with price > 5000:", dbProducts.filter(p => p.price > 5000).length);
         
-        setProducts([...dbProducts, ...filteredStatic]);
+        setProducts(dbProducts);
+        
+        // Calcular el precio máximo dinámico (redondeado al próximo 10,000)
+        const prices = dbProducts.map(p => p.price).filter(p => p > 0);
+        if (prices.length > 0) {
+          const maxPriceFound = Math.max(...prices);
+          const roundedMax = Math.ceil(maxPriceFound / 10000) * 10000;
+          console.log(`💰 Max price found: $${maxPriceFound}, setting limit to: $${roundedMax}`);
+          setMaxPriceLimit(roundedMax);
+          setMaxPrice(roundedMax);
+        }
       }
       setIsLoading(false);
     };
@@ -102,7 +143,8 @@ export default function CatalogViewer({ initialCategory = "all" }: { initialCate
   const vramOptions = useMemo(() => {
     const v = new Set<string>();
     products.filter(p => p.category === "gpus").forEach(p => {
-        if(p.specs["VRAM"]) v.add(p.specs["VRAM"]);
+        const vram = p.specs["VRAM"];
+        if(vram && typeof vram === "string") v.add(vram);
     });
     return Array.from(v);
   }, [products]);
@@ -110,7 +152,8 @@ export default function CatalogViewer({ initialCategory = "all" }: { initialCate
   const topsOptions = useMemo(() => {
     const t = new Set<string>();
     products.filter(p => p.category === "npus").forEach(p => {
-        if(p.specs["Total AI TOPS"]) t.add(p.specs["Total AI TOPS"]);
+        const tops = p.specs["Total AI TOPS"];
+        if(tops && typeof tops === "string") t.add(String(tops));
     });
     return Array.from(t);
   }, [products]);
@@ -118,14 +161,17 @@ export default function CatalogViewer({ initialCategory = "all" }: { initialCate
   const memoryOptions = useMemo(() => {
     const m = new Set<string>();
     products.filter(p => p.category === "laptops").forEach(p => {
-        if(p.specs["Unified Memory"]) m.add(p.specs["Unified Memory"]);
-        else if (p.specs["Memory"]) m.add(p.specs["Memory"]);
+        const memory = p.specs["Unified Memory"] || p.specs["Memory"];
+        if(memory && typeof memory === "string") m.add(memory);
     });
     return Array.from(m);
   }, [products]);
 
   const filteredProducts = useMemo(() => {
-    return products.filter((p) => {
+    console.log("🔍 Filter debug - activeCategory:", activeCategory, "activeBrand:", activeBrand, "maxPrice:", maxPrice, "searchQuery:", searchQuery);
+    console.log("🔍 Filter debug - activeVRAM:", activeVRAM, "activeTOPS:", activeTOPS, "activeMemory:", activeMemory);
+    
+    const result = products.filter((p) => {
       const matchCategory = activeCategory === "all" || p.category === activeCategory;
       const matchBrand = activeBrand === "all" || p.brand === activeBrand;
       const matchPrice = p.price === 0 || p.price <= maxPrice; 
@@ -142,8 +188,21 @@ export default function CatalogViewer({ initialCategory = "all" }: { initialCate
         matchContextual = p.specs["Unified Memory"] === activeMemory || p.specs["Memory"] === activeMemory;
       }
 
-      return matchCategory && matchBrand && matchPrice && matchSearch && matchContextual;
+      const passes = matchCategory && matchBrand && matchPrice && matchSearch && matchContextual;
+      if (!passes) {
+        const reasons = [];
+        if (!matchCategory) reasons.push("category");
+        if (!matchBrand) reasons.push("brand");
+        if (!matchPrice) reasons.push(`price(${p.price} > ${maxPrice})`);
+        if (!matchSearch) reasons.push("search");
+        if (!matchContextual) reasons.push("contextual");
+        console.log(`❌ ${p.name} filtered out: ${reasons.join(", ")}`);
+      }
+      return passes;
     });
+    
+    console.log("✅ Filtered products:", result.length, "out of", products.length);
+    return result;
   }, [products, activeCategory, activeBrand, maxPrice, searchQuery, activeVRAM, activeTOPS, activeMemory]);
 
   const sortedProducts = useMemo(() => {
@@ -319,26 +378,26 @@ export default function CatalogViewer({ initialCategory = "all" }: { initialCate
                 </div>
               )}
 
-              {/* Price Range */}
-              <div className="space-y-4">
-                <label className="text-sm font-heading font-semibold text-zinc-400 uppercase tracking-widest flex justify-between">
-                  <span>Max Price</span>
-                  <span className="text-primary">${maxPrice}</span>
-                </label>
-                <input 
-                  type="range" 
-                  min="0" 
-                  max="5000" 
-                  step="100"
-                  value={maxPrice}
-                  onChange={(e) => setMaxPrice(Number(e.target.value))}
-                  className="w-full accent-primary"
-                />
-                <div className="flex justify-between text-xs text-zinc-600 font-heading">
-                  <span>$0</span>
-                  <span>$5000+</span>
-                </div>
-              </div>
+               {/* Price Range */}
+               <div className="space-y-4">
+                 <label className="text-sm font-heading font-semibold text-zinc-400 uppercase tracking-widest flex justify-between">
+                   <span>Max Price</span>
+                   <span className="text-primary">${maxPrice.toLocaleString()}</span>
+                 </label>
+                 <input 
+                   type="range" 
+                   min="0" 
+                   max={maxPriceLimit} 
+                   step="100"
+                   value={maxPrice}
+                   onChange={(e) => setMaxPrice(Number(e.target.value))}
+                   className="w-full accent-primary"
+                 />
+                 <div className="flex justify-between text-xs text-zinc-600 font-heading">
+                   <span>$0</span>
+                   <span>${(maxPriceLimit / 1000).toFixed(0)}K+</span>
+                 </div>
+               </div>
             </div>
           </aside>
 
@@ -389,7 +448,23 @@ export default function CatalogViewer({ initialCategory = "all" }: { initialCate
                 </div>
             </div>
             
-            {filteredProducts.length === 0 ? (
+            {isLoading ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                {Array.from({ length: ITEMS_PER_PAGE }).map((_, i) => (
+                  <div key={i} className="bg-[#050505] border border-white/10 flex flex-col shadow-xl animate-pulse">
+                    <div className="aspect-square bg-white/5 border-b border-white/10"></div>
+                    <div className="p-6 flex flex-col flex-1">
+                      <div className="h-6 bg-white/10 rounded w-3/4 mb-3"></div>
+                      <div className="h-4 bg-white/10 rounded w-1/2 mb-6 mt-auto"></div>
+                      <div className="grid grid-cols-2 gap-2">
+                        <div className="h-10 bg-white/10 rounded"></div>
+                        <div className="h-10 bg-white/10 rounded"></div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : filteredProducts.length === 0 ? (
               <div className="bg-[#050505] border border-white/10 p-12 flex flex-col items-center justify-center text-center">
                 <div className="w-16 h-16 rounded-full bg-zinc-900 flex items-center justify-center mb-4">
                   <Search className="w-8 h-8 text-zinc-600" />
@@ -397,29 +472,13 @@ export default function CatalogViewer({ initialCategory = "all" }: { initialCate
                 <h3 className="text-xl font-bold text-white font-heading mb-2">No products found</h3>
                 <p className="text-zinc-400">Try adjusting your filters or search query.</p>
                 <button 
-                  onClick={() => { handleCategoryChange("all"); setActiveBrand("all"); setMaxPrice(5000); setSearchQuery(""); }}
+                  onClick={() => { handleCategoryChange("all"); setActiveBrand("all"); setMaxPrice(maxPriceLimit); setSearchQuery(""); }}
                   className="mt-6 text-primary hover:underline text-sm font-heading"
                 >
                   Clear all filters
                 </button>
               </div>
-            ) : isLoading ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-                  {Array.from({ length: ITEMS_PER_PAGE }).map((_, i) => (
-                    <div key={i} className="bg-[#050505] border border-white/10 flex flex-col shadow-xl animate-pulse">
-                      <div className="aspect-square bg-white/5 border-b border-white/10"></div>
-                      <div className="p-6 flex flex-col flex-1">
-                        <div className="h-6 bg-white/10 rounded w-3/4 mb-3"></div>
-                        <div className="h-4 bg-white/10 rounded w-1/2 mb-6 mt-auto"></div>
-                        <div className="grid grid-cols-2 gap-2">
-                          <div className="h-10 bg-white/10 rounded"></div>
-                          <div className="h-10 bg-white/10 rounded"></div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
+            ) : (
                 <motion.div 
                   key={`${activeCategory}-${currentPage}-${searchQuery}`}
                   variants={containerVariants}

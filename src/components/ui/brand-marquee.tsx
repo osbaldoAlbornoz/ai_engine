@@ -45,7 +45,7 @@ export function BrandMarquee({ className }: { className?: string }) {
               <span className="text-xl sm:text-2xl font-heading font-bold text-primary/70 uppercase tracking-widest whitespace-nowrap hover:text-primary hover:drop-shadow-[0_0_8px_rgba(0,229,255,0.8)] transition-all cursor-default px-8 sm:px-12">
                 {brand}
               </span>
-              <span className="text-accent/50 font-mono text-sm font-bold tracking-tighter">///</span>
+              <span className="text-accent/50 font-mono text-sm font-bold tracking-tighter">{/* /*/}</span>
             </div>
           ))}
         </motion.div>

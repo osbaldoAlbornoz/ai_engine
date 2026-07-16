@@ -18,9 +18,9 @@ export function AIBenchmarks({ benchmarks }: Props) {
     <div className="mt-12 bg-[#050505] border border-white/5 rounded-lg p-6 md:p-8 relative overflow-hidden group shadow-[inset_0_0_40px_rgba(0,0,0,0.8)] hover:border-primary/30 transition-all duration-500">
       {/* Technical Grid Background */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:30px_30px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none opacity-50 group-hover:opacity-80 transition-opacity duration-700" />
-      
+
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-accent opacity-50 group-hover:opacity-100 group-hover:shadow-[0_0_20px_rgba(0,229,255,0.6)] transition-all duration-500" />
-      
+
       <div className="flex items-center gap-3 mb-8 relative z-10">
         <Zap className="w-6 h-6 text-accent drop-shadow-[0_0_8px_rgba(255,0,255,0.8)]" />
         <h3 className="text-xl md:text-2xl font-bold text-white font-heading">
@@ -31,7 +31,7 @@ export function AIBenchmarks({ benchmarks }: Props) {
       <div className="space-y-6 relative z-10">
         {benchmarks.map((bm, idx) => {
           const percentage = Math.max((bm.value / maxValue) * 100, 10);
-          
+
           return (
             <div key={idx} className="relative group/bar">
               <div className="flex justify-between items-end mb-2">

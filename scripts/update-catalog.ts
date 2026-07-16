@@ -1,9 +1,22 @@
 import { ApifyClient } from 'apify-client';
 import { createClient } from '@supabase/supabase-js';
+import { calculateAIScore } from '../src/utils/scoring';
 
 const APIFY_TOKEN = process.env.APIFY_TOKEN;
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+// Timeout for Apify calls (1 hour default)
+const APIFY_TIMEOUT_MS = 60 * 60 * 1000;
+
+async function scrapeWithTimeout(actor: any, input: any, timeoutMs: number = APIFY_TIMEOUT_MS) {
+  return Promise.race([
+    actor.call(input),
+    new Promise<never>((_, reject) => 
+      setTimeout(() => reject(new Error(`Apify timeout after ${timeoutMs / 1000} seconds`)), timeoutMs)
+    )
+  ]);
+}
 
 if (!APIFY_TOKEN || !SUPABASE_URL || !SUPABASE_KEY) {
   console.error("Missing required environment variables. Please check your .env.local file.");
@@ -20,7 +33,7 @@ async function updateCatalog() {
   // 1. Fetch all currently active products from Supabase
   const { data: activeProducts, error: fetchError } = await supabase
     .from('products')
-    .select('id, amazon_asin, name, price, specs')
+    .select('id, amazon_asin, name, price, specs, category, ai_score')
     .eq('status', 'active');
 
   if (fetchError) {
@@ -55,8 +68,8 @@ async function updateCatalog() {
   };
 
   try {
-    console.log(`Calling Apify Actor (junglee/amazon-crawler) for ${searchUrls.length} items...`);
-    const run = await apifyClient.actor("junglee/amazon-crawler").call(input);
+    console.log(`Calling Apify Actor (junglee/amazon-crawler) for ${searchUrls.length} items with ${APIFY_TIMEOUT_MS / 1000}s timeout...`);
+    const run = await scrapeWithTimeout(apifyClient.actor("junglee/amazon-crawler"), input, APIFY_TIMEOUT_MS);
     
     console.log(`Actor finished. Fetching dataset: ${run.defaultDatasetId}`);
     const { items } = await apifyClient.dataset(run.defaultDatasetId).listItems();
@@ -64,7 +77,7 @@ async function updateCatalog() {
     console.log(`Apify returned ${items.length} items. Mapping results...`);
     
     // Map results by ASIN for easy lookup
-    const scrapedData = new Map<string, { price: number, found: boolean, specs: Record<string, string> }>();
+    const scrapedData = new Map<string, { price: number, found: boolean, specs: Record<string, string>, itemRaw?: any }>();
     
     for (const item of items) {
       if (!item.asin) continue;
@@ -91,7 +104,8 @@ async function updateCatalog() {
       scrapedData.set(item.asin as string, {
         price: priceVal || 0,
         found: true,
-        specs
+        specs,
+        itemRaw: item
       });
     }
 
@@ -104,8 +118,21 @@ async function updateCatalog() {
 
       const scrapeResult = scrapedData.get(product.amazon_asin);
       
-      if (scrapeResult && scrapeResult.price > 0) {
-        // Product found and has a valid price
+      if (scrapeResult) {
+        // Check availability strings from Apify
+        const availabilityStr = String(scrapeResult.itemRaw.availability || '').toLowerCase();
+        const isExplicitlyUnavailable = availabilityStr.includes('currently unavailable') || 
+                                        availabilityStr.includes('out of stock') ||
+                                        scrapeResult.itemRaw.inStock === false;
+
+        if (isExplicitlyUnavailable) {
+          console.log(`Deactivating ${product.name} - Explicitly out of stock or unavailable.`);
+          await supabase.from('products').update({ status: 'inactive' }).eq('id', product.id);
+          deactivatedCount++;
+          continue;
+        }
+
+        // Product is active and not explicitly out of stock. Update price and specs.
         let updates: any = { updated_at: new Date().toISOString() };
         let hasUpdates = false;
 
@@ -119,6 +146,20 @@ async function updateCatalog() {
         if (Object.keys(productSpecs).length === 0 && Object.keys(scrapeResult.specs).length > 0) {
           console.log(`Backfilling specs for ${product.name}`);
           updates.specs = scrapeResult.specs;
+          hasUpdates = true;
+        }
+
+        // Calculate and update AI score
+        const productForScoring = {
+          name: product.name,
+          category: product.category,
+          specs: updates.specs || productSpecs,
+          price: updates.price || product.price
+        };
+        const newScore = calculateAIScore(productForScoring);
+        if (newScore !== product.ai_score) {
+          console.log(`Updating AI score for ${product.name}: ${product.ai_score} -> ${newScore}`);
+          updates.ai_score = newScore;
           hasUpdates = true;
         }
 
@@ -136,14 +177,16 @@ async function updateCatalog() {
         } else {
           console.log(`No updates needed for ${product.name}`);
         }
-      } else if (scrapeResult) {
-        // Product was scraped but no valid price was found.
-        // It could be out of stock, or the page layout could be different (e.g. combos).
-        // Instead of aggressively deactivating, we just log a warning for manual review.
-        console.warn(`[WARNING] Product ${product.name} (ASIN: ${product.amazon_asin}) returned no valid price from Apify. Please check Amazon page manually.`);
       } else {
-        // Apify didn't return this ASIN at all. It might have failed to load or got blocked.
-        console.warn(`[WARNING] Product ${product.name} (ASIN: ${product.amazon_asin}) was missing from Apify results. Crawler might have skipped it.`);
+        // Apify didn't return this ASIN at all. 
+        if (items.length > 0) {
+           // If we got results for other items, this one is likely 404 or completely removed.
+           console.log(`Deactivating ${product.name} (ASIN: ${product.amazon_asin}) - Not found in Apify results (likely 404 or removed).`);
+           await supabase.from('products').update({ status: 'inactive' }).eq('id', product.id);
+           deactivatedCount++;
+        } else {
+           console.warn(`[WARNING] Product ${product.name} (ASIN: ${product.amazon_asin}) was missing, but total scraped items was 0 (possible crawler failure). Keeping active.`);
+        }
       }
     }
 

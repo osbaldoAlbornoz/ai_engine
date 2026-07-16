@@ -1,4 +1,4 @@
-import { HardwareProduct, hardwareData } from "@/data/hardware";
+import { Product } from "@/types/product";
 
 export type UseCase = "training" | "inference" | "learning" | "gaming";
 export type Budget = "budget" | "mid" | "high";
@@ -8,6 +8,20 @@ export interface MatcherAnswers {
   useCase: UseCase;
   budget: Budget;
   formFactor: FormFactor;
+}
+
+export type Category = "gpus" | "laptops" | "npus" | "workstations";
+
+export interface HardwareProduct extends Product {
+  image_url: string;
+  amazon_url: string;
+  original_price?: number;
+  features: string[];
+  // Legacy aliases
+  image?: string;
+  amazonUrl?: string;
+  originalPrice?: number;
+  keyFeatures?: string[];
 }
 
 export interface MatchResult {
@@ -43,7 +57,8 @@ function extractVRAM(product: HardwareProduct): number {
   for (const key of allKeys) {
     const val = product.specs[key];
     if (val) {
-      const match = val.match(/(\d+(?:\.\d+)?)/);
+      const strVal = typeof val === 'string' ? val : String(val);
+      const match = strVal.match(/(\d+(?:\.\d+)?)/);
       if (match) return parseFloat(match[1]);
     }
   }
@@ -86,11 +101,11 @@ function isNvidia(product: HardwareProduct): boolean {
 
 /**
  * Returns the best match products for a given set of user answers.
- * Uses the passed `products` array (from Supabase) or falls back to static hardwareData.
+ * Uses the passed `products` array (from Supabase).
  */
 export function getTopMatches(
   answers: MatcherAnswers,
-  products: HardwareProduct[] = hardwareData,
+  products: HardwareProduct[],
   limit = 2
 ): MatchResult[] {
 
@@ -242,7 +257,8 @@ export function getTopMatches(
           reasons.push(`NVIDIA DLSS boosts framerates while enabling AI features.`);
         }
         // Bonus for high refresh rate display (laptops)
-        const display = (product.specs["Display"] || "").toLowerCase();
+        const displayVal = product.specs["Display"];
+        const display = typeof displayVal === 'string' ? displayVal.toLowerCase() : "";
         if (display.includes("240hz") || display.includes("165hz") || display.includes("144hz")) {
           score += 15;
           reasons.push(`High refresh rate display for smooth, competitive gameplay.`);

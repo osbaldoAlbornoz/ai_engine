@@ -14,7 +14,7 @@ export function generateStaticParams() {
 export default async function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
   const resolvedParams = await params;
   const category = resolvedParams.category as Category;
-  
+
   const validCategories = ['gpus', 'laptops', 'npus', 'workstations'];
   if (!validCategories.includes(category)) {
     notFound();

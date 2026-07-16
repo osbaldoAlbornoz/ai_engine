@@ -1,7 +1,13 @@
 import { NextResponse } from "next/server";
-import { supabase } from "@/lib/supabase";
+import { supabaseAdmin } from "@/lib/supabase";
 import { Resend } from "resend";
 import { ApifyClient } from "apify-client";
+
+interface ApifyItem {
+  asin?: string;
+  url?: string;
+  price?: { value?: number | string } | number | string;
+}
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -16,8 +22,8 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    // 2. Fetch alerts that haven't been notified yet
-    const { data: alerts, error: fetchError } = await supabase
+    // 2. Fetch alerts that haven't been notified yet (usamos supabaseAdmin para bypass RLS)
+    const { data: alerts, error: fetchError } = await supabaseAdmin
       .from("price_alerts")
       .select("*")
       .eq("notified", false);
@@ -68,17 +74,23 @@ export async function GET(request: Request) {
     // Map results by ASIN for easy lookup
     const scrapedPrices = new Map<string, number>();
     for (const item of items) {
+      const itemTyped = item as ApifyItem;
       // The actor returns price object or string depending on the item
-      const priceVal = item.price?.value || item.price || 0;
+      let priceVal: number | string = 0;
+      if (typeof itemTyped.price === 'object' && itemTyped.price !== null) {
+        priceVal = (itemTyped.price as { value?: number | string }).value || 0;
+      } else if (itemTyped.price !== undefined) {
+        priceVal = itemTyped.price;
+      }
       const parsedPrice = typeof priceVal === 'string' ? parseFloat(priceVal.replace(/[^0-9.]/g, '')) : Number(priceVal);
       
-      const itemAsin = (item.asin || "").toString();
+      const itemAsin = (itemTyped.asin || "").toString();
       
       if (itemAsin && !isNaN(parsedPrice) && parsedPrice > 0) {
          scrapedPrices.set(itemAsin, parsedPrice);
       } else {
          // Fallback if actor doesn't expose clean ASIN: extract from URL
-         const urlMatch = (item.url || "").match(/dp\/([A-Z0-9]{10})/i);
+         const urlMatch = (itemTyped.url || "").match(/dp\/([A-Z0-9]{10})/i);
          if (urlMatch && !isNaN(parsedPrice) && parsedPrice > 0) {
             scrapedPrices.set(urlMatch[1], parsedPrice);
          }
@@ -122,8 +134,8 @@ export async function GET(request: Request) {
           
           console.log(`Email sent successfully to ${alert.email}`);
           
-          // 6. Mark as notified in Supabase
-          const { error: updateError } = await supabase
+          // 6. Mark as notified in Supabase (usamos supabaseAdmin para bypass RLS)
+          const { error: updateError } = await supabaseAdmin
             .from("price_alerts")
             .update({ notified: true })
             .eq("id", alert.id);

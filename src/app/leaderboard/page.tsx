@@ -1,14 +1,13 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
-import { sampleProducts, Product } from "@/data/products";
+import { useState, useMemo } from "react";
+import { Product } from "@/types/product";
 import { supabase } from "@/lib/supabase";
-import { calculateAIScore, assignTier, TIERS, Tier, tierStyles, calculateValueRating } from "@/utils/scoring";
+import { calculateAIScore, assignTier, TIERS, Tier, tierStyles, calculateValueRating, getScoreBreakdown, ScoreBreakdown } from "@/utils/scoring";
 import Link from "next/link";
-import { ChevronRight, Trophy, Zap, Cpu, Server } from "lucide-react";
+import { ChevronRight, Trophy, Zap, Cpu, Server, Info, X, DollarSign } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-
-
+import { useQuery } from "@tanstack/react-query";
 
 const categoryIcons = {
   All: Trophy,
@@ -18,63 +17,84 @@ const categoryIcons = {
   Workstation: Server,
 };
 
+interface ExtendedProduct extends Product {
+  aiScore: number;
+  tier: Tier;
+  valueRating: ReturnType<typeof calculateValueRating>;
+  valueRatio: number;
+  dbAiScore?: number;
+}
+
+// Función para mapear datos de Supabase a ExtendedProduct
+function mapDbToExtendedProduct(dbProd: any): ExtendedProduct {
+  const computedScore = dbProd.ai_score || calculateAIScore(dbProd);
+  return {
+    id: dbProd.id,
+    amazon_asin: dbProd.amazon_asin,
+    name: dbProd.name,
+    description: (dbProd.features && dbProd.features.length > 0) ? dbProd.features[0] : "High-performance AI hardware",
+    price: dbProd.price || 0,
+    original_price: dbProd.original_price,
+    imageUrl: dbProd.image_url || "/images/GPU_1024.png",
+    image_url: dbProd.image_url,
+    affiliateUrl: dbProd.amazon_url || "#",
+    amazon_url: dbProd.amazon_url,
+    brand: dbProd.brand || "Unknown",
+    category: dbProd.category === 'gpus' ? 'GPU' : dbProd.category === 'laptops' ? 'Laptop' : dbProd.category === 'npus' ? 'NPU' : dbProd.category === 'workstations' ? 'Workstation' : 'Unknown',
+    specs: typeof dbProd.specs === "object" && dbProd.specs !== null ? dbProd.specs : {},
+    features: dbProd.features,
+    rating: dbProd.rating || 4.5,
+    reviewsCount: dbProd.reviews_count || undefined,
+    isPopular: dbProd.is_popular || false,
+    status: dbProd.status,
+    aiScore: computedScore,
+    dbAiScore: dbProd.ai_score || undefined,
+    tier: assignTier(computedScore),
+    valueRating: calculateValueRating(computedScore, dbProd.price || 0),
+    valueRatio: dbProd.price > 0 ? (computedScore / dbProd.price) * 100 : 0,
+  };
+}
+
 export default function LeaderboardPage() {
   const [activeCategory, setActiveCategory] = useState<string>("All");
   const [rankingMode, setRankingMode] = useState<"performance" | "value">("performance");
-  const [products, setProducts] = useState<Product[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [selectedProduct, setSelectedProduct] = useState<ExtendedProduct | null>(null);
+  const [maxPrice, setMaxPrice] = useState<number | null>(null);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      setIsLoading(true);
+  // Scroll to top when category or ranking mode changes
+  // (useEffect was removed during React Query migration)
+
+  // Usar React Query para cachear datos compartidos
+  const { data: products = [], isLoading } = useQuery({
+    queryKey: ['leaderboard-products'],
+    queryFn: async () => {
       const { data, error } = await supabase.from('products').select('*').eq('status', 'active');
-      if (data && !error) {
-        const dbProducts: Product[] = data.map(dbProd => ({
-          id: dbProd.id,
-          title: dbProd.name,
-          description: (dbProd.features && dbProd.features.length > 0) ? dbProd.features[0] : "High-performance AI hardware",
-          price: dbProd.price || 0,
-          imageUrl: dbProd.image_url || "/images/GPU_1024.png",
-          affiliateUrl: dbProd.amazon_url || "#",
-          brand: dbProd.brand || "Unknown",
-          category: dbProd.category === 'gpus' ? 'GPU' : dbProd.category === 'laptops' ? 'Laptop' : dbProd.category === 'npus' ? 'NPU' : dbProd.category === 'workstations' ? 'Workstation' : 'Unknown',
-          specs: typeof dbProd.specs === "object" && dbProd.specs !== null ? dbProd.specs : {},
-          rating: dbProd.rating || 4.5,
-          reviewsCount: dbProd.reviews_count || Math.floor(Math.random() * 500) + 10,
-          isPopular: dbProd.is_popular || false,
-        }));
-        
-        setProducts(dbProducts);
-      } else {
-        setProducts(sampleProducts);
-      }
-      setIsLoading(false);
-    };
-    
-    fetchProducts();
-  }, []);
+      if (error) throw error;
+      return data.map(mapDbToExtendedProduct);
+    },
+  });
 
   const rankedProducts = useMemo(() => {
     let filtered = products;
+    
+    // Filter by category
     if (activeCategory !== "All") {
-      filtered = products.filter((p) => p.category === activeCategory);
+      filtered = filtered.filter((p) => p.category === activeCategory);
     }
     
-    // Calculate intelligent scores dynamically
+    // Filter by max price
+    if (maxPrice !== null) {
+      filtered = filtered.filter((p) => p.price <= maxPrice);
+    }
+    
+    // Recalculate tiers based on ranking mode
     const scoredProducts = filtered.map(p => {
-      const computedScore = calculateAIScore(p);
-      const computedTier = assignTier(computedScore);
-      const valueRating = calculateValueRating(computedScore, p.price);
-      // For value ranking, we compute a raw value score (points per $100) to sort by
-      const valueRatio = p.price > 0 ? (computedScore / p.price) * 100 : 0;
-      
+      const valueRatio = p.price > 0 ? (p.aiScore / p.price) * 100 : 0;
       return {
         ...p,
-        aiScore: computedScore,
-        tier: rankingMode === "performance" ? computedTier : (
-           valueRatio >= 15 ? "S" : valueRatio >= 10 ? "A" : valueRatio >= 5 ? "B" : "C"
+        tier: rankingMode === "performance" ? assignTier(p.aiScore) : (
+          valueRatio >= 15 ? "S" : valueRatio >= 10 ? "A" : valueRatio >= 5 ? "B" : "C"
         ),
-        valueRating,
         valueRatio
       };
     });
@@ -82,12 +102,12 @@ export default function LeaderboardPage() {
     // Sort by selected mode
     return scoredProducts.sort((a, b) => {
       if (rankingMode === "performance") {
-         return b.aiScore - a.aiScore;
+        return b.aiScore - a.aiScore;
       } else {
-         return b.valueRatio - a.valueRatio;
+        return b.valueRatio - a.valueRatio;
       }
     });
-  }, [activeCategory, rankingMode, products]);
+  }, [activeCategory, rankingMode, products, maxPrice]);
 
   const groupedByTier = useMemo(() => {
     const grouped = { S: [], A: [], B: [], C: [] } as Record<Tier, typeof rankedProducts>;
@@ -96,6 +116,10 @@ export default function LeaderboardPage() {
     });
     return grouped;
   }, [rankedProducts]);
+
+  const maxProductPrice = useMemo(() => {
+    return products.length > 0 ? Math.max(...products.map(p => p.price)) : 0;
+  }, [products]);
 
   return (
     <div className="min-h-screen bg-[#020202] pt-24 pb-12 relative overflow-hidden">
@@ -137,7 +161,10 @@ export default function LeaderboardPage() {
             return (
               <button
                 key={cat}
-                onClick={() => setActiveCategory(cat)}
+                onClick={() => {
+                  setActiveCategory(cat);
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
                 className={`flex items-center gap-2 px-6 py-3 border font-heading text-sm uppercase tracking-widest transition-all duration-300 ${
                   isActive 
                     ? "border-primary bg-primary/10 text-primary shadow-[0_0_20px_rgba(var(--primary),0.2)]" 
@@ -155,7 +182,10 @@ export default function LeaderboardPage() {
         <div className="flex flex-col items-center justify-center mb-12 gap-6">
           <div className="bg-[#050505] border border-white/10 p-1 flex rounded-lg">
             <button
-              onClick={() => setRankingMode("performance")}
+              onClick={() => {
+                setRankingMode("performance");
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
               className={`px-6 py-2 text-sm font-heading font-bold rounded-md transition-colors ${
                 rankingMode === "performance" 
                   ? "bg-primary text-black" 
@@ -165,7 +195,10 @@ export default function LeaderboardPage() {
               Performance Ranking
             </button>
             <button
-              onClick={() => setRankingMode("value")}
+              onClick={() => {
+                setRankingMode("value");
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
               className={`px-6 py-2 text-sm font-heading font-bold rounded-md transition-colors ${
                 rankingMode === "value" 
                   ? "bg-primary text-black" 
@@ -176,8 +209,28 @@ export default function LeaderboardPage() {
             </button>
           </div>
           
-          <div className="text-sm font-heading text-fuchsia-400 bg-fuchsia-500/10 px-4 py-1.5 rounded-full border border-fuchsia-500/20 shadow-[0_0_15px_rgba(217,70,239,0.15)]">
-            Showing <span className="text-fuchsia-300 font-bold">{rankedProducts.length}</span> {activeCategory === "All" ? "products" : activeCategory + (rankedProducts.length !== 1 ? "s" : "")}
+          <div className="flex items-center gap-4 text-sm font-heading">
+            <div className="text-fuchsia-400 bg-fuchsia-500/10 px-4 py-1.5 rounded-full border border-fuchsia-500/20 shadow-[0_0_15px_rgba(217,70,239,0.15)]">
+              Showing <span className="text-fuchsia-300 font-bold">{rankedProducts.length}</span> {activeCategory === "All" ? "products" : activeCategory + (rankedProducts.length !== 1 ? "s" : "")}
+            </div>
+            
+            {/* Budget Filter */}
+            <div className="flex items-center gap-2 bg-zinc-900/50 border border-white/10 px-4 py-1.5 rounded-full">
+              <DollarSign className="w-4 h-4 text-zinc-400" />
+              <span className="text-zinc-400">Max Price:</span>
+              <select 
+                value={maxPrice === null ? "" : maxPrice.toString()}
+                onChange={(e) => setMaxPrice(e.target.value ? Number(e.target.value) : null)}
+                className="bg-zinc-800 border border-zinc-700 rounded px-2 py-0.5 text-white text-sm focus:outline-none focus:border-primary"
+              >
+                <option value="">Any</option>
+                <option value="500">Under $500</option>
+                <option value="1000">Under $1,000</option>
+                <option value="2000">Under $2,000</option>
+                <option value="3000">Under $3,000</option>
+                <option value="5000">Under $5,000</option>
+              </select>
+            </div>
           </div>
         </div>
 
@@ -197,7 +250,7 @@ export default function LeaderboardPage() {
                 className="flex flex-col md:flex-row gap-6 bg-[#050505] border border-white/5 p-4"
               >
                 {/* Tier Badge */}
-                <div className={`shrink-0 w-full md:w-32 flex items-center justify-center p-6 border-l-4 font-heading text-5xl font-bold ${tierStyles[tier].border} ${tierStyles[tier].text} ${tierStyles[tier].bg}/10 ${tierStyles[tier].shadow}`}>
+                <div className={`shrink-0 w-full md:w-32 flex items-center justify-center p-6 border-l-4 font-heading text-5xl font-bold ${tierStyles[tier]?.border || ''} ${tierStyles[tier]?.text || ''} ${tierStyles[tier]?.bg || ''}/10 ${tierStyles[tier]?.shadow || ''}`}>
                   {tier}
                 </div>
                 
@@ -214,30 +267,36 @@ export default function LeaderboardPage() {
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.95 }}
                       key={product.id} 
-                      className="group flex flex-col sm:flex-row items-center gap-6 p-4 hover:bg-white/5 transition-colors border border-transparent hover:border-white/10"
+                      className="group flex flex-col sm:flex-row items-center gap-6 p-4 hover:bg-white/5 transition-colors border border-transparent hover:border-white/10 cursor-pointer"
+                      onClick={() => setSelectedProduct(product)}
                     >
                       
                       <div className="w-24 h-24 shrink-0 bg-zinc-950 p-2 border border-white/10">
                         <img 
-                          src={product.imageUrl} 
-                          alt={product.title} 
+                          src={product.imageUrl || product.image_url || '/images/GPU_1024.png'} 
+                          alt={product.name} 
                           className="w-full h-full object-contain filter drop-shadow-lg text-transparent"
                         />
                       </div>
                       
-                      <div className="flex-1 text-center sm:text-left">
-                        <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 mb-1">
-                          <span className="text-xs font-heading bg-zinc-800 text-zinc-300 px-2 py-0.5">{product.brand}</span>
-                          <span className="text-xs font-heading border border-zinc-700 text-zinc-400 px-2 py-0.5 uppercase">{product.category}</span>
-                          <span className={`text-xs font-heading border px-2 py-0.5 ${product.valueRating.bg} ${product.valueRating.color} ${product.valueRating.border}`}>
-                            {product.valueRating.label}
-                          </span>
+                        <div className="flex-1 text-center sm:text-left">
+                          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 mb-1">
+                            <span className="text-xs font-heading bg-zinc-800 text-zinc-300 px-2 py-0.5">{product.brand}</span>
+                            <span className="text-xs font-heading border border-zinc-700 text-zinc-400 px-2 py-0.5 uppercase">{product.category}</span>
+                            <span className={`text-xs font-heading border px-2 py-0.5 ${product.valueRating?.bg || ''} ${product.valueRating?.color || ''} ${product.valueRating?.border || ''}`}>
+                              {product.valueRating?.label || 'N/A'}
+                            </span>
+                            {product.dbAiScore && (
+                              <span className="text-xs font-heading bg-primary/10 text-primary px-2 py-0.5 border border-primary/30">
+                                DB Score: {product.dbAiScore}
+                              </span>
+                            )}
+                          </div>
+                          <Link href={`/product/${product.id}`} onClick={(e) => e.stopPropagation()}>
+                            <h3 className="text-xl font-bold font-heading text-white hover:text-primary transition-colors">{product.name}</h3>
+                          </Link>
+                          <p className="text-sm text-zinc-400 mt-1 line-clamp-1">{product.description}</p>
                         </div>
-                        <Link href={`/product/${product.id}`} className="hover:text-primary transition-colors">
-                          <h3 className="text-xl font-bold font-heading text-white">{product.title}</h3>
-                        </Link>
-                        <p className="text-sm text-zinc-400 mt-1 line-clamp-1">{product.description}</p>
-                      </div>
 
                       {/* Progress Bar */}
                       <div className="w-full sm:w-64 shrink-0 flex flex-col justify-center">
@@ -252,14 +311,18 @@ export default function LeaderboardPage() {
                             </span>
                           </span>
                         </div>
-                        <div className="h-2 w-full bg-zinc-900 overflow-hidden">
+                        <div className="h-2 w-full bg-zinc-900 overflow-hidden rounded-full">
                           <motion.div 
                             initial={{ width: 0 }}
                             whileInView={{ width: rankingMode === "performance" ? `${product.aiScore}%` : `${Math.min(100, (product.valueRatio / 20) * 100)}%` }}
                             viewport={{ once: true }}
                             transition={{ duration: 1, ease: "easeOut" }}
-                            className={`h-full ${tierStyles[tier].bg}`}
+                            className={`h-full ${tierStyles[tier]?.bg || 'bg-zinc-500'}`}
                           />
+                        </div>
+                        <div className="flex items-center gap-1 mt-2 text-xs text-zinc-500">
+                          <Info className="w-3 h-3" />
+                          <span>Click for breakdown</span>
                         </div>
                       </div>
 
@@ -273,6 +336,163 @@ export default function LeaderboardPage() {
           })}
         </div>
 
+      </div>
+
+      {/* Score Breakdown Modal */}
+      <AnimatePresence>
+        {selectedProduct && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            onClick={() => setSelectedProduct(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="bg-[#0a0a0a] border border-white/10 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Modal Header */}
+              <div className="sticky top-0 bg-[#0a0a0a] border-b border-white/10 p-6 flex items-center justify-between">
+                <div>
+                  <h2 className="text-2xl font-bold font-heading text-white">{selectedProduct.name}</h2>
+                  <p className="text-zinc-400 text-sm mt-1">
+                    {selectedProduct.brand} • {selectedProduct.category} • ${selectedProduct.price}
+                  </p>
+                </div>
+                <button
+                  onClick={() => setSelectedProduct(null)}
+                  className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+                >
+                  <X className="w-6 h-6 text-zinc-400" />
+                </button>
+              </div>
+
+              {/* Modal Content */}
+              <div className="p-6">
+                {/* Overall Score */}
+                <div className="mb-8">
+                  <div className="flex items-center justify-between mb-4">
+                    <div>
+                      <p className="text-zinc-400 text-sm mb-1">Overall {rankingMode === "performance" ? "AI Score" : "Value Score"}</p>
+                      <p className="text-4xl font-bold font-heading text-white">
+                        {rankingMode === "performance" ? selectedProduct.aiScore : selectedProduct.valueRatio.toFixed(1)}
+                        <span className="text-zinc-500 text-xl ml-2">
+                          {rankingMode === "performance" ? "/100" : "pts/$100"}
+                        </span>
+                      </p>
+                    </div>
+                    <div className={`text-6xl font-bold font-heading ${tierStyles[selectedProduct.tier].text}`}>
+                      Tier {selectedProduct.tier}
+                    </div>
+                  </div>
+                  <div className="h-3 w-full bg-zinc-900 rounded-full overflow-hidden">
+                    <motion.div 
+                      initial={{ width: 0 }}
+                      animate={{ width: rankingMode === "performance" ? `${selectedProduct.aiScore}%` : `${Math.min(100, (selectedProduct.valueRatio / 20) * 100)}%` }}
+                      transition={{ duration: 1, ease: "easeOut" }}
+                      className={`h-full ${tierStyles[selectedProduct.tier]?.bg || 'bg-zinc-500'}`}
+                    />
+                  </div>
+                </div>
+
+                {/* Score Breakdown */}
+                <ScoreBreakdownView product={selectedProduct} />
+
+                {/* Value Rating */}
+                <div className="mt-8 p-4 bg-zinc-900/50 border border-white/10 rounded-xl">
+                  <div className="flex items-center gap-3 mb-3">
+                    <DollarSign className="w-5 h-5 text-emerald-400" />
+                    <h3 className="text-lg font-bold font-heading text-white">Value Analysis</h3>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <p className="text-zinc-400 text-sm">Price</p>
+                      <p className="text-xl font-bold text-white">${selectedProduct.price}</p>
+                    </div>
+                    <div>
+                      <p className="text-zinc-400 text-sm">Value Rating</p>
+                      <p className={`text-xl font-bold ${selectedProduct.valueRating.color}`}>
+                        {selectedProduct.valueRating.label}
+                      </p>
+                    </div>
+                  </div>
+                  <p className="text-zinc-500 text-sm mt-3">
+                    {selectedProduct.valueRatio >= 15 
+                      ? "🔥 Excellent value! This product offers outstanding performance per dollar."
+                      : selectedProduct.valueRatio >= 10
+                      ? "✅ Great value! Strong performance for the price."
+                      : selectedProduct.valueRatio >= 5
+                      ? "⚖️ Fair value. Consider if you need the premium features."
+                      : "💎 Premium choice. You're paying for top-tier performance."
+                    }
+                  </p>
+                </div>
+
+                {/* CTA */}
+                <div className="mt-6 flex gap-3">
+                  <a
+                    href={selectedProduct.affiliateUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 bg-primary text-black font-bold font-heading py-3 px-6 rounded-lg hover:bg-primary/80 transition-colors text-center"
+                  >
+                    Buy on Amazon
+                  </a>
+                  <Link
+                    href={`/product/${selectedProduct.id}`}
+                    className="flex-1 bg-zinc-800 text-white font-bold font-heading py-3 px-6 rounded-lg hover:bg-zinc-700 transition-colors text-center border border-white/10"
+                  >
+                    View Details
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+function ScoreBreakdownView({ product }: { product: ExtendedProduct }) {
+  const breakdown = getScoreBreakdown(product);
+  
+  if (Object.keys(breakdown.components).length === 0) {
+    return <div className="text-zinc-500 text-center py-8">No breakdown available for this product.</div>;
+  }
+
+  return (
+    <div>
+      <h3 className="text-lg font-bold font-heading text-white mb-4">Score Breakdown</h3>
+      <div className="space-y-4">
+        {Object.entries(breakdown.components).map(([name, { score, max, percentage }]) => (
+          <div key={name}>
+            <div className="flex justify-between items-end mb-1">
+              <span className="text-sm font-heading text-zinc-300">{name}</span>
+              <span className="text-sm font-bold text-white">
+                {score}/{max}
+                <span className="text-zinc-500 text-xs ml-1">({percentage}%)</span>
+              </span>
+            </div>
+            <div className="h-2 w-full bg-zinc-900 rounded-full overflow-hidden">
+              <motion.div 
+                initial={{ width: 0 }}
+                animate={{ width: `${percentage}%` }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className={`h-full ${
+                  percentage >= 80 ? 'bg-emerald-500' :
+                  percentage >= 60 ? 'bg-blue-500' :
+                  percentage >= 40 ? 'bg-amber-500' :
+                  'bg-red-500'
+                }`}
+              />
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
