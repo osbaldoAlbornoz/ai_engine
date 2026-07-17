@@ -27,9 +27,9 @@ export function BrandMarquee({ className }: { className?: string }) {
       <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary to-transparent opacity-60"></div>
       
       {/* Bottom Gradient Border */}
-      <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-accent to-transparent opacity-60"></div>
+      <div className="absolute bottom-[1px] left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-accent to-transparent opacity-60"></div>
       
-      <div className="flex w-full py-2 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+      <div className="flex w-full py-3 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
         <motion.div
           className="flex flex-none items-center pr-12 sm:pr-24"
           animate={{ x: ["0%", "-50%"] }}

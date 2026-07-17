@@ -72,7 +72,7 @@ export function ROICalculator({ localPrice }: Props) {
           
           <div className="text-center sm:text-left relative z-10">
             <div className="flex items-center gap-2 text-zinc-400 mb-1 justify-center sm:justify-start">
-              <HardDrive className="w-4 h-4 text-primary" /> Local Cost
+              <HardDrive className="w-4 h-4 text-primary" /> Est. MSRP
             </div>
             <div className="text-2xl font-bold text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]">${localPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
           </div>
@@ -99,6 +99,11 @@ export function ROICalculator({ localPrice }: Props) {
           {breakevenMonths} Months
         </div>
         <p className="text-xs text-zinc-600 mt-2">Time until local hardware becomes cheaper than cloud rental.</p>
+
+        {/* Price Disclaimer Footnote */}
+        <p className="text-[11px] text-zinc-500 text-center leading-relaxed mt-4 max-w-2xl mx-auto">
+          * Note: ROI calculations and comparisons use an estimated MSRP as a baseline. Actual Amazon prices fluctuate frequently. Check Amazon for the current exact price.
+        </p>
       </motion.div>
     </div>
   );

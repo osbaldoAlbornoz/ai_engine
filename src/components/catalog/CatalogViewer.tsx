@@ -136,36 +136,77 @@ export default function CatalogViewer({ initialCategory = "all" }: { initialCate
 
   const brands = useMemo(() => {
     const b = new Set<string>();
-    products.forEach(p => b.add(p.brand));
-    return Array.from(b);
-  }, [products]);
+    products.forEach(p => {
+      if (activeCategory === "all" || p.category === activeCategory) {
+        if (p.brand && p.brand !== "Unknown") {
+          b.add(p.brand);
+        }
+      }
+    });
+    return Array.from(b).sort();
+  }, [products, activeCategory]);
 
   const vramOptions = useMemo(() => {
     const v = new Set<string>();
-    products.filter(p => p.category === "gpus").forEach(p => {
-        const vram = p.specs["VRAM"];
-        if(vram && typeof vram === "string") v.add(vram);
+    products.forEach(p => {
+      if (p.category === "gpus" && (activeCategory === "all" || activeCategory === "gpus")) {
+        const keys = ['VRAM', 'Video Memory', 'Graphics Card Ram', 'Memory'];
+        let vramVal = "";
+        for (const k of keys) {
+          if (p.specs[k]) { vramVal = String(p.specs[k]); break; }
+        }
+        if (!vramVal) {
+          const match = p.name.match(/(\d+)\s*gb/i);
+          if (match) vramVal = `${match[1]}GB`;
+        }
+        if (vramVal) {
+          const num = vramVal.match(/(\d+)/);
+          if (num) v.add(`${num[1]}GB`);
+        }
+      }
     });
-    return Array.from(v);
-  }, [products]);
+    return Array.from(v).sort((a, b) => parseInt(a) - parseInt(b));
+  }, [products, activeCategory]);
 
   const topsOptions = useMemo(() => {
     const t = new Set<string>();
-    products.filter(p => p.category === "npus").forEach(p => {
-        const tops = p.specs["Total AI TOPS"];
-        if(tops && typeof tops === "string") t.add(String(tops));
+    products.forEach(p => {
+      if (p.category === "npus" && (activeCategory === "all" || activeCategory === "npus")) {
+        const keys = ['Total AI TOPS', 'AI TOPS', 'TOPS'];
+        let topsVal = "";
+        for (const k of keys) {
+          if (p.specs[k]) { topsVal = String(p.specs[k]); break; }
+        }
+        if (topsVal) {
+          const num = topsVal.match(/(\d+)/);
+          if (num) t.add(`${num[1]} TOPS`);
+        }
+      }
     });
-    return Array.from(t);
-  }, [products]);
+    return Array.from(t).sort((a, b) => parseInt(a) - parseInt(b));
+  }, [products, activeCategory]);
 
   const memoryOptions = useMemo(() => {
     const m = new Set<string>();
-    products.filter(p => p.category === "laptops").forEach(p => {
-        const memory = p.specs["Unified Memory"] || p.specs["Memory"];
-        if(memory && typeof memory === "string") m.add(memory);
+    products.forEach(p => {
+      if (p.category === "laptops" && (activeCategory === "all" || activeCategory === "laptops")) {
+        const keys = ['Unified Memory', 'Memory', 'RAM', 'System Memory'];
+        let memVal = "";
+        for (const k of keys) {
+          if (p.specs[k]) { memVal = String(p.specs[k]); break; }
+        }
+        if (!memVal) {
+          const match = p.name.match(/(\d+)\s*gb/i);
+          if (match) memVal = `${match[1]}GB`;
+        }
+        if (memVal) {
+          const num = memVal.match(/(\d+)/);
+          if (num) m.add(`${num[1]}GB`);
+        }
+      }
     });
-    return Array.from(m);
-  }, [products]);
+    return Array.from(m).sort((a, b) => parseInt(a) - parseInt(b));
+  }, [products, activeCategory]);
 
   const filteredProducts = useMemo(() => {
     console.log("🔍 Filter debug - activeCategory:", activeCategory, "activeBrand:", activeBrand, "maxPrice:", maxPrice, "searchQuery:", searchQuery);
@@ -179,13 +220,53 @@ export default function CatalogViewer({ initialCategory = "all" }: { initialCate
       
       let matchContextual = true;
       if (activeCategory === "gpus" && activeVRAM !== "all") {
-        matchContextual = p.specs["VRAM"] === activeVRAM;
+        const keys = ['VRAM', 'Video Memory', 'Graphics Card Ram', 'Memory'];
+        let vramVal = "";
+        for (const k of keys) {
+          if (p.specs[k]) { vramVal = String(p.specs[k]); break; }
+        }
+        if (!vramVal) {
+          const match = p.name.match(/(\d+)\s*gb/i);
+          if (match) vramVal = `${match[1]}GB`;
+        }
+        let normalizedVram = "";
+        if (vramVal) {
+          const num = vramVal.match(/(\d+)/);
+          if (num) normalizedVram = `${num[1]}GB`;
+        }
+        matchContextual = normalizedVram === activeVRAM;
       }
+      
       if (activeCategory === "npus" && activeTOPS !== "all") {
-        matchContextual = p.specs["Total AI TOPS"] === activeTOPS;
+        const keys = ['Total AI TOPS', 'AI TOPS', 'TOPS'];
+        let topsVal = "";
+        for (const k of keys) {
+          if (p.specs[k]) { topsVal = String(p.specs[k]); break; }
+        }
+        let normalizedTops = "";
+        if (topsVal) {
+          const num = topsVal.match(/(\d+)/);
+          if (num) normalizedTops = `${num[1]} TOPS`;
+        }
+        matchContextual = normalizedTops === activeTOPS;
       }
+      
       if (activeCategory === "laptops" && activeMemory !== "all") {
-        matchContextual = p.specs["Unified Memory"] === activeMemory || p.specs["Memory"] === activeMemory;
+        const keys = ['Unified Memory', 'Memory', 'RAM', 'System Memory'];
+        let memVal = "";
+        for (const k of keys) {
+          if (p.specs[k]) { memVal = String(p.specs[k]); break; }
+        }
+        if (!memVal) {
+          const match = p.name.match(/(\d+)\s*gb/i);
+          if (match) memVal = `${match[1]}GB`;
+        }
+        let normalizedMem = "";
+        if (memVal) {
+          const num = memVal.match(/(\d+)/);
+          if (num) normalizedMem = `${num[1]}GB`;
+        }
+        matchContextual = normalizedMem === activeMemory;
       }
 
       const passes = matchCategory && matchBrand && matchPrice && matchSearch && matchContextual;
@@ -522,20 +603,7 @@ export default function CatalogViewer({ initialCategory = "all" }: { initialCate
                           </h3>
                         </Link>
                         
-                        <div className="flex items-center gap-3 mb-6 mt-auto min-h-[32px]">
-                          <span className="text-xl font-bold text-primary whitespace-nowrap">
-                            {product.price > 0 
-                              ? `$${product.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` 
-                              : "Check on Amazon"}
-                          </span>
-                          {product.originalPrice && product.originalPrice > product.price && (
-                            <span className="text-sm text-zinc-500 line-through whitespace-nowrap">
-                              ${product.originalPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                            </span>
-                          )}
-                        </div>
-                        
-                        <div className="grid grid-cols-2 gap-2">
+                        <div className="mt-auto grid grid-cols-2 gap-2 pt-6">
                           <Link 
                             href={`/product/${product.id}`}
                             className="flex items-center justify-center py-2.5 bg-accent/10 border border-accent text-accent font-heading text-xs font-semibold uppercase hover:bg-accent hover:text-[#050505] transition-all duration-300 shadow-[0_0_10px_rgba(255,0,255,0.2)] hover:shadow-[0_0_20px_rgba(255,0,255,0.5)]"

@@ -366,11 +366,13 @@ export function HardwareMatcher() {
                             ))}
                           </ul>
 
-                          {/* Actions */}
                           <div className="flex items-center justify-between mt-auto pt-4 border-t border-white/5">
-                            <span className="text-xl font-bold text-white">
-                              ${result.product.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                            </span>
+                            <div className="flex flex-col">
+                              <span className="text-[10px] text-zinc-500 uppercase tracking-wider mb-0.5">Est. MSRP</span>
+                              <span className="text-xl font-bold text-white">
+                                ${result.product.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                              </span>
+                            </div>
                             <div className="flex gap-2">
                               <Link 
                                 href={`/product/${result.product.id}`}
@@ -385,7 +387,7 @@ export function HardwareMatcher() {
                                 className="px-3 py-2 bg-primary hover:bg-primary/90 text-black text-sm rounded-lg transition-colors font-bold flex items-center gap-2"
                               >
                                 <ShoppingCart className="w-4 h-4" />
-                                Buy
+                                Check on Amazon
                               </a>
                             </div>
                           </div>
@@ -396,8 +398,8 @@ export function HardwareMatcher() {
                 )}
                 {/* Price Disclaimer Footnote */}
                 <div className="max-w-4xl mx-auto w-full mt-6 px-4">
-                  <p className="text-xs text-zinc-500 text-center leading-relaxed">
-                    * Estimated prices shown are based on recent catalog updates. Amazon prices fluctuate frequently. Actual price on Amazon may vary slightly.
+                  <p className="text-[11px] text-zinc-500 text-center leading-relaxed">
+                    * Note: ROI calculations and comparisons use an estimated MSRP as a baseline. Actual Amazon prices fluctuate frequently. Check Amazon for the current exact price.
                   </p>
                 </div>
 

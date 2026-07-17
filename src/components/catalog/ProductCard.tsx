@@ -93,16 +93,12 @@ export function ProductCard({ product }: { product: Product }) {
         </div>
 
         {/* Price and CTA */}
-        <div className="mt-6 flex items-center justify-between pt-5 border-t border-white/5">
-          <div className="flex flex-col min-w-[80px]">
-            <span className="text-[10px] text-zinc-500 uppercase tracking-wider mb-0.5">Est. Price</span>
-            <span className="font-heading text-xl font-bold text-white tracking-tight">{product.price > 0 ? `$${product.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : "Varies"}</span>
-          </div>
+        <div className="mt-6 pt-5 border-t border-white/5 flex flex-col gap-3">
           <a
             href={product.affiliateUrl || product.amazon_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-5 py-2.5 bg-primary/10 hover:bg-primary border border-primary/30 hover:border-primary text-primary hover:text-[#050505] rounded-none transition-all duration-300 shadow-[0_0_15px_rgba(0,229,255,0.1)] hover:shadow-[0_0_20px_rgba(0,229,255,0.4)] relative overflow-hidden group/btn"
+            className="flex items-center justify-center w-full gap-2 px-5 py-3 bg-primary/10 hover:bg-primary border border-primary/30 hover:border-primary text-primary hover:text-[#050505] rounded-none transition-all duration-300 shadow-[0_0_15px_rgba(0,229,255,0.1)] hover:shadow-[0_0_20px_rgba(0,229,255,0.4)] relative overflow-hidden group/btn"
           >
             {/* Button sweep effect */}
             <div className="absolute inset-0 -translate-x-full group-hover/btn:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent z-0"></div>

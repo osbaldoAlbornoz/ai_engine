@@ -706,8 +706,7 @@ export function CompareTool() {
                   {product && (
                     <div className="flex justify-between items-center bg-[#050505] p-2 rounded-none border border-white/10">
                       <div className="flex flex-col">
-                        <span className="text-sm text-zinc-300 line-clamp-1">{decodeHtml(product.name)}</span>
-                        <span className="text-xs text-primary">{product.price > 0 ? `$${product.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : "Price Varies"}</span>
+                        <span className="text-sm text-zinc-300 line-clamp-2">{decodeHtml(product.name)}</span>
                       </div>
                       <Link
                         href={product.amazon_url || "#"}
@@ -949,9 +948,6 @@ export function CompareTool() {
                               </div>
                             )
                           })()}
-                          <span className="text-sm text-zinc-400 font-heading">
-                            {(product.price && product.price > 0) ? `$${product.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : "Price Varies"}
-                          </span>
                         </div>
                       </motion.div>
                     )}
@@ -1094,6 +1090,13 @@ export function CompareTool() {
               );
             })}
           </div>
+        </div>
+
+        {/* Price Disclaimer Footnote */}
+        <div className="w-full px-4 sm:px-6 lg:px-8 pb-8 pt-4">
+          <p className="text-[11px] text-zinc-500 text-center leading-relaxed max-w-4xl mx-auto">
+            * Note: ROI calculations and comparisons use an estimated MSRP as a baseline. Actual Amazon prices fluctuate frequently. Check Amazon for the current exact price.
+          </p>
         </div>
 
       </div>

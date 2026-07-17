@@ -30,7 +30,7 @@ export function Footer() {
               The ultimate destination for discovering and comparing high-performance AI hardware. From powerful GPUs to next-gen NPUs, find the perfect engine for your artificial intelligence workflows.
             </p>
             
-            {/* Social Icons */}
+            {/* Social Icons (Hidden for now)
             <div className="flex gap-4">
               <a href="#" className="p-2 rounded-none bg-white/5 border border-white/10 text-zinc-400 hover:text-white hover:bg-primary/20 hover:border-primary/50 transition-all duration-300">
                 <MessageCircle className="h-4 w-4" />
@@ -46,6 +46,7 @@ export function Footer() {
                 </svg>
               </a>
             </div>
+            */}
           </div>
           
           {/* Quick Links */}
@@ -98,7 +99,7 @@ export function Footer() {
         {/* Affiliate Disclaimer & Copyright */}
         <div className="mt-6 pt-4 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-subtitle text-[11px] text-zinc-500 max-w-2xl text-center md:text-left leading-relaxed">
-            AI Engine is a participant in the Amazon Services LLC Associates Program, an affiliate advertising program designed to provide a means for sites to earn advertising fees by advertising and linking to Amazon.com.
+            As an Amazon Associate I earn from qualifying purchases.
           </p>
           <p className="text-subtitle text-sm text-zinc-500 whitespace-nowrap">
             &copy; {new Date().getFullYear()} AI Engine. All rights reserved.

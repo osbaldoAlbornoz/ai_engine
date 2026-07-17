@@ -440,13 +440,19 @@ export function getKeyDifferences(
     }
   }
 
-  // Price Difference
+  // Price Difference (Relative comparison without exact numbers)
   if (!onlyUseFields || onlyUseFields.includes('price')) {
     if (productA.price && productB.price) {
       const priceDiff = Math.abs(productA.price - productB.price);
-      if (priceDiff >= 200) {
+      if (priceDiff >= 150) {
         const cheaper = productA.price < productB.price ? productA : productB;
-        differences.push(`💰 Price: ${cheaper.name} is $${priceDiff.toLocaleString()} more affordable`);
+        const moreExpensive = productA.price > productB.price ? productA : productB;
+        
+        if (priceDiff >= 500) {
+          differences.push(`💰 Value: ${cheaper.name} is significantly more budget-friendly than ${moreExpensive.name}`);
+        } else {
+          differences.push(`💰 Value: ${cheaper.name} is a more affordable option`);
+        }
       }
     }
   }

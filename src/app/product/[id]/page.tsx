@@ -22,11 +22,23 @@ interface HardwareProduct extends Product {
 import Link from "next/link";
 import { ShoppingCart, CheckCircle2, ChevronRight, Cpu } from "lucide-react";
 import { Metadata } from "next";
-import { AIAnalysis } from "@/components/product/AIAnalysis";
-import { BottleneckChecker } from "@/components/product/BottleneckChecker";
-import { AIBenchmarks } from "@/components/product/AIBenchmarks";
-import { ROICalculator } from "@/components/product/ROICalculator";
-import { ProductGallery } from "@/components/product/ProductGallery";
+import dynamic from "next/dynamic";
+
+const AIAnalysis = dynamic(() => import("@/components/product/AIAnalysis").then(mod => mod.AIAnalysis), {
+  loading: () => <div className="w-full min-h-[300px] flex items-center justify-center animate-pulse bg-zinc-900/20 text-zinc-500 font-heading text-sm">Loading AI Analysis...</div>
+});
+const BottleneckChecker = dynamic(() => import("@/components/product/BottleneckChecker").then(mod => mod.BottleneckChecker), {
+  loading: () => <div className="w-full min-h-[300px] flex items-center justify-center animate-pulse bg-zinc-900/20 text-zinc-500 font-heading text-sm">Loading Bottleneck Checker...</div>
+});
+const AIBenchmarks = dynamic(() => import("@/components/product/AIBenchmarks").then(mod => mod.AIBenchmarks), {
+  loading: () => <div className="w-full min-h-[300px] flex items-center justify-center animate-pulse bg-zinc-900/20 text-zinc-500 font-heading text-sm">Loading Benchmarks...</div>
+});
+const ROICalculator = dynamic(() => import("@/components/product/ROICalculator").then(mod => mod.ROICalculator), {
+  loading: () => <div className="w-full min-h-[300px] flex items-center justify-center animate-pulse bg-zinc-900/20 text-zinc-500 font-heading text-sm">Loading ROI Calculator...</div>
+});
+const ProductGallery = dynamic(() => import("@/components/product/ProductGallery").then(mod => mod.ProductGallery), {
+  loading: () => <div className="aspect-[4/3] w-full flex items-center justify-center animate-pulse bg-[#050505] text-zinc-500 font-heading text-sm border border-white/5">Loading Gallery...</div>
+});
 import { PriceAlert } from "@/components/product/PriceAlert";
 import { ScrollIndicator } from "@/components/ui/scroll-indicator";
 import { JargonBuster } from "@/components/ui/jargon-buster";
@@ -173,16 +185,7 @@ export default async function ProductPage({ params }: Props) {
               </h1>
             </div>
 
-            <div className="flex items-end gap-4">
-              <span className="text-4xl font-bold text-primary drop-shadow-[0_0_15px_rgba(0,229,255,0.4)]">
-                {product.price > 0 ? `$${product.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : "Check on Amazon"}
-              </span>
-              {product.originalPrice && product.originalPrice > product.price && (
-                <span className="text-xl text-zinc-500 line-through mb-1">
-                  ${product.originalPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                </span>
-              )}
-            </div>
+
 
             {/* Key Features */}
             {(product.keyFeatures || product.features || []).length > 0 && (
@@ -229,8 +232,9 @@ export default async function ProductPage({ params }: Props) {
                   </Link>
                 )}
 
-                {/* Price Drop Alert Lead Capture */}
+                {/* Price Drop Alert Lead Capture (Hidden for Amazon Compliance) 
                 <PriceAlert productId={product.id || ""} productName={product.name} baselinePrice={product.price || 0} />
+                */}
               </div>
               <p className="text-xs text-zinc-500 mt-4 max-w-sm">
                 * As an affiliate, we earn from qualifying purchases.

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Product } from "@/types/product";
 import { supabase } from "@/lib/supabase";
 import { calculateAIScore, assignTier, TIERS, Tier, tierStyles, calculateValueRating, getScoreBreakdown, ScoreBreakdown } from "@/utils/scoring";
@@ -59,7 +59,8 @@ export default function LeaderboardPage() {
   const [activeCategory, setActiveCategory] = useState<string>("All");
   const [rankingMode, setRankingMode] = useState<"performance" | "value">("performance");
   const [selectedProduct, setSelectedProduct] = useState<ExtendedProduct | null>(null);
-  const [maxPrice, setMaxPrice] = useState<number | null>(null);
+  const [maxPriceLimit, setMaxPriceLimit] = useState<number>(20000);
+  const [maxPrice, setMaxPrice] = useState<number>(20000);
 
   // Scroll to top when category or ranking mode changes
   // (useEffect was removed during React Query migration)
@@ -74,6 +75,18 @@ export default function LeaderboardPage() {
     },
   });
 
+  useEffect(() => {
+    if (products.length > 0) {
+      const prices = products.map(p => p.price).filter(p => p > 0);
+      if (prices.length > 0) {
+        const maxPriceFound = Math.max(...prices);
+        const roundedMax = Math.ceil(maxPriceFound / 10000) * 10000;
+        setMaxPriceLimit(roundedMax);
+        setMaxPrice(roundedMax);
+      }
+    }
+  }, [products]);
+
   const rankedProducts = useMemo(() => {
     let filtered = products;
     
@@ -83,9 +96,7 @@ export default function LeaderboardPage() {
     }
     
     // Filter by max price
-    if (maxPrice !== null) {
-      filtered = filtered.filter((p) => p.price <= maxPrice);
-    }
+    filtered = filtered.filter((p) => p.price === 0 || p.price <= maxPrice);
     
     // Recalculate tiers based on ranking mode
     const scoredProducts = filtered.map(p => {
@@ -117,9 +128,7 @@ export default function LeaderboardPage() {
     return grouped;
   }, [rankedProducts]);
 
-  const maxProductPrice = useMemo(() => {
-    return products.length > 0 ? Math.max(...products.map(p => p.price)) : 0;
-  }, [products]);
+
 
   return (
     <div className="min-h-screen bg-[#020202] pt-24 pb-12 relative overflow-hidden">
@@ -215,21 +224,23 @@ export default function LeaderboardPage() {
             </div>
             
             {/* Budget Filter */}
-            <div className="flex items-center gap-2 bg-zinc-900/50 border border-white/10 px-4 py-1.5 rounded-full">
-              <DollarSign className="w-4 h-4 text-zinc-400" />
-              <span className="text-zinc-400">Max Price:</span>
-              <select 
-                value={maxPrice === null ? "" : maxPrice.toString()}
-                onChange={(e) => setMaxPrice(e.target.value ? Number(e.target.value) : null)}
-                className="bg-zinc-800 border border-zinc-700 rounded px-2 py-0.5 text-white text-sm focus:outline-none focus:border-primary"
-              >
-                <option value="">Any</option>
-                <option value="500">Under $500</option>
-                <option value="1000">Under $1,000</option>
-                <option value="2000">Under $2,000</option>
-                <option value="3000">Under $3,000</option>
-                <option value="5000">Under $5,000</option>
-              </select>
+            <div className="flex items-center gap-4 bg-zinc-900/50 border border-white/10 px-6 py-2 rounded-full min-w-[280px]">
+              <DollarSign className="w-5 h-5 text-zinc-400 shrink-0" />
+              <div className="flex flex-col w-full gap-1.5">
+                <div className="flex justify-between text-xs text-zinc-400 font-heading w-full">
+                  <span>Max Price:</span>
+                  <span className="text-primary font-bold">${maxPrice.toLocaleString()}</span>
+                </div>
+                <input 
+                  type="range" 
+                  min="0" 
+                  max={maxPriceLimit} 
+                  step="100"
+                  value={maxPrice}
+                  onChange={(e) => setMaxPrice(Number(e.target.value))}
+                  className="w-full accent-primary cursor-pointer"
+                />
+              </div>
             </div>
           </div>
         </div>
