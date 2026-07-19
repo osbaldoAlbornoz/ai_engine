@@ -206,9 +206,6 @@ export function HeroSection({ topGPU, topLaptop, topNPU, topWorkstation }: HeroS
                   </div>
                   <div>
                     <h3 className="font-heading font-bold text-base sm:text-lg text-primary leading-tight tracking-wide drop-shadow-[0_0_12px_rgba(0,229,255,0.6)] line-clamp-2" title={topGPU?.name}>{topGPU?.name || "NVIDIA RTX 4090"}</h3>
-                    <p className="font-sans text-xs text-slate-300 mt-1.5 opacity-90 font-medium line-clamp-2">
-                      {topGPU?.specs['Graphics Card Ram'] || topGPU?.specs['VRAM'] || ""}{topGPU?.specs['Graphics Card Ram'] || topGPU?.specs['VRAM'] ? " GB" : ""} • {topGPU?.specs['Graphics Coprocessor'] || topGPU?.specs['GPU Series'] || topGPU?.specs['CUDA Cores'] || "GPU"}
-                    </p>
                   </div>
                 </div>
               </div>
@@ -233,9 +230,6 @@ export function HeroSection({ topGPU, topLaptop, topNPU, topWorkstation }: HeroS
                   </div>
                   <div>
                     <h3 className="font-heading font-bold text-base sm:text-lg text-accent leading-tight tracking-wide drop-shadow-[0_0_12px_rgba(255,0,255,0.6)] line-clamp-2" title={topLaptop?.name}>{topLaptop?.name || "MacBook Pro M3 Max"}</h3>
-                    <p className="font-sans text-xs text-slate-300 mt-1.5 opacity-90 font-medium line-clamp-2">
-                      {topLaptop?.specs['Memory'] || topLaptop?.specs['Unified Memory'] || ""} • {topLaptop?.specs['Graphics Coprocessor'] || topLaptop?.specs['GPU'] || ""}
-                    </p>
                   </div>
                 </div>
               </div>
@@ -260,9 +254,6 @@ export function HeroSection({ topGPU, topLaptop, topNPU, topWorkstation }: HeroS
                   </div>
                   <div>
                     <h3 className="font-heading font-bold text-base sm:text-lg text-primary leading-tight tracking-wide drop-shadow-[0_0_12px_rgba(0,229,255,0.6)] line-clamp-2" title={topNPU?.name}>{topNPU?.name || "Snapdragon X Elite"}</h3>
-                    <p className="font-sans text-xs text-slate-300 mt-1.5 opacity-90 font-medium line-clamp-2">
-                      {topNPU?.specs['Processor Series'] || topNPU?.specs['Total AI TOPS'] || topNPU?.specs['AI Performance'] || ""} • {topNPU?.specs['Processor'] || topNPU?.specs['Architecture'] || ""}
-                    </p>
                   </div>
                 </div>
               </div>
@@ -287,9 +278,6 @@ export function HeroSection({ topGPU, topLaptop, topNPU, topWorkstation }: HeroS
                   </div>
                   <div>
                     <h3 className="font-heading font-bold text-base sm:text-lg text-amber-500 leading-tight tracking-wide drop-shadow-[0_0_12px_rgba(255,215,0,0.6)] line-clamp-2" title={topWorkstation?.name}>{topWorkstation?.name || "Dell Precision 7960"}</h3>
-                    <p className="font-sans text-xs text-slate-300 mt-1.5 opacity-90 font-medium line-clamp-2">
-                      {topWorkstation?.specs['Processor'] || topWorkstation?.specs['CPU'] || ""} • {topWorkstation?.specs['Memory'] || topWorkstation?.specs['RAM'] || ""}
-                    </p>
                   </div>
                 </div>
               </div>
