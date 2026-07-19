@@ -67,30 +67,32 @@ function scoreGPU(specs: Record<string, unknown>, name: string): number {
   } else {
     let cores = extractNumber(getSpec(specs, ["cuda cores", "cudacores", "stream processors", "shader processors", "compute units"]));
     if (!cores) {
-      if      (ln.includes("5090"))     cores = 21760;
-      else if (ln.includes("5080"))     cores = 10752;
-      else if (ln.includes("5070 ti"))  cores = 9728;
-      else if (ln.includes("5070"))     cores = 8192;
-      else if (ln.includes("4090"))     cores = 16384;
-      else if (ln.includes("4080"))     cores = 9728;
-      else if (ln.includes("4070 ti"))  cores = 7680;
-      else if (ln.includes("4070"))     cores = 5888;
-      else if (ln.includes("4060 ti"))  cores = 4352;
-      else if (ln.includes("4060"))     cores = 3072;
-      else if (ln.includes("3090"))     cores = 10496;
-      else if (ln.includes("7900 xtx")) cores = 6144;
-      else if (ln.includes("7900 xt"))  cores = 5376;
-      else if (ln.includes("rx 9060") || ln.includes("9060")) cores = 4000;
+      if      (ln.match(/5090|blackwell|b200/)) cores = 21760;
+      else if (ln.match(/rtx 6000 ada/))        cores = 18176;
+      else if (ln.match(/5080/))                cores = 10752;
+      else if (ln.match(/a6000|a40/))           cores = 10752;
+      else if (ln.match(/5070 ti/))             cores = 9728;
+      else if (ln.match(/5070/))                cores = 8192;
+      else if (ln.match(/4090|rtx 6000/))       cores = 16384;
+      else if (ln.match(/4080|rtx 5000 ada/))   cores = 9728;
+      else if (ln.match(/4070 ti/))             cores = 7680;
+      else if (ln.match(/4070|rtx 4000 ada/))   cores = 5888;
+      else if (ln.match(/4060 ti/))             cores = 4352;
+      else if (ln.match(/4060/))                cores = 3072;
+      else if (ln.match(/3090|rtx a5000/))      cores = 10496;
+      else if (ln.match(/7900 xtx/))            cores = 6144;
+      else if (ln.match(/7900 xt/))             cores = 5376;
+      else if (ln.match(/rx 9060|9060/))        cores = 4000;
       else cores = 2000;
     }
     coresScore = Math.min(50, Math.round(cores / 328)); // Increased max to 50, better distribution
   }
 
   let arch = 0;
-  if      (ln.match(/5090|5080|5070/))  arch = 10;
-  else if (ln.match(/4090|4080|4070/))  arch = 6;
-  else if (ln.match(/4060|3090/))       arch = 3;
-  else if (ln.match(/7900|rx 9060/))    arch = 4;
+  if      (ln.match(/5090|5080|5070|blackwell|b200/))  arch = 10;
+  else if (ln.match(/4090|4080|4070|ada|a6000|a5000/)) arch = 6;
+  else if (ln.match(/4060|3090/))                      arch = 3;
+  else if (ln.match(/7900|rx 9060/))                   arch = 4;
 
   return Math.min(100, Math.max(0, vramScore + coresScore + arch));
 }
@@ -348,29 +350,31 @@ export function getScoreBreakdown(product: Product | any): ScoreBreakdown {
     
     let cores = extractNumber(getSpec(specs, ["cuda cores", "cudacores", "stream processors", "shader processors", "compute units"]));
     if (!cores) {
-      if      (ln.includes("5090"))     cores = 21760;
-      else if (ln.includes("5080"))     cores = 10752;
-      else if (ln.includes("5070 ti"))  cores = 9728;
-      else if (ln.includes("5070"))     cores = 8192;
-      else if (ln.includes("4090"))     cores = 16384;
-      else if (ln.includes("4080"))     cores = 9728;
-      else if (ln.includes("4070 ti"))  cores = 7680;
-      else if (ln.includes("4070"))     cores = 5888;
-      else if (ln.includes("4060 ti"))  cores = 4352;
-      else if (ln.includes("4060"))     cores = 3072;
-      else if (ln.includes("3090"))     cores = 10496;
-      else if (ln.includes("7900 xtx")) cores = 6144;
-      else if (ln.includes("7900 xt"))  cores = 5376;
-      else if (ln.includes("rx 9060") || ln.includes("9060")) cores = 4000;
+      if      (ln.match(/5090|blackwell|b200/)) cores = 21760;
+      else if (ln.match(/rtx 6000 ada/))        cores = 18176;
+      else if (ln.match(/5080/))                cores = 10752;
+      else if (ln.match(/a6000|a40/))           cores = 10752;
+      else if (ln.match(/5070 ti/))             cores = 9728;
+      else if (ln.match(/5070/))                cores = 8192;
+      else if (ln.match(/4090|rtx 6000/))       cores = 16384;
+      else if (ln.match(/4080|rtx 5000 ada/))   cores = 9728;
+      else if (ln.match(/4070 ti/))             cores = 7680;
+      else if (ln.match(/4070|rtx 4000 ada/))   cores = 5888;
+      else if (ln.match(/4060 ti/))             cores = 4352;
+      else if (ln.match(/4060/))                cores = 3072;
+      else if (ln.match(/3090|rtx a5000/))      cores = 10496;
+      else if (ln.match(/7900 xtx/))            cores = 6144;
+      else if (ln.match(/7900 xt/))             cores = 5376;
+      else if (ln.match(/rx 9060|9060/))        cores = 4000;
       else cores = 2000;
     }
     const coresScore = Math.min(50, Math.round(cores / 328));
     
     let arch = 0;
-    if      (ln.match(/5090|5080|5070/))  arch = 10;
-    else if (ln.match(/4090|4080|4070/))  arch = 6;
-    else if (ln.match(/4060|3090/))       arch = 3;
-    else if (ln.match(/7900|rx 9060/))    arch = 4;
+    if      (ln.match(/5090|5080|5070|blackwell|b200/))  arch = 10;
+    else if (ln.match(/4090|4080|4070|ada|a6000|a5000/)) arch = 6;
+    else if (ln.match(/4060|3090/))                      arch = 3;
+    else if (ln.match(/7900|rx 9060/))                   arch = 4;
 
     breakdown.total = Math.min(100, Math.max(0, vramScore + coresScore + arch));
     breakdown.components = {

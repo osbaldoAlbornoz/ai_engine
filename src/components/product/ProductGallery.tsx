@@ -11,8 +11,11 @@ interface ProductGalleryProps {
 export function ProductGallery({ images, productName }: ProductGalleryProps) {
   const [activeIndex, setActiveIndex] = useState(0);
 
+  // Filter out any empty string images to prevent the browser from requesting the current URL
+  const validImages = images.filter(img => typeof img === "string" && img.trim() !== "" && img.trim() !== "#");
+
   // If there are no images, return null or a fallback (handled by parent usually)
-  if (!images || images.length === 0) return null;
+  if (!validImages || validImages.length === 0) return null;
 
   return (
     <div className="flex flex-col gap-4">
@@ -28,7 +31,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 1.05 }}
             transition={{ duration: 0.3 }}
-            src={images[activeIndex]}
+            src={validImages[activeIndex]}
             alt={`${productName} - Image ${activeIndex + 1}`}
             className="w-full h-full object-contain filter drop-shadow-[0_0_30px_rgba(0,229,255,0.2)] group-hover:scale-105 transition-transform duration-500 relative z-10"
           />
@@ -36,9 +39,9 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
       </div>
 
       {/* Thumbnails */}
-      {images.length > 1 && (
+      {validImages.length > 1 && (
         <div className="flex gap-4 overflow-x-auto pb-2 custom-scrollbar">
-          {images.map((img, idx) => (
+          {validImages.map((img, idx) => (
             <button
               key={idx}
               onClick={() => setActiveIndex(idx)}

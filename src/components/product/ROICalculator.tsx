@@ -6,11 +6,26 @@ import { Calculator, Cloud, HardDrive, ArrowRight } from "lucide-react";
 
 interface Props {
   localPrice: number;
+  aiScore?: number;
+  category?: string;
 }
 
-export function ROICalculator({ localPrice }: Props) {
+export function ROICalculator({ localPrice, aiScore = 50, category = 'gpus' }: Props) {
   const [hoursPerWeek, setHoursPerWeek] = useState(20);
-  const cloudCostPerHour = 1.50; // Average cost for a high-end instance
+  
+  let cloudCostPerHour = 1.50; // default average
+  
+  if (category.toLowerCase() === 'laptops') {
+    cloudCostPerHour = 0.80; // Mobile hardware equivalent
+  } else if (category.toLowerCase() === 'npus') {
+    cloudCostPerHour = 0.40; // Low power AI inference
+  } else {
+    // GPUs & Workstations
+    if (aiScore >= 90) cloudCostPerHour = 2.50; // High-end (A100/H100 equivalent)
+    else if (aiScore >= 75) cloudCostPerHour = 1.50; // Mid-high (A10G equivalent)
+    else if (aiScore >= 50) cloudCostPerHour = 0.80; // Mid-range (T4 equivalent)
+    else cloudCostPerHour = 0.50; // Entry level
+  }
 
   // If price is 0, we can't calculate ROI effectively
   if (!localPrice || localPrice <= 0) return null;
@@ -72,16 +87,16 @@ export function ROICalculator({ localPrice }: Props) {
           
           <div className="text-center sm:text-left relative z-10">
             <div className="flex items-center gap-2 text-zinc-400 mb-1 justify-center sm:justify-start">
-              <HardDrive className="w-4 h-4 text-primary" /> Est. MSRP
+              <HardDrive className="w-4 h-4 text-primary" /> Hardware Cost
             </div>
-            <div className="text-2xl font-bold text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]">${localPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+            <div className="text-2xl font-bold text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]">One-time</div>
           </div>
           
           <ArrowRight className="w-6 h-6 text-zinc-600 hidden sm:block relative z-10" />
           
           <div className="text-center sm:text-left relative z-10">
             <div className="flex items-center gap-2 text-zinc-400 mb-1 justify-center sm:justify-start">
-              <Cloud className="w-4 h-4 text-accent" /> Cloud Cost
+              <Cloud className="w-4 h-4 text-accent" /> Est. Cloud Cost
             </div>
             <div className="text-xl font-bold text-zinc-300">${monthlyCloudCost.toFixed(0)} <span className="text-xs text-zinc-500">/mo</span></div>
           </div>
@@ -102,7 +117,7 @@ export function ROICalculator({ localPrice }: Props) {
 
         {/* Price Disclaimer Footnote */}
         <p className="text-[11px] text-zinc-500 text-center leading-relaxed mt-4 max-w-2xl mx-auto">
-          * Note: ROI calculations and comparisons use an estimated MSRP as a baseline. Actual Amazon prices fluctuate frequently. Check Amazon for the current exact price.
+          * Note: ROI calculations compare the typical cost of the hardware against average estimated hourly rates for renting comparable GPU/AI instances in the cloud. Cloud costs fluctuate based on provider and availability.
         </p>
       </motion.div>
     </div>

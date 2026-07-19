@@ -13,7 +13,7 @@ function mapToTopProduct(row: any): TopProduct {
     id: row.id,
     name: row.name ?? "Unknown Product",
     specs: typeof row.specs === "object" && row.specs !== null ? row.specs : {},
-    aiScore: row.ai_score ?? null,
+    aiScore: calculateAIScore(row),
   };
 }
 
@@ -49,8 +49,8 @@ export function HomeDataClient() {
           const filtered = products
             .filter((p) => p.category === cat)
             .sort((a, b) => {
-              const scoreA = a.ai_score ?? calculateAIScore(a as any);
-              const scoreB = b.ai_score ?? calculateAIScore(b as any);
+              const scoreA = calculateAIScore(a as any);
+              const scoreB = calculateAIScore(b as any);
               return scoreB - scoreA;
             });
           return filtered.length > 0 ? mapToTopProduct(filtered[0]) : null;

@@ -95,9 +95,7 @@ export function AIAnalysis({ product }: AIAnalysisProps) {
       }
     }
 
-    if (product.price > 0 && score > 70 && product.price < 1000) {
-      pros.push("Excellent price-to-performance ratio for AI computing");
-    }
+    if (score >= 90) pros.push("Exceptional capability for large-scale AI modeling");
 
     if (pros.length === 0) {
       pros.push("Solid foundation for general computing and entry-level AI");
@@ -113,8 +111,8 @@ export function AIAnalysis({ product }: AIAnalysisProps) {
     const specs = product.specs || {};
     const lowerSpecs = Object.fromEntries(Object.entries(specs).map(([k, v]) => [k.toLowerCase(), String(v).toLowerCase()]));
 
-    if (product.price > 2000) {
-      cons.push("Significant upfront investment required");
+    if (score >= 90) {
+      cons.push("Enterprise-grade hardware designed for professionals");
     }
 
     const vram = lowerSpecs["graphics card ram"] || lowerSpecs["vram"] || lowerSpecs["memory"];
@@ -227,29 +225,10 @@ export function AIAnalysis({ product }: AIAnalysisProps) {
           </div>
         </div>
 
-        {/* Value Proposition & Pros/Cons */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+        {/* Pros/Cons */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
 
-          {/* Value Proposition Card */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className={`bg-[#050505] border ${valueRating.border} p-6 rounded-lg flex flex-col justify-center items-center text-center relative overflow-hidden group shadow-[inset_0_0_30px_rgba(0,0,0,0.5)] hover:shadow-[inset_0_0_40px_rgba(0,229,255,0.1)] transition-all duration-300`}
-          >
-            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:20px_20px] opacity-50" />
-            <div className={`absolute inset-0 ${valueRating.bg} opacity-10 group-hover:opacity-20 transition-opacity duration-500`} />
-            <DollarSign className={`w-10 h-10 mb-4 ${valueRating.color}`} />
-            <h4 className="text-xs text-zinc-400 font-heading uppercase tracking-widest mb-2">Value Proposition</h4>
-            <p className={`text-3xl font-bold font-heading ${valueRating.color} mb-3`}>{valueRating.label}</p>
-            <p className="text-sm text-zinc-500 max-w-[200px]">
-              {product.price > 0
-                ? `Based on $${product.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} price vs. ${score} AI Score`
-                : "Pricing varies by configuration and retailer."}
-            </p>
-          </motion.div>
 
-          {/* Pros */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

@@ -132,7 +132,7 @@ export function ThreeColumnLayout({ children }: ThreeColumnLayoutProps) {
       >
         {height > 0 && <SidebarBorder side="left" height={height} />}
         <div className="relative w-full h-full overflow-hidden">
-          <div className="relative z-10 w-full h-full overflow-y-auto flex flex-col items-center [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <div className="relative z-10 w-full h-full overflow-hidden flex flex-col items-center [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {[...Array(8)].map((_, i) => (
               <div key={i} className="w-full relative z-10" style={{ marginTop: i === 0 ? "0" : "15%" }}>
                 <AnimatedGPU />
@@ -155,7 +155,7 @@ export function ThreeColumnLayout({ children }: ThreeColumnLayoutProps) {
       >
         {height > 0 && <SidebarBorder side="right" height={height} />}
         <div className="relative w-full h-full overflow-hidden">
-          <div className="relative z-10 w-full h-full overflow-y-auto flex flex-col items-center [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <div className="relative z-10 w-full h-full overflow-hidden flex flex-col items-center [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {[...Array(8)].map((_, i) => (
               <div key={i} className="w-full relative z-10" style={{ marginTop: i === 0 ? "0" : "15%" }}>
                 <AnimatedGPU />

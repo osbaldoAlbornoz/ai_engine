@@ -223,13 +223,13 @@ export function getTopMatches(
         // Learning favors affordability. Price under $800 gets max bonus.
         if (product.price <= 600) {
           score += 45;
-          reasons.push(`Budget-friendly at $${product.price.toFixed(0)} — perfect for experimenting without risk.`);
+          reasons.push(`Highly budget-friendly — perfect for experimenting without financial risk.`);
         } else if (product.price <= 900) {
           score += 35;
-          reasons.push(`Affordable at $${product.price.toFixed(0)} while offering solid AI capabilities.`);
+          reasons.push(`Excellent value option offering solid entry-level AI capabilities.`);
         } else if (product.price <= 1100) {
           score += 20;
-          reasons.push(`Reasonable entry price with room to grow your skills.`);
+          reasons.push(`Reasonable mid-tier choice with room to grow your skills.`);
         }
         if (vram >= 8) {
           score += 20;

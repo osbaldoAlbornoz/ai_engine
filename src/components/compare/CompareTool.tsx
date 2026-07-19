@@ -344,6 +344,8 @@ export function CompareTool() {
     return selectedProducts.filter((p): p is CompareProduct => !!p);
   }, [selectedProducts]);
 
+  const isReadyToCompare = validProducts.length >= 2;
+
   // Determine common fields across all valid products for fair comparison
   const commonFields = useMemo(() => {
     if (validProducts.length === 0) return undefined;
@@ -693,7 +695,9 @@ export function CompareTool() {
                   <div className="flex items-center gap-2">
                     <CustomSelect
                       value={prodId}
-                      options={categoryProducts.map(p => ({ id: p.id || "", name: p.name }))}
+                      options={categoryProducts
+                        .filter(p => p.id === prodId || !selectedProdIds.includes(p.id || ""))
+                        .map(p => ({ id: p.id || "", name: p.name }))}
                       onChange={(val) => updateProduct(idx, val)}
                       placeholder="Select Product"
                     />
@@ -724,8 +728,25 @@ export function CompareTool() {
           </div>
         </div>
 
-        {/* Veredicto Final */}
-        {verdict && (
+        {/* Placeholder Waiting State */}
+        {!isReadyToCompare && (
+          <div className="flex flex-col items-center justify-center py-24 text-center px-4">
+             <div className="w-20 h-20 rounded-full bg-zinc-900/50 border border-white/5 flex items-center justify-center mb-6">
+                <Search className="w-10 h-10 text-zinc-600 animate-pulse" />
+             </div>
+             <h3 className="text-2xl font-heading font-bold text-zinc-300 mb-3">
+                Comparison Pending
+             </h3>
+             <p className="text-zinc-500 text-sm max-w-md mx-auto">
+                Please select at least 2 products to unlock the detailed technical comparison, performance charts, and AI verdict.
+             </p>
+          </div>
+        )}
+
+        {isReadyToCompare && (
+          <>
+            {/* Veredicto Final */}
+            {verdict && (
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -1098,7 +1119,8 @@ export function CompareTool() {
             * Note: ROI calculations and comparisons use an estimated MSRP as a baseline. Actual Amazon prices fluctuate frequently. Check Amazon for the current exact price.
           </p>
         </div>
-
+          </>
+        )}
       </div>
     </div>
   );

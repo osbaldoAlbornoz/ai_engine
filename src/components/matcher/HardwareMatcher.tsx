@@ -368,9 +368,9 @@ export function HardwareMatcher() {
 
                           <div className="flex items-center justify-between mt-auto pt-4 border-t border-white/5">
                             <div className="flex flex-col">
-                              <span className="text-[10px] text-zinc-500 uppercase tracking-wider mb-0.5">Est. MSRP</span>
-                              <span className="text-xl font-bold text-white">
-                                ${result.product.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                              <span className="text-[10px] text-zinc-500 uppercase tracking-wider mb-0.5">AI Score</span>
+                              <span className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
+                                {result.product.ai_score}/100
                               </span>
                             </div>
                             <div className="flex gap-2">
@@ -396,12 +396,7 @@ export function HardwareMatcher() {
                     ))}
                   </div>
                 )}
-                {/* Price Disclaimer Footnote */}
-                <div className="max-w-4xl mx-auto w-full mt-6 px-4">
-                  <p className="text-[11px] text-zinc-500 text-center leading-relaxed">
-                    * Note: ROI calculations and comparisons use an estimated MSRP as a baseline. Actual Amazon prices fluctuate frequently. Check Amazon for the current exact price.
-                  </p>
-                </div>
+
 
                 <div className="text-center mt-8">
                   <button onClick={resetWizard} className="text-sm text-zinc-500 hover:text-white transition-colors flex items-center justify-center gap-2 mx-auto">

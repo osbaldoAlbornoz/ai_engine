@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
 import { ThreeColumnLayout } from "./ThreeColumnLayout";
+import { GoToTopButton } from "@/components/ui/GoToTopButton";
 
 export function LayoutContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -26,6 +27,7 @@ export function LayoutContent({ children }: { children: React.ReactNode }) {
         <Navbar />
         <main className="flex-grow flex flex-col">
           {children}
+          <GoToTopButton />
         </main>
         <Footer />
       </ThreeColumnLayout>
