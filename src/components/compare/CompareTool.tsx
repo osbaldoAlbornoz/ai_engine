@@ -306,12 +306,12 @@ export function CompareTool({ slugString }: { slugString?: string }) {
       
       if (p1 && p2) {
         if (p1.category === p2.category && p1.category !== activeCategory) {
-          setActiveCategory(p1.category);
+          setActiveCategory(p1.category as Category);
         }
         
         // Check if we need to update to prevent infinite loops if they're already selected
         if (selectedProdIds[0] !== p1.id || selectedProdIds[1] !== p2.id) {
-          setSelectedProdIds([p1.id, p2.id]);
+          setSelectedProdIds([p1.id || "", p2.id || ""]);
         }
       }
     } else if (slugString === undefined) {

@@ -77,33 +77,13 @@ const Particles: React.FC<ParticlesProps> = ({
   const canvasSize = useRef<{ w: number; h: number }>({ w: 0, h: 0 })
   const dpr = typeof window !== "undefined" ? window.devicePixelRatio : 1
 
-  useEffect(() => {
-    if (canvasRef.current) {
-      context.current = canvasRef.current.getContext("2d")
-    }
-    initCanvas()
-    animate()
-    window.addEventListener("resize", initCanvas)
 
-    return () => {
-      window.removeEventListener("resize", initCanvas)
-    }
-  }, [color])
-
-  useEffect(() => {
-    onMouseMove()
-  }, [mousePosition.x, mousePosition.y])
-
-  useEffect(() => {
-    initCanvas()
-  }, [refresh])
-
-  const initCanvas = () => {
+  function initCanvas() {
     resizeCanvas()
     drawParticles()
   }
 
-  const onMouseMove = () => {
+  function onMouseMove() {
     if (canvasRef.current) {
       const rect = canvasRef.current.getBoundingClientRect()
       const { w, h } = canvasSize.current
@@ -130,7 +110,7 @@ const Particles: React.FC<ParticlesProps> = ({
     magnetism: number
   }
 
-  const resizeCanvas = () => {
+  function resizeCanvas() {
     if (canvasContainerRef.current && canvasRef.current && context.current) {
       circles.current.length = 0
       canvasSize.current.w = canvasContainerRef.current.offsetWidth
@@ -143,7 +123,7 @@ const Particles: React.FC<ParticlesProps> = ({
     }
   }
 
-  const circleParams = (): Circle => {
+  function circleParams(): Circle {
     const x = Math.floor(Math.random() * canvasSize.current.w)
     const y = Math.floor(Math.random() * canvasSize.current.h)
     const translateX = 0
@@ -170,7 +150,7 @@ const Particles: React.FC<ParticlesProps> = ({
 
   const rgb = hexToRgb(color)
 
-  const drawCircle = (circle: Circle, update = false) => {
+  function drawCircle(circle: Circle, update = false) {
     if (context.current) {
       const { x, y, translateX, translateY, size, alpha } = circle
       context.current.translate(translateX, translateY)
@@ -186,7 +166,7 @@ const Particles: React.FC<ParticlesProps> = ({
     }
   }
 
-  const clearContext = () => {
+  function clearContext() {
     if (context.current) {
       context.current.clearRect(
         0,
@@ -197,7 +177,7 @@ const Particles: React.FC<ParticlesProps> = ({
     }
   }
 
-  const drawParticles = () => {
+  function drawParticles() {
     clearContext()
     const particleCount = quantity
     for (let i = 0; i < particleCount; i++) {
@@ -206,19 +186,19 @@ const Particles: React.FC<ParticlesProps> = ({
     }
   }
 
-  const remapValue = (
+  function remapValue(
     value: number,
     start1: number,
     end1: number,
     start2: number,
     end2: number,
-  ): number => {
+  ): number {
     const remapped =
       ((value - start1) * (end2 - start2)) / (end1 - start1) + start2
     return remapped > 0 ? remapped : 0
   }
 
-  const animate = () => {
+  function animate() {
     clearContext()
     circles.current.forEach((circle: Circle, i: number) => {
       // Handle the alpha value
@@ -268,6 +248,30 @@ const Particles: React.FC<ParticlesProps> = ({
     })
     window.requestAnimationFrame(animate)
   }
+
+  useEffect(() => {
+    if (canvasRef.current) {
+      context.current = canvasRef.current.getContext("2d")
+    }
+    initCanvas()
+    animate()
+    window.addEventListener("resize", initCanvas)
+
+    return () => {
+      window.removeEventListener("resize", initCanvas)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [color])
+
+  useEffect(() => {
+    onMouseMove()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mousePosition.x, mousePosition.y])
+
+  useEffect(() => {
+    initCanvas()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [refresh])
 
   return (
     <div
