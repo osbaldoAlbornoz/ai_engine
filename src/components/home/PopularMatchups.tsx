@@ -96,10 +96,10 @@ export function PopularMatchups() {
           <Zap className="w-5 h-5 text-accent" />
         </div>
         <h2 className="text-2xl md:text-3xl font-bold font-heading text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
-          Comparativas <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-fuchsia-500">Destacadas</span>
+          Popular <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-fuchsia-500">Matchups</span>
         </h2>
         <p className="text-zinc-400 mt-2 text-sm max-w-2xl mx-auto">
-          Enfrentamientos épicos entre los componentes más potentes para inteligencia artificial.
+          Epic matchups between the most powerful components for artificial intelligence.
         </p>
       </div>
 
@@ -154,7 +154,7 @@ export function PopularMatchups() {
 
             <div className="bg-zinc-900/50 py-4 px-6 flex items-center justify-center gap-2 border-t border-zinc-800/80 group-hover:bg-zinc-900 transition-colors">
               <span className="text-xs font-bold text-zinc-400 group-hover:text-accent transition-colors uppercase tracking-widest">
-                Ver Comparativa
+                View Matchup
               </span>
               <ArrowRight className="w-4 h-4 text-zinc-500 group-hover:text-accent group-hover:translate-x-1 transition-all" />
             </div>
