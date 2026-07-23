@@ -249,7 +249,9 @@ function mapDbToCompareProduct(dbProd: any): CompareProduct {
   return {
     id: dbProd.id,
     amazon_asin: dbProd.amazon_asin,
-    name: dbProd.name,
+    name: dbProd.clean_name || dbProd.name,
+    clean_name: dbProd.clean_name,
+    slug: dbProd.slug,
     description: (dbProd.features && dbProd.features.length > 0) ? dbProd.features[0] : "High-performance AI hardware",
     category: (dbProd.category || "gpus") as Category,
     brand: dbProd.brand || "Unknown",
@@ -269,7 +271,7 @@ function mapDbToCompareProduct(dbProd: any): CompareProduct {
   };
 }
 
-export function CompareTool() {
+export function CompareTool({ slugString }: { slugString?: string }) {
   const [activeCategory, setActiveCategory] = useState<Category>("gpus");
   const [useCase, setUseCase] = useState<UseCaseId>("stable-diffusion");
 
@@ -281,6 +283,10 @@ export function CompareTool() {
       if (error) throw error;
       return data.map(mapDbToCompareProduct);
     },
+    staleTime: 5 * 60 * 1000,  // 5 minutes - prevents constant refetching in Firefox
+    gcTime: 10 * 60 * 1000,    // 10 minutes cache
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
   });
 
   const categoryProducts = useMemo(() => {
@@ -289,27 +295,74 @@ export function CompareTool() {
 
   const [selectedProdIds, setSelectedProdIds] = useState<string[]>(["", ""]);
 
+  // Set initial selected products from slugString once products are loaded
+  useEffect(() => {
+    if (products.length === 0) return;
+    
+    if (slugString && slugString.includes("-vs-")) {
+      const [slug1, slug2] = slugString.split("-vs-");
+      const p1 = products.find(p => p.slug === slug1);
+      const p2 = products.find(p => p.slug === slug2);
+      
+      if (p1 && p2) {
+        if (p1.category === p2.category && p1.category !== activeCategory) {
+          setActiveCategory(p1.category);
+        }
+        
+        // Check if we need to update to prevent infinite loops if they're already selected
+        if (selectedProdIds[0] !== p1.id || selectedProdIds[1] !== p2.id) {
+          setSelectedProdIds([p1.id, p2.id]);
+        }
+      }
+    } else if (slugString === undefined) {
+      if (selectedProdIds[0] !== "" || selectedProdIds[1] !== "") {
+        setSelectedProdIds(["", ""]);
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [slugString, products]);
+
   useEffect(() => {
     const prods = products.filter((p) => p.category === activeCategory);
-    if (prods.length > 0) {
-      setSelectedProdIds(current => {
-        let needsUpdate = false;
-        const newIds = current.map(id => {
-          if (id === "") return ""; // keep empty
-          if (!prods.find(p => p.id === id)) {
-            needsUpdate = true;
-            return ""; // reset invalid to empty
-          }
-          return id;
-        });
+    if (prods.length === 0) return;
 
-        if (needsUpdate) {
-          return newIds;
-        }
-        return current;
-      });
+    const newIds = selectedProdIds.map(id => {
+      if (id === "") return "";
+      if (!prods.find(p => p.id === id)) return "";
+      return id;
+    });
+
+    // Only update if something actually changed - prevents re-render loops
+    if (JSON.stringify(newIds) !== JSON.stringify(selectedProdIds)) {
+      setSelectedProdIds(newIds);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [products, activeCategory]);
+
+  // Sync selected products to URL silently (only after initial mount to avoid hydration loops)
+  const hasMounted = useRef(false);
+  useEffect(() => {
+    if (!hasMounted.current) {
+      hasMounted.current = true;
+      return; // Skip first render - slugString already reflects URL
+    }
+    if (products.length === 0) return;
+
+    const validSelected = selectedProdIds
+      .map(id => products.find(p => p.id === id))
+      .filter(Boolean);
+
+    if (validSelected.length === 2 && selectedProdIds.length === 2) {
+      const newUrl = `/compare/${validSelected[0]!.slug}-vs-${validSelected[1]!.slug}`;
+      if (window.location.pathname !== newUrl) {
+        window.history.replaceState(null, '', newUrl);
+      }
+    } else {
+      if (window.location.pathname !== '/compare' && window.location.pathname.includes('/compare/')) {
+        window.history.replaceState(null, '', '/compare');
+      }
+    }
+  }, [selectedProdIds, products]);
 
   const handleCategoryChange = (cat: Category) => {
     setActiveCategory(cat);

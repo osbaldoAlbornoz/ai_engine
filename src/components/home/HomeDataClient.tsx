@@ -11,7 +11,7 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 function mapToTopProduct(row: any): TopProduct {
   return {
     id: row.id,
-    name: row.name ?? "Unknown Product",
+    name: row.clean_name ?? row.name ?? "Unknown Product",
     specs: typeof row.specs === "object" && row.specs !== null ? row.specs : {},
     aiScore: calculateAIScore(row),
   };
@@ -37,7 +37,7 @@ export function HomeDataClient() {
 
         const { data: products, error } = await supabase
           .from("products")
-          .select("id, name, category, price, specs, ai_score")
+          .select("id, clean_name, name, category, price, specs, ai_score")
           .in("category", ["gpus", "laptops", "npus", "workstations"])
           .eq("status", "active");
 

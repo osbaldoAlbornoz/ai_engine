@@ -14,6 +14,8 @@ export interface Product {
   id?: string;
   amazon_asin?: string;
   name: string;
+  clean_name?: string;
+  slug?: string;
   description?: string;
   price: number;
   original_price?: number | null;

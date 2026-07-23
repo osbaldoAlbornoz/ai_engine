@@ -1,0 +1,38 @@
+[
+  {
+    "name": "ASUS ROG Strix SCAR 18 (2025) Gaming Laptop, 18” ROG Nebula HDR 16:10 2.5K 240Hz/3ms, NVIDIA GeForce RTX 5090, Intel Core Ultra 9 275HX, 32GB DDR5, 2TB PCIe Gen 4 SSD, Wi-Fi 7, Win 11 Pro, G835LX-XS97",
+    "issues": [
+      "GPU Mismatch: Name has rtx 5090, but specs say: undefined"
+    ]
+  },
+  {
+    "name": "Razer Blade 16 (2026) Gaming Laptop — NVIDIA GeForce RTX 5090 Laptop GPU, Intel Core Ultra 9 386H, 16\" QHD+ 240Hz/0.2 ms OLED 16:10 Display, 32GB DDR5 RAM, 2TB SSD, Wi-Fi 7, TB5",
+    "issues": [
+      "CPU Mismatch: Name has ultra 9 386h, but specs say: 5090"
+    ]
+  },
+  {
+    "name": "Dell Alienware 16X Aurora Gaming AI Laptop 16\" WQXGA 240Hz (100% DCI-P3) Intel 24-core Ultra 9 275HX 32GB RAM 2TB SSD GeForce RTX 5070 (Up to 798 AI Tops) Thunderbolt Win11Pro",
+    "issues": [
+      "Suspicious CPU Speed: 5400 GHz"
+    ]
+  },
+  {
+    "name": "Lenovo Legion LOQ AI-Powered Gaming Laptop - Intel Core i7-13650HX, 15.6\" FHD IPS 144Hz Display, GeForce RTX 5050, 16GB Memory, 1TB Storage, G-Sync, Luna Grey",
+    "issues": [
+      "GPU Mismatch: Name has rtx 5050, but specs say: undefined"
+    ]
+  },
+  {
+    "name": "ASUS TUF Gaming F16 (2025) Gaming Laptop, 16” FHD+ 165Hz 16:10 Display, Intel® Core™ i5 Processor 13450HX, NVIDIA® GeForce RTX™ 5050, 16GB DDR5, 512GB PCIe Gen4 SSD, Wi-Fi 6E, Win 11 Home",
+    "issues": [
+      "Suspicious Hard-Drive Size: 512 TB"
+    ]
+  },
+  {
+    "name": "Adamant Custom 12-Core Liquid Cooled Workstation Gaming Desktop Computer PC AMD Ryzen 9 9900X3D 4.4GHz X870 Prime WIFI7 192GB DDR5 8TB NVMe PCIe 4.0 SSD 850W Geforce RTX 5060 8GB",
+    "issues": [
+      "CPU Mismatch: Name has ryzen 9 9900x3d, but specs say: 100-000001368"
+    ]
+  }
+]

@@ -1,0 +1,1344 @@
+[Response] 200 - http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc (document)
+[Response] 200 - http://localhost:3000/_next/static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2 (font)
+[Response] 200 - http://localhost:3000/_next/static/media/70bc3e132a0a741e-s.p.3t6q91iet4nsy.woff2 (font)
+[Response] 200 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js (script)
+[Response] 200 - http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__0l8iz4e._.css (stylesheet)
+[Response] 200 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js (script)
+[Response] 200 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js (script)
+[Response] 200 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js (script)
+[Response] 200 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js (script)
+[Response] 200 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0r5nbpw._.js (script)
+[Response] 200 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js (script)
+[Response] 200 - http://localhost:3000/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js (script)
+[Response] 200 - http://localhost:3000/_next/static/chunks/_1anvha4._.js (script)
+[Response] 200 - http://localhost:3000/_next/static/chunks/turbopack-_01_ro95._.js (script)
+[Response] 200 - http://localhost:3000/_next/static/chunks/node_modules_next_0af92_m._.js (script)
+[Response] 200 - http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_1kh_q9w._.js (script)
+[Response] 200 - http://localhost:3000/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js (script)
+[Response] 200 - http://localhost:3000/_next/static/chunks/src_0hpyhbh._.js (script)
+[Response] 200 - http://localhost:3000/_next/static/chunks/node_modules_1hhrjcc._.js (script)
+[Response] 200 - http://localhost:3000/_next/static/chunks/src_app_layout_tsx_007e4b2._.js (script)
+[Response] 200 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_0cws9i-.js (script)
+[Response] 200 - http://localhost:3000/_next/static/chunks/node_modules_1-fh4ui._.js (script)
+[Response] 200 - http://localhost:3000/_next/static/chunks/src_1c5ebkb._.js (script)
+[Response] 200 - http://localhost:3000/images/GPU_1024.png (image)
+[Response] 200 - http://localhost:3000/_next/static/chunks/src_app_product_%5Bid%5D_page_tsx_0cws9i-._.js (script)
+[Response] 200 - http://localhost:3000/images/frame_315.png (image)
+[Response] 200 - http://localhost:3000/images/fan_315.png (image)
+[Console info] Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+[Console timeStamp] Server Requests Track
+[Console timeStamp] Server Components Track
+[Response] 200 - http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc (document)
+[Response] 200 - http://localhost:3000/_next/static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2 (font)
+[Response] 200 - http://localhost:3000/_next/static/media/70bc3e132a0a741e-s.p.3t6q91iet4nsy.woff2 (font)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__0l8iz4e._.css (stylesheet)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0r5nbpw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/_1anvha4._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/turbopack-_01_ro95._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_1kh_q9w._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_0af92_m._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1hhrjcc._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_0hpyhbh._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_layout_tsx_007e4b2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_0cws9i-.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_1c5ebkb._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1-fh4ui._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_product_%5Bid%5D_page_tsx_0cws9i-._.js (script)
+[Response] 304 - http://localhost:3000/images/GPU_1024.png (image)
+[Response] 304 - http://localhost:3000/images/frame_315.png (image)
+[Response] 304 - http://localhost:3000/images/fan_315.png (image)
+[Console info] Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+[Console timeStamp] Server Requests Track
+[Console timeStamp] Server Components Track
+[Console warning] [JavaScript Warning: "“localhost” has been classified as a bounce tracker. If it does not receive user activation within the next 3,600 seconds it will have its state purged."]
+[Response] 200 - http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc (document)
+[Response] 200 - http://localhost:3000/_next/static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2 (font)
+[Response] 200 - http://localhost:3000/_next/static/media/70bc3e132a0a741e-s.p.3t6q91iet4nsy.woff2 (font)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__0l8iz4e._.css (stylesheet)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0r5nbpw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/_1anvha4._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/turbopack-_01_ro95._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_0af92_m._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_1kh_q9w._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1hhrjcc._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_0hpyhbh._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_layout_tsx_007e4b2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_0cws9i-.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_1c5ebkb._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1-fh4ui._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_product_%5Bid%5D_page_tsx_0cws9i-._.js (script)
+[Response] 304 - http://localhost:3000/images/GPU_1024.png (image)
+[Response] 304 - http://localhost:3000/images/frame_315.png (image)
+[Response] 304 - http://localhost:3000/images/fan_315.png (image)
+[Console info] Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+[Console timeStamp] Server Requests Track
+[Console timeStamp] Server Components Track
+[Response] 200 - http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc (document)
+[Response] 200 - http://localhost:3000/_next/static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2 (font)
+[Response] 200 - http://localhost:3000/_next/static/media/70bc3e132a0a741e-s.p.3t6q91iet4nsy.woff2 (font)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__0l8iz4e._.css (stylesheet)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0r5nbpw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/_1anvha4._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/turbopack-_01_ro95._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_0af92_m._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_1kh_q9w._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1hhrjcc._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_0hpyhbh._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_layout_tsx_007e4b2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_0cws9i-.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_1c5ebkb._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1-fh4ui._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_product_%5Bid%5D_page_tsx_0cws9i-._.js (script)
+[Response] 304 - http://localhost:3000/images/GPU_1024.png (image)
+[Response] 304 - http://localhost:3000/images/frame_315.png (image)
+[Response] 304 - http://localhost:3000/images/fan_315.png (image)
+[Console info] Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+[Console timeStamp] Server Requests Track
+[Console timeStamp] Server Components Track
+[Response] 200 - http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc (document)
+[Response] 200 - http://localhost:3000/_next/static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2 (font)
+[Response] 200 - http://localhost:3000/_next/static/media/70bc3e132a0a741e-s.p.3t6q91iet4nsy.woff2 (font)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__0l8iz4e._.css (stylesheet)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0r5nbpw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/_1anvha4._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/turbopack-_01_ro95._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_0af92_m._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_1kh_q9w._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1hhrjcc._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_0hpyhbh._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_layout_tsx_007e4b2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_0cws9i-.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_1c5ebkb._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1-fh4ui._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_product_%5Bid%5D_page_tsx_0cws9i-._.js (script)
+[Response] 304 - http://localhost:3000/images/GPU_1024.png (image)
+[Response] 304 - http://localhost:3000/images/frame_315.png (image)
+[Response] 304 - http://localhost:3000/images/fan_315.png (image)
+[Console info] Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+[Console timeStamp] Server Requests Track
+[Console timeStamp] Server Components Track
+[Response] 200 - http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc (document)
+[Response] 200 - http://localhost:3000/_next/static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2 (font)
+[Response] 200 - http://localhost:3000/_next/static/media/70bc3e132a0a741e-s.p.3t6q91iet4nsy.woff2 (font)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__0l8iz4e._.css (stylesheet)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0r5nbpw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/_1anvha4._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/turbopack-_01_ro95._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_0af92_m._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_1kh_q9w._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1hhrjcc._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_0hpyhbh._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_layout_tsx_007e4b2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_0cws9i-.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_1c5ebkb._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1-fh4ui._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_product_%5Bid%5D_page_tsx_0cws9i-._.js (script)
+[Response] 304 - http://localhost:3000/images/GPU_1024.png (image)
+[Response] 304 - http://localhost:3000/images/frame_315.png (image)
+[Response] 304 - http://localhost:3000/images/fan_315.png (image)
+[Console info] Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+[Console timeStamp] Server Requests Track
+[Console timeStamp] Server Components Track
+[Response] 200 - http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc (document)
+[Response] 200 - http://localhost:3000/_next/static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2 (font)
+[Response] 200 - http://localhost:3000/_next/static/media/70bc3e132a0a741e-s.p.3t6q91iet4nsy.woff2 (font)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__0l8iz4e._.css (stylesheet)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0r5nbpw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/_1anvha4._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/turbopack-_01_ro95._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_0af92_m._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_1kh_q9w._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1hhrjcc._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_0hpyhbh._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_layout_tsx_007e4b2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_0cws9i-.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_1c5ebkb._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1-fh4ui._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_product_%5Bid%5D_page_tsx_0cws9i-._.js (script)
+[Response] 304 - http://localhost:3000/images/GPU_1024.png (image)
+[Response] 304 - http://localhost:3000/images/frame_315.png (image)
+[Response] 304 - http://localhost:3000/images/fan_315.png (image)
+[Console info] Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+[Console timeStamp] Server Requests Track
+[Console timeStamp] Server Components Track
+[Response] 200 - http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc (document)
+[Response] 200 - http://localhost:3000/_next/static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2 (font)
+[Response] 200 - http://localhost:3000/_next/static/media/70bc3e132a0a741e-s.p.3t6q91iet4nsy.woff2 (font)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__0l8iz4e._.css (stylesheet)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0r5nbpw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/_1anvha4._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/turbopack-_01_ro95._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_0af92_m._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_1kh_q9w._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1hhrjcc._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_0hpyhbh._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_layout_tsx_007e4b2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_0cws9i-.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_1c5ebkb._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1-fh4ui._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_product_%5Bid%5D_page_tsx_0cws9i-._.js (script)
+[Response] 304 - http://localhost:3000/images/GPU_1024.png (image)
+[Response] 304 - http://localhost:3000/images/frame_315.png (image)
+[Response] 304 - http://localhost:3000/images/fan_315.png (image)
+[Console info] Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+[Console timeStamp] Server Requests Track
+[Console timeStamp] Server Components Track
+[Response] 200 - http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc (document)
+[Response] 200 - http://localhost:3000/_next/static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2 (font)
+[Response] 200 - http://localhost:3000/_next/static/media/70bc3e132a0a741e-s.p.3t6q91iet4nsy.woff2 (font)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__0l8iz4e._.css (stylesheet)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0r5nbpw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/_1anvha4._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/turbopack-_01_ro95._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_0af92_m._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_1kh_q9w._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1hhrjcc._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_0hpyhbh._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_layout_tsx_007e4b2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_0cws9i-.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_1c5ebkb._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1-fh4ui._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_product_%5Bid%5D_page_tsx_0cws9i-._.js (script)
+[Response] 304 - http://localhost:3000/images/GPU_1024.png (image)
+[Response] 304 - http://localhost:3000/images/frame_315.png (image)
+[Response] 304 - http://localhost:3000/images/fan_315.png (image)
+[Console info] Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+[Console timeStamp] Server Requests Track
+[Console timeStamp] Server Components Track
+[Response] 200 - http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc (document)
+[Response] 200 - http://localhost:3000/_next/static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2 (font)
+[Response] 200 - http://localhost:3000/_next/static/media/70bc3e132a0a741e-s.p.3t6q91iet4nsy.woff2 (font)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__0l8iz4e._.css (stylesheet)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0r5nbpw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/_1anvha4._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/turbopack-_01_ro95._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_0af92_m._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_1kh_q9w._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1hhrjcc._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_0hpyhbh._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_layout_tsx_007e4b2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_0cws9i-.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_1c5ebkb._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1-fh4ui._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_product_%5Bid%5D_page_tsx_0cws9i-._.js (script)
+[Response] 304 - http://localhost:3000/images/GPU_1024.png (image)
+[Response] 304 - http://localhost:3000/images/frame_315.png (image)
+[Response] 304 - http://localhost:3000/images/fan_315.png (image)
+[Console info] Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+[Console timeStamp] Server Requests Track
+[Console timeStamp] Server Components Track
+[Response] 200 - http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc (document)
+[Response] 200 - http://localhost:3000/_next/static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2 (font)
+[Response] 200 - http://localhost:3000/_next/static/media/70bc3e132a0a741e-s.p.3t6q91iet4nsy.woff2 (font)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__0l8iz4e._.css (stylesheet)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0r5nbpw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/_1anvha4._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/turbopack-_01_ro95._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_0af92_m._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_1kh_q9w._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1hhrjcc._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_0hpyhbh._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_layout_tsx_007e4b2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_0cws9i-.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_1c5ebkb._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1-fh4ui._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_product_%5Bid%5D_page_tsx_0cws9i-._.js (script)
+[Response] 304 - http://localhost:3000/images/GPU_1024.png (image)
+[Response] 304 - http://localhost:3000/images/frame_315.png (image)
+[Response] 304 - http://localhost:3000/images/fan_315.png (image)
+[Console info] Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+[Console timeStamp] Server Requests Track
+[Console timeStamp] Server Components Track
+[Response] 200 - http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc (document)
+[Response] 200 - http://localhost:3000/_next/static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2 (font)
+[Response] 200 - http://localhost:3000/_next/static/media/70bc3e132a0a741e-s.p.3t6q91iet4nsy.woff2 (font)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__0l8iz4e._.css (stylesheet)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0r5nbpw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/_1anvha4._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/turbopack-_01_ro95._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_0af92_m._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_1kh_q9w._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1hhrjcc._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_0hpyhbh._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_layout_tsx_007e4b2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_0cws9i-.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_1c5ebkb._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1-fh4ui._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_product_%5Bid%5D_page_tsx_0cws9i-._.js (script)
+[Response] 304 - http://localhost:3000/images/GPU_1024.png (image)
+[Response] 304 - http://localhost:3000/images/frame_315.png (image)
+[Response] 304 - http://localhost:3000/images/fan_315.png (image)
+[Console info] Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+[Console timeStamp] Server Requests Track
+[Console timeStamp] Server Components Track
+[Response] 200 - http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc (document)
+[Response] 200 - http://localhost:3000/_next/static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2 (font)
+[Response] 200 - http://localhost:3000/_next/static/media/70bc3e132a0a741e-s.p.3t6q91iet4nsy.woff2 (font)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__0l8iz4e._.css (stylesheet)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0r5nbpw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/_1anvha4._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/turbopack-_01_ro95._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_0af92_m._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_1kh_q9w._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1hhrjcc._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_0hpyhbh._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_layout_tsx_007e4b2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_0cws9i-.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_1c5ebkb._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1-fh4ui._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_product_%5Bid%5D_page_tsx_0cws9i-._.js (script)
+[Response] 304 - http://localhost:3000/images/GPU_1024.png (image)
+[Response] 304 - http://localhost:3000/images/frame_315.png (image)
+[Response] 304 - http://localhost:3000/images/fan_315.png (image)
+[Console info] Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+[Console timeStamp] Server Requests Track
+[Console timeStamp] Server Components Track
+[Response] 200 - http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc (document)
+[Response] 200 - http://localhost:3000/_next/static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2 (font)
+[Response] 200 - http://localhost:3000/_next/static/media/70bc3e132a0a741e-s.p.3t6q91iet4nsy.woff2 (font)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__0l8iz4e._.css (stylesheet)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0r5nbpw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/_1anvha4._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/turbopack-_01_ro95._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_0af92_m._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_1kh_q9w._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1hhrjcc._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_0hpyhbh._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_layout_tsx_007e4b2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_0cws9i-.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_1c5ebkb._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1-fh4ui._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_product_%5Bid%5D_page_tsx_0cws9i-._.js (script)
+[Response] 304 - http://localhost:3000/images/GPU_1024.png (image)
+[Response] 304 - http://localhost:3000/images/frame_315.png (image)
+[Response] 304 - http://localhost:3000/images/fan_315.png (image)
+[Console info] Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+[Console timeStamp] Server Requests Track
+[Console timeStamp] Server Components Track
+[Response] 200 - http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc (document)
+[Response] 200 - http://localhost:3000/_next/static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2 (font)
+[Response] 200 - http://localhost:3000/_next/static/media/70bc3e132a0a741e-s.p.3t6q91iet4nsy.woff2 (font)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__0l8iz4e._.css (stylesheet)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0r5nbpw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/_1anvha4._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/turbopack-_01_ro95._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_0af92_m._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_1kh_q9w._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1hhrjcc._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_0hpyhbh._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_layout_tsx_007e4b2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_0cws9i-.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_1c5ebkb._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1-fh4ui._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_product_%5Bid%5D_page_tsx_0cws9i-._.js (script)
+[Response] 304 - http://localhost:3000/images/GPU_1024.png (image)
+[Response] 304 - http://localhost:3000/images/frame_315.png (image)
+[Response] 304 - http://localhost:3000/images/fan_315.png (image)
+[Console info] Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+[Console timeStamp] Server Requests Track
+[Console timeStamp] Server Components Track
+[Response] 200 - http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc (document)
+[Response] 200 - http://localhost:3000/_next/static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2 (font)
+[Response] 200 - http://localhost:3000/_next/static/media/70bc3e132a0a741e-s.p.3t6q91iet4nsy.woff2 (font)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__0l8iz4e._.css (stylesheet)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0r5nbpw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/_1anvha4._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/turbopack-_01_ro95._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_0af92_m._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_1kh_q9w._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1hhrjcc._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_0hpyhbh._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_layout_tsx_007e4b2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_0cws9i-.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_1c5ebkb._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1-fh4ui._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_product_%5Bid%5D_page_tsx_0cws9i-._.js (script)
+[Response] 304 - http://localhost:3000/images/GPU_1024.png (image)
+[Response] 304 - http://localhost:3000/images/frame_315.png (image)
+[Response] 304 - http://localhost:3000/images/fan_315.png (image)
+[Console info] Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+[Console timeStamp] Server Requests Track
+[Console timeStamp] Server Components Track
+[Response] 200 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xch-cm._.js (script)
+[Response] 200 - http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc (document)
+[Response] 200 - http://localhost:3000/_next/static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2 (font)
+[Response] 200 - http://localhost:3000/_next/static/media/70bc3e132a0a741e-s.p.3t6q91iet4nsy.woff2 (font)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__0l8iz4e._.css (stylesheet)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0r5nbpw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/_1anvha4._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/turbopack-_01_ro95._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_0af92_m._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_1kh_q9w._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1hhrjcc._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_0hpyhbh._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_layout_tsx_007e4b2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_0cws9i-.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_1c5ebkb._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1-fh4ui._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_product_%5Bid%5D_page_tsx_0cws9i-._.js (script)
+[Response] 304 - http://localhost:3000/images/GPU_1024.png (image)
+[Response] 304 - http://localhost:3000/images/frame_315.png (image)
+[Response] 304 - http://localhost:3000/images/fan_315.png (image)
+[Console info] Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+[Console timeStamp] Server Requests Track
+[Console timeStamp] Server Components Track
+[Response] 200 - http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc (document)
+[Response] 200 - http://localhost:3000/_next/static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2 (font)
+[Response] 200 - http://localhost:3000/_next/static/media/70bc3e132a0a741e-s.p.3t6q91iet4nsy.woff2 (font)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__0l8iz4e._.css (stylesheet)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0r5nbpw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/_1anvha4._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/turbopack-_01_ro95._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_0af92_m._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_1kh_q9w._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1hhrjcc._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_0hpyhbh._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_layout_tsx_007e4b2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_0cws9i-.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_1c5ebkb._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1-fh4ui._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_product_%5Bid%5D_page_tsx_0cws9i-._.js (script)
+[Response] 304 - http://localhost:3000/images/GPU_1024.png (image)
+[Response] 304 - http://localhost:3000/images/frame_315.png (image)
+[Response] 304 - http://localhost:3000/images/fan_315.png (image)
+[Console info] Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+[Console timeStamp] Server Requests Track
+[Console timeStamp] Server Components Track
+[Response] 200 - http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc (document)
+[Response] 200 - http://localhost:3000/_next/static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2 (font)
+[Response] 200 - http://localhost:3000/_next/static/media/70bc3e132a0a741e-s.p.3t6q91iet4nsy.woff2 (font)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__0l8iz4e._.css (stylesheet)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0r5nbpw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/_1anvha4._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/turbopack-_01_ro95._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_0af92_m._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_1kh_q9w._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1hhrjcc._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_0hpyhbh._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_layout_tsx_007e4b2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_0cws9i-.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_1c5ebkb._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1-fh4ui._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_product_%5Bid%5D_page_tsx_0cws9i-._.js (script)
+[Response] 304 - http://localhost:3000/images/GPU_1024.png (image)
+[Response] 304 - http://localhost:3000/images/frame_315.png (image)
+[Response] 304 - http://localhost:3000/images/fan_315.png (image)
+[Console info] Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+[Console timeStamp] Server Requests Track
+[Console timeStamp] Server Components Track
+[Response] 200 - http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc (document)
+[Response] 200 - http://localhost:3000/_next/static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2 (font)
+[Response] 200 - http://localhost:3000/_next/static/media/70bc3e132a0a741e-s.p.3t6q91iet4nsy.woff2 (font)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__0l8iz4e._.css (stylesheet)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0r5nbpw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/_1anvha4._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/turbopack-_01_ro95._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_0af92_m._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_1kh_q9w._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1hhrjcc._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_0hpyhbh._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_layout_tsx_007e4b2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_0cws9i-.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_1c5ebkb._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1-fh4ui._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_product_%5Bid%5D_page_tsx_0cws9i-._.js (script)
+[Response] 304 - http://localhost:3000/images/GPU_1024.png (image)
+[Response] 304 - http://localhost:3000/images/frame_315.png (image)
+[Response] 304 - http://localhost:3000/images/fan_315.png (image)
+[Console info] Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+[Console timeStamp] Server Requests Track
+[Console timeStamp] Server Components Track
+[Response] 200 - http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc (document)
+[Response] 200 - http://localhost:3000/_next/static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2 (font)
+[Response] 200 - http://localhost:3000/_next/static/media/70bc3e132a0a741e-s.p.3t6q91iet4nsy.woff2 (font)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__0l8iz4e._.css (stylesheet)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0r5nbpw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/_1anvha4._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/turbopack-_01_ro95._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_0af92_m._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_1kh_q9w._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1hhrjcc._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_0hpyhbh._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_layout_tsx_007e4b2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_0cws9i-.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_1c5ebkb._.js (script)
+[Response] 304 - http://localhost:3000/images/GPU_1024.png (image)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1-fh4ui._.js (script)
+[Response] 304 - http://localhost:3000/images/frame_315.png (image)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_product_%5Bid%5D_page_tsx_0cws9i-._.js (script)
+[Response] 304 - http://localhost:3000/images/fan_315.png (image)
+[Console info] Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+[Console timeStamp] Server Requests Track
+[Console timeStamp] Server Components Track
+[Response] 200 - http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc (document)
+[Response] 200 - http://localhost:3000/_next/static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2 (font)
+[Response] 200 - http://localhost:3000/_next/static/media/70bc3e132a0a741e-s.p.3t6q91iet4nsy.woff2 (font)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__0l8iz4e._.css (stylesheet)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0r5nbpw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/_1anvha4._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/turbopack-_01_ro95._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_0af92_m._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_1kh_q9w._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1hhrjcc._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_0hpyhbh._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_layout_tsx_007e4b2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_0cws9i-.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_1c5ebkb._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1-fh4ui._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_product_%5Bid%5D_page_tsx_0cws9i-._.js (script)
+[Response] 304 - http://localhost:3000/images/GPU_1024.png (image)
+[Response] 304 - http://localhost:3000/images/frame_315.png (image)
+[Response] 304 - http://localhost:3000/images/fan_315.png (image)
+[Console info] Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+[Console timeStamp] Server Requests Track
+[Console timeStamp] Server Components Track
+[Response] 200 - http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc (document)
+[Response] 200 - http://localhost:3000/_next/static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2 (font)
+[Response] 200 - http://localhost:3000/_next/static/media/70bc3e132a0a741e-s.p.3t6q91iet4nsy.woff2 (font)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__0l8iz4e._.css (stylesheet)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0r5nbpw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/_1anvha4._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/turbopack-_01_ro95._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_0af92_m._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_1kh_q9w._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1hhrjcc._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_0hpyhbh._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_layout_tsx_007e4b2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_0cws9i-.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_1c5ebkb._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1-fh4ui._.js (script)
+[Response] 304 - http://localhost:3000/images/GPU_1024.png (image)
+[Response] 304 - http://localhost:3000/images/frame_315.png (image)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_product_%5Bid%5D_page_tsx_0cws9i-._.js (script)
+[Response] 304 - http://localhost:3000/images/fan_315.png (image)
+[Console info] Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+[Console timeStamp] Server Requests Track
+[Console timeStamp] Server Components Track
+[Response] 200 - http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc (document)
+[Response] 200 - http://localhost:3000/_next/static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2 (font)
+[Response] 200 - http://localhost:3000/_next/static/media/70bc3e132a0a741e-s.p.3t6q91iet4nsy.woff2 (font)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__0l8iz4e._.css (stylesheet)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0r5nbpw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/_1anvha4._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/turbopack-_01_ro95._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_0af92_m._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_1kh_q9w._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1hhrjcc._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_0hpyhbh._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_layout_tsx_007e4b2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_0cws9i-.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_1c5ebkb._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1-fh4ui._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_product_%5Bid%5D_page_tsx_0cws9i-._.js (script)
+[Response] 304 - http://localhost:3000/images/GPU_1024.png (image)
+[Response] 304 - http://localhost:3000/images/frame_315.png (image)
+[Response] 304 - http://localhost:3000/images/fan_315.png (image)
+[Console info] Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+[Console timeStamp] Server Requests Track
+[Console timeStamp] Server Components Track
+[Response] 200 - http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc (document)
+[Response] 200 - http://localhost:3000/_next/static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2 (font)
+[Response] 200 - http://localhost:3000/_next/static/media/70bc3e132a0a741e-s.p.3t6q91iet4nsy.woff2 (font)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__0l8iz4e._.css (stylesheet)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0r5nbpw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/_1anvha4._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/turbopack-_01_ro95._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_0af92_m._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_1kh_q9w._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1hhrjcc._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_layout_tsx_007e4b2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_0hpyhbh._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_0cws9i-.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_1c5ebkb._.js (script)
+[Console info] Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+[Console timeStamp] Server Requests Track
+[Console timeStamp] Server Components Track
+[Response] 304 - http://localhost:3000/images/GPU_1024.png (image)
+[Response] 304 - http://localhost:3000/images/frame_315.png (image)
+[Response] 304 - http://localhost:3000/images/fan_315.png (image)
+[Response] 200 - http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc (document)
+[Response] 200 - http://localhost:3000/_next/static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2 (font)
+[Response] 200 - http://localhost:3000/_next/static/media/70bc3e132a0a741e-s.p.3t6q91iet4nsy.woff2 (font)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__0l8iz4e._.css (stylesheet)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0r5nbpw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/_1anvha4._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_0af92_m._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/turbopack-_01_ro95._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_1kh_q9w._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1hhrjcc._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_0hpyhbh._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_layout_tsx_007e4b2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_0cws9i-.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_1c5ebkb._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1-fh4ui._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_product_%5Bid%5D_page_tsx_0cws9i-._.js (script)
+[Response] 304 - http://localhost:3000/images/GPU_1024.png (image)
+[Response] 304 - http://localhost:3000/images/frame_315.png (image)
+[Response] 304 - http://localhost:3000/images/fan_315.png (image)
+[Console info] Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+[Console timeStamp] Server Requests Track
+[Console timeStamp] Server Components Track
+[Response] 200 - http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc (document)
+[Response] 200 - http://localhost:3000/_next/static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2 (font)
+[Response] 200 - http://localhost:3000/_next/static/media/70bc3e132a0a741e-s.p.3t6q91iet4nsy.woff2 (font)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__0l8iz4e._.css (stylesheet)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0r5nbpw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/_1anvha4._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/turbopack-_01_ro95._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_1kh_q9w._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_0af92_m._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1hhrjcc._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_0hpyhbh._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_layout_tsx_007e4b2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_0cws9i-.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_1c5ebkb._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1-fh4ui._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_product_%5Bid%5D_page_tsx_0cws9i-._.js (script)
+[Response] 304 - http://localhost:3000/images/GPU_1024.png (image)
+[Response] 304 - http://localhost:3000/images/frame_315.png (image)
+[Response] 304 - http://localhost:3000/images/fan_315.png (image)
+[Console info] Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+[Console timeStamp] Server Requests Track
+[Console timeStamp] Server Components Track
+[Response] 200 - http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc (document)
+[Response] 200 - http://localhost:3000/_next/static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2 (font)
+[Response] 200 - http://localhost:3000/_next/static/media/70bc3e132a0a741e-s.p.3t6q91iet4nsy.woff2 (font)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__0l8iz4e._.css (stylesheet)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0r5nbpw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/_1anvha4._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/turbopack-_01_ro95._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_0af92_m._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_1kh_q9w._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1hhrjcc._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_0hpyhbh._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_layout_tsx_007e4b2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_0cws9i-.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_1c5ebkb._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1-fh4ui._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_product_%5Bid%5D_page_tsx_0cws9i-._.js (script)
+[Response] 304 - http://localhost:3000/images/GPU_1024.png (image)
+[Response] 304 - http://localhost:3000/images/frame_315.png (image)
+[Response] 304 - http://localhost:3000/images/fan_315.png (image)
+[Console info] Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+[Console timeStamp] Server Requests Track
+[Console timeStamp] Server Components Track
+[Response] 200 - http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc (document)
+[Response] 200 - http://localhost:3000/_next/static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2 (font)
+[Response] 200 - http://localhost:3000/_next/static/media/70bc3e132a0a741e-s.p.3t6q91iet4nsy.woff2 (font)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__0l8iz4e._.css (stylesheet)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0r5nbpw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/_1anvha4._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/turbopack-_01_ro95._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_0af92_m._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_1kh_q9w._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1hhrjcc._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_0hpyhbh._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_layout_tsx_007e4b2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_0cws9i-.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_1c5ebkb._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1-fh4ui._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_product_%5Bid%5D_page_tsx_0cws9i-._.js (script)
+[Response] 304 - http://localhost:3000/images/GPU_1024.png (image)
+[Response] 304 - http://localhost:3000/images/frame_315.png (image)
+[Response] 304 - http://localhost:3000/images/fan_315.png (image)
+[Console info] Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+[Console timeStamp] Server Requests Track
+[Console timeStamp] Server Components Track
+[Response] 200 - http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc (document)
+[Response] 200 - http://localhost:3000/_next/static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2 (font)
+[Response] 200 - http://localhost:3000/_next/static/media/70bc3e132a0a741e-s.p.3t6q91iet4nsy.woff2 (font)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__0l8iz4e._.css (stylesheet)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0r5nbpw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/_1anvha4._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/turbopack-_01_ro95._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_0af92_m._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_1kh_q9w._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1hhrjcc._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_0hpyhbh._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_layout_tsx_007e4b2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_0cws9i-.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_1c5ebkb._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1-fh4ui._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_product_%5Bid%5D_page_tsx_0cws9i-._.js (script)
+[Response] 304 - http://localhost:3000/images/GPU_1024.png (image)
+[Response] 304 - http://localhost:3000/images/frame_315.png (image)
+[Response] 304 - http://localhost:3000/images/fan_315.png (image)
+[Console info] Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+[Console timeStamp] Server Requests Track
+[Console timeStamp] Server Components Track
+[Response] 200 - http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc (document)
+[Response] 200 - http://localhost:3000/_next/static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2 (font)
+[Response] 200 - http://localhost:3000/_next/static/media/70bc3e132a0a741e-s.p.3t6q91iet4nsy.woff2 (font)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__0l8iz4e._.css (stylesheet)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0r5nbpw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/_1anvha4._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/turbopack-_01_ro95._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_0af92_m._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_1kh_q9w._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1hhrjcc._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_0hpyhbh._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_layout_tsx_007e4b2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_0cws9i-.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_1c5ebkb._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1-fh4ui._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_product_%5Bid%5D_page_tsx_0cws9i-._.js (script)
+[Response] 304 - http://localhost:3000/images/GPU_1024.png (image)
+[Response] 304 - http://localhost:3000/images/frame_315.png (image)
+[Response] 304 - http://localhost:3000/images/fan_315.png (image)
+[Console info] Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+[Console timeStamp] Server Requests Track
+[Console timeStamp] Server Components Track
+[Response] 200 - http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc (document)
+[Response] 200 - http://localhost:3000/_next/static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2 (font)
+[Response] 200 - http://localhost:3000/_next/static/media/70bc3e132a0a741e-s.p.3t6q91iet4nsy.woff2 (font)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__0l8iz4e._.css (stylesheet)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0r5nbpw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/_1anvha4._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/turbopack-_01_ro95._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_0af92_m._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_1kh_q9w._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1hhrjcc._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_0hpyhbh._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_layout_tsx_007e4b2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_0cws9i-.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_1c5ebkb._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1-fh4ui._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_product_%5Bid%5D_page_tsx_0cws9i-._.js (script)
+[Response] 304 - http://localhost:3000/images/GPU_1024.png (image)
+[Response] 304 - http://localhost:3000/images/frame_315.png (image)
+[Response] 304 - http://localhost:3000/images/fan_315.png (image)
+[Console info] Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+[Console timeStamp] Server Requests Track
+[Console timeStamp] Server Components Track
+[Response] 200 - http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc (document)
+[Response] 200 - http://localhost:3000/_next/static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2 (font)
+[Response] 200 - http://localhost:3000/_next/static/media/70bc3e132a0a741e-s.p.3t6q91iet4nsy.woff2 (font)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__0l8iz4e._.css (stylesheet)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0r5nbpw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/_1anvha4._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/turbopack-_01_ro95._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_0af92_m._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_1kh_q9w._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1hhrjcc._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_0hpyhbh._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_layout_tsx_007e4b2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_0cws9i-.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_1c5ebkb._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1-fh4ui._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_product_%5Bid%5D_page_tsx_0cws9i-._.js (script)
+[Response] 304 - http://localhost:3000/images/GPU_1024.png (image)
+[Response] 304 - http://localhost:3000/images/frame_315.png (image)
+[Response] 304 - http://localhost:3000/images/fan_315.png (image)
+[Console info] Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+[Console timeStamp] Server Requests Track
+[Console timeStamp] Server Components Track
+[Response] 200 - http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc (document)
+[Response] 200 - http://localhost:3000/_next/static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2 (font)
+[Response] 200 - http://localhost:3000/_next/static/media/70bc3e132a0a741e-s.p.3t6q91iet4nsy.woff2 (font)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__0l8iz4e._.css (stylesheet)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0r5nbpw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/_1anvha4._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/turbopack-_01_ro95._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_0af92_m._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_1kh_q9w._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1hhrjcc._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_0hpyhbh._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_layout_tsx_007e4b2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_0cws9i-.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_1c5ebkb._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1-fh4ui._.js (script)
+[Response] 304 - http://localhost:3000/images/GPU_1024.png (image)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_product_%5Bid%5D_page_tsx_0cws9i-._.js (script)
+[Response] 304 - http://localhost:3000/images/frame_315.png (image)
+[Response] 304 - http://localhost:3000/images/fan_315.png (image)
+[Console info] Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+[Console timeStamp] Server Requests Track
+[Console timeStamp] Server Components Track
+[Response] 200 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1mojsay._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xch-cm._.js (script)
+[Console warning] [JavaScript Warning: "Loading failed for the <script> with source “http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1mojsay._.js”." {file: "http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc" line: 1}]
+[Console warning] [JavaScript Warning: "Loading failed for the <script> with source “http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xch-cm._.js”." {file: "http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc" line: 1}]
+[Console warning] [JavaScript Warning: "Loading failed for the <script> with source “http://localhost:3000/_next/static/chunks/src_1c5ebkb._.js”." {file: "http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc" line: 1}]
+[Console warning] [JavaScript Warning: "Loading failed for the <script> with source “http://localhost:3000/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js”." {file: "http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc" line: 1}]
+[Console warning] [JavaScript Warning: "Loading failed for the <script> with source “http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_1kh_q9w._.js”." {file: "http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc" line: 1}]
+[Console warning] [JavaScript Warning: "Loading failed for the <script> with source “http://localhost:3000/_next/static/chunks/node_modules_1-fh4ui._.js”." {file: "http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc" line: 1}]
+[Console warning] [JavaScript Warning: "Loading failed for the <script> with source “http://localhost:3000/_next/static/chunks/src_0hpyhbh._.js”." {file: "http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc" line: 1}]
+[Console warning] [JavaScript Warning: "Loading failed for the <script> with source “http://localhost:3000/_next/static/chunks/node_modules_1hhrjcc._.js”." {file: "http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc" line: 1}]
+[Page Error] Failed to load chunk /_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1mojsay._.js from module [turbopack]/browser/dev/hmr-client/hmr-client.ts [app-client] (ecmascript, async loader)
+[Page Error] Failed to load chunk /_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js from module [project]/node_modules/next/dist/compiled/react-server-dom-turbopack/cjs/react-server-dom-turbopack-client.browser.development.js [app-client] (ecmascript)
+[Response] 200 - http://localhost:3000/product/fe8ba9fe-e34f-4aef-9281-c03f1e632afc (document)
+[Response] 200 - http://localhost:3000/_next/static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2 (font)
+[Response] 200 - http://localhost:3000/_next/static/media/70bc3e132a0a741e-s.p.3t6q91iet4nsy.woff2 (font)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__0l8iz4e._.css (stylesheet)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0r5nbpw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/_1anvha4._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/turbopack-_01_ro95._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_0af92_m._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_motion-dom_dist_es_1kh_q9w._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_framer-motion_dist_es_1_a7n4k._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1hhrjcc._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_0hpyhbh._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_layout_tsx_007e4b2._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_0cws9i-.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_1c5ebkb._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/node_modules_1-fh4ui._.js (script)
+[Response] 304 - http://localhost:3000/images/GPU_1024.png (image)
+[Response] 304 - http://localhost:3000/images/frame_315.png (image)
+[Response] 304 - http://localhost:3000/_next/static/chunks/src_app_product_%5Bid%5D_page_tsx_0cws9i-._.js (script)
+[Response] 304 - http://localhost:3000/images/fan_315.png (image)
+[Console info] Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+[Console timeStamp] Server Requests Track
+[Console timeStamp] Server Components Track
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1mojsay._.js (script)
+[Response] 304 - http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xch-cm._.js (script)
+[Console log] [HMR] connected
+[Console timeStamp] ​
+[Console timeStamp] Blocking Track
+[Console timeStamp] Transition Track
+[Console timeStamp] Suspense Track
+[Console timeStamp] Idle Track
+[Console timeStamp] Hydrated
+[Console timeStamp] Commit
+[Console timeStamp] Waiting for Paint
+[Console timeStamp] Root
+[Console timeStamp] ServerRoot
+[Console timeStamp] AppRouter
+[Console timeStamp] RootErrorBoundary
+[Console timeStamp] ErrorBoundary
+[Console timeStamp] ErrorBoundaryHandler
+[Console timeStamp] Router
+[Console timeStamp] HistoryUpdater
+[Console timeStamp] HotReload
+[Console timeStamp] AppDevOverlayErrorBoundary
+[Console timeStamp] ReplaySsrOnlyErrors
+[Console timeStamp] DevRootHTTPAccessFallbackBoundary
+[Console timeStamp] HTTPAccessFallbackBoundary
+[Console timeStamp] HTTPAccessFallbackErrorBoundary
+[Console timeStamp] RedirectBoundary
+[Console timeStamp] RedirectErrorBoundary
+[Console timeStamp] Head
+[Console timeStamp] __next_viewport_boundary__
+[Console timeStamp] __next_root_layout_boundary__
+[Console timeStamp] SegmentViewNode
+[Console timeStamp] SegmentTrieNode
+[Console timeStamp] QueryProvider
+[Console timeStamp] QueryClientProvider
+[Console timeStamp] AppRouterAnnouncer
+[Console timeStamp] AppRouterAnnouncer
+[Console timeStamp] Remaining Effects
+[Console timeStamp] Blocking Track
+[Console timeStamp] Transition Track
+[Console timeStamp] Suspense Track
+[Console timeStamp] Idle Track
+[Console timeStamp] Render
+[Console timeStamp] Waiting for Paint
+[Console timeStamp] Remaining Effects
+[Console timeStamp] Blocking Track
+[Console timeStamp] Transition Track
+[Console timeStamp] Suspense Track
+[Console timeStamp] Idle Track
+[Console timeStamp] Render
+[Console timeStamp] Blocking Track
+[Console timeStamp] Transition Track
+[Console timeStamp] Suspense Track
+[Console timeStamp] Idle Track
+[Console timeStamp] Prepared
+[Response] 200 - http://localhost:3000/favicon.ico?favicon.2vob68tjqpejf.ico (image)
+[Response] 200 - http://localhost:3000/favicon.ico?favicon.2vob68tjqpejf.ico (image)
+[Console timeStamp] Server Requests Track
+[Console timeStamp] Server Components Track
+[Console timeStamp] ​Preloads
+[Console timeStamp] ​HTTPAccessErrorFallback
+[Console timeStamp] ​NotFound
+[Console timeStamp] ​RootLayout
+[Console timeStamp] await 
+[Console timeStamp] ​ProductPage
+[Console timeStamp] await 
+[Console timeStamp] ​Next.MetadataOutlet
+[Console timeStamp] ​NonIndex
+[Console timeStamp] ​Next.Viewport
+[Console timeStamp] ​ViewportWrapper
+[Console timeStamp] await 
+[Console timeStamp] ​Next.Metadata
+[Console timeStamp] ​MetadataWrapper
+[Response] 304 - http://localhost:3000/images/GPU_1024.png (image)
+[Response] 200 - http://localhost:3000/_next/static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2 (font)
+[Response] 200 - http://localhost:3000/_next/static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2 (font)
+[Response] 200 - http://localhost:3000/_next/static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2 (font)
+[Console timeStamp] Blocking Track
+[Console timeStamp] Transition Track
+[Console timeStamp] Suspense Track
+[Console timeStamp] Idle Track
+[Console timeStamp] Blocked
+[Console timeStamp] Prepared
+[Console timeStamp] a
+[Console timeStamp] div
+[Console timeStamp] SegmentViewStateNode
+[Console timeStamp] Commit
+[Console timeStamp] Waiting for Paint
+[Console timeStamp] IconMark
+[Console timeStamp] LayoutContent
+[Console timeStamp] ThreeColumnLayout
+[Console timeStamp] AnimatedGPU
+[Console timeStamp] AnimatedGPU
+[Console timeStamp] AnimatedGPU
+[Console timeStamp] AnimatedGPU
+[Console timeStamp] AnimatedGPU
+[Console timeStamp] Navbar
+[Console timeStamp] LinkComponent
+[Console timeStamp] Cpu
+[Console timeStamp] ForwardRef
+[Console timeStamp] LinkComponent
+[Console timeStamp] LinkComponent
+[Console timeStamp] LinkComponent
+[Console timeStamp] LinkComponent
+[Console timeStamp] LinkComponent
+[Console timeStamp] LinkComponent
+[Console timeStamp] LinkComponent
+[Console timeStamp] Menu
+[Console timeStamp] ForwardRef
+[Console timeStamp] AnimatePresence
+[Console timeStamp] OuterLayoutRouter
+[Console timeStamp] SegmentStateProvider
+[Console timeStamp] RenderFromTemplateContext
+[Console timeStamp] ScrollAndMaybeFocusHandler
+[Console timeStamp] InnerScrollAndFocusHandlerOld
+[Console timeStamp] ErrorBoundary
+[Console timeStamp] LoadingBoundary
+[Console timeStamp] HTTPAccessFallbackBoundary
+[Console timeStamp] HTTPAccessFallbackErrorBoundary
+[Console timeStamp] RedirectBoundary
+[Console timeStamp] RedirectErrorBoundary
+[Console timeStamp] InnerLayoutRouter
+[Console timeStamp] OuterLayoutRouter
+[Console timeStamp] SegmentStateProvider
+[Console timeStamp] RenderFromTemplateContext
+[Console timeStamp] ScrollAndMaybeFocusHandler
+[Console timeStamp] InnerScrollAndFocusHandlerOld
+[Console timeStamp] ErrorBoundary
+[Console timeStamp] LoadingBoundary
+[Console timeStamp] HTTPAccessFallbackBoundary
+[Console timeStamp] RedirectBoundary
+[Console timeStamp] RedirectErrorBoundary
+[Console timeStamp] InnerLayoutRouter
+[Console timeStamp] OuterLayoutRouter
+[Console timeStamp] SegmentStateProvider
+[Console timeStamp] RenderFromTemplateContext
+[Console timeStamp] ScrollAndMaybeFocusHandler
+[Console timeStamp] InnerScrollAndFocusHandlerOld
+[Console timeStamp] ErrorBoundary
+[Console timeStamp] LoadingBoundary
+[Console timeStamp] HTTPAccessFallbackBoundary
+[Console timeStamp] RedirectBoundary
+[Console timeStamp] RedirectErrorBoundary
+[Console timeStamp] InnerLayoutRouter
+[Console timeStamp] SegmentViewNode
+[Console timeStamp] SegmentTrieNode
+[Console timeStamp] LinkComponent
+[Console timeStamp] ForwardRef
+[Console timeStamp] LinkComponent
+[Console timeStamp] ForwardRef
+[Console timeStamp] FadeIn
+[Console timeStamp] ForwardRef(motion.div)
+[Console timeStamp] ForwardRef
+[Console timeStamp] ScrollIndicator
+[Console timeStamp] ForwardRef(motion.div)
+[Console timeStamp] ForwardRef(motion.div)
+[Console timeStamp] ArrowRight
+[Console timeStamp] ForwardRef
+[Console timeStamp] ForwardRef(motion.div)
+[Console timeStamp] FadeIn
+[Console timeStamp] ForwardRef(motion.div)
+[Console timeStamp] JargonBuster
+[Console timeStamp] JargonBuster
+[Console timeStamp] JargonBuster
+[Console timeStamp] JargonBuster
+[Console timeStamp] JargonBuster
+[Console timeStamp] JargonBuster
+[Console timeStamp] JargonBuster
+[Console timeStamp] JargonBuster
+[Console timeStamp] JargonBuster
+[Console timeStamp] JargonBuster
+[Console timeStamp] JargonBuster
+[Console timeStamp] JargonBuster
+[Console timeStamp] JargonBuster
+[Console timeStamp] JargonBuster
+[Console timeStamp] JargonBuster
+[Console timeStamp] JargonBuster
+[Console timeStamp] JargonBuster
+[Console timeStamp] JargonBuster
+[Console timeStamp] JargonBuster
+[Console timeStamp] JargonBuster
+[Console timeStamp] JargonBuster
+[Console timeStamp] JargonBuster
+[Console timeStamp] JargonBuster
+[Console timeStamp] JargonBuster
+[Console timeStamp] JargonBuster
+[Console timeStamp] JargonBuster
+[Console timeStamp] JargonBuster
+[Console timeStamp] JargonBuster
+[Console timeStamp] JargonBuster
+[Console timeStamp] __next_outlet_boundary__
+[Console timeStamp] SegmentViewStateNode
+[Console timeStamp] SegmentViewStateNode
+[Console timeStamp] SegmentViewStateNode
+[Console timeStamp] Footer
+[Console timeStamp] LinkComponent
+[Console timeStamp] Cpu
+[Console timeStamp] ForwardRef
+[Console timeStamp] LinkComponent
+[Console timeStamp] AnimatedGPU
+[Console timeStamp] AnimatedGPU
+[Console timeStamp] AnimatedGPU
+[Console timeStamp] Remaining Effects
+[Console timeStamp] Blocking Track
+[Console timeStamp] Transition Track
+[Console timeStamp] Suspense Track
+[Console timeStamp] Idle Track
+[Console timeStamp] Commit
+[Console timeStamp] Blocking Track
+[Console timeStamp] Transition Track
+[Console timeStamp] Suspense Track
+[Console timeStamp] Idle Track
+[Console timeStamp] Render
+[Console timeStamp] Commit
+[Console timeStamp] Waiting for Paint
+[Console timeStamp] ThreeColumnLayout
+[Console timeStamp] SidebarBorder
+[Console timeStamp] ForwardRef(motion.path)
+[Console timeStamp] AnimatedGPU
+[Console timeStamp] AnimatedGPU
+[Console timeStamp] AnimatedGPU
+[Console timeStamp] AnimatedGPU
+[Console timeStamp] AnimatedGPU
+[Console timeStamp] AnimatedGPU
+[Console timeStamp] AnimatedGPU
+[Console timeStamp] AnimatedGPU
+[Console timeStamp] SidebarBorder
+[Console timeStamp] ForwardRef(motion.path)
+[Console timeStamp] AnimatedGPU
+[Console timeStamp] AnimatedGPU
+[Console timeStamp] AnimatedGPU
+[Console timeStamp] AnimatedGPU
+[Console timeStamp] AnimatedGPU
+[Console timeStamp] AnimatedGPU
+[Console timeStamp] AnimatedGPU
+[Console timeStamp] AnimatedGPU
+[Console timeStamp] ForwardRef(motion.path)
+[Console timeStamp] Remaining Effects
+[Console timeStamp] Blocking Track
+[Console timeStamp] Transition Track
+[Console timeStamp] Suspense Track
+[Console timeStamp] Idle Track
+[Console timeStamp] Prepared
+[Console timeStamp] Commit
+[Console timeStamp] Waiting for Paint
+[Console timeStamp] PreloadChunks
+[Console timeStamp] ProductGallery
+[Console timeStamp] AnimatePresence
+[Console timeStamp] PresenceChild
+[Console timeStamp] PopChild
+[Console timeStamp] PopChildMeasure
+[Console timeStamp] ForwardRef(motion.img)
+[Console timeStamp] PreloadChunks
+[Console timeStamp] AIAnalysis
+[Console timeStamp] ForwardRef(motion.div)
+[Console timeStamp] Brain
+[Console timeStamp] ForwardRef
+[Console timeStamp] ForwardRef(motion.div)
+[Console timeStamp] ForwardRef(motion.div)
+[Console timeStamp] ForwardRef(motion.div)
+[Console timeStamp] ForwardRef(motion.div)
+[Console timeStamp] CircleCheck
+[Console timeStamp] ForwardRef
+[Console timeStamp] ForwardRef(motion.div)
+[Console timeStamp] CircleX
+[Console timeStamp] ForwardRef
+[Console timeStamp] PreloadChunks
+[Console timeStamp] BottleneckChecker
+[Console timeStamp] TriangleAlert
+[Console timeStamp] ForwardRef
+[Console timeStamp] MemoryStick
+[Console timeStamp] ForwardRef
+[Console timeStamp] ForwardRef(motion.div)
+[Console timeStamp] ForwardRef(motion.div)
+[Console timeStamp] ForwardRef(motion.div)
+[Console timeStamp] TriangleAlert
+[Console timeStamp] ForwardRef
+[Console timeStamp] PreloadChunks
+[Console timeStamp] ROICalculator
+[Console timeStamp] Calculator
+[Console timeStamp] ForwardRef
+[Console timeStamp] ForwardRef(motion.div)
+[Console timeStamp] Remaining Effects

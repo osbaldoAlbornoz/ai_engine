@@ -1,0 +1,36 @@
+# --- Control de Dependencias y Entornos (Ocultos a la IA) ---
+node_modules/
+.next/
+out/
+build/
+dist/
+.output/
+
+# --- Entornos y Caché de Python ---
+venv/
+.venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# --- Archivos de Bloqueo Pesados (No aportan lógica) ---
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+poetry.lock
+
+# --- Credenciales, Secretos y Variables de Entorno (¡Crítico por seguridad!) ---
+.env
+.env.*
+!.env.example
+
+# --- Archivos de Sistema y Temporales ---
+.DS_Store
+Thumbs.db
+*.log
+scratch/
+temp*
+check_output.json
+gh_log.txt

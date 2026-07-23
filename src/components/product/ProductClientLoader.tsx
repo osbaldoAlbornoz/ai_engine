@@ -27,6 +27,7 @@ export function ProductClientLoader({ id }: { id: string }) {
         }
         
         if (isMounted) {
+          data.name = data.clean_name || data.name;
           setProduct(data);
         }
       } catch (err) {

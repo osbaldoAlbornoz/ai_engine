@@ -73,7 +73,7 @@ export function HardwareMatcher() {
       return data.map(dbProd => ({
         id: dbProd.id,
         amazon_asin: dbProd.amazon_asin,
-        name: dbProd.name,
+        name: dbProd.clean_name || dbProd.name,
         description: (dbProd.features && dbProd.features.length > 0) ? dbProd.features[0] : "High-performance AI hardware",
         category: (dbProd.category || "gpus") as Category,
         brand: dbProd.brand || "Unknown",

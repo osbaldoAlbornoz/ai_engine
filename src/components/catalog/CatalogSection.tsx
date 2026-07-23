@@ -14,7 +14,7 @@ function mapDbToProduct(dbProd: any): Product {
   return {
     id: dbProd.id,
     amazon_asin: dbProd.amazon_asin,
-    name: dbProd.name,
+    name: dbProd.clean_name || dbProd.name,
     description: (dbProd.features && dbProd.features.length > 0) ? dbProd.features[0] : "High-performance AI hardware",
     price: dbProd.price || 0,
     original_price: dbProd.original_price,
@@ -74,7 +74,7 @@ export function CatalogSection() {
   );
 
   return (
-    <section className="w-full max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8 py-24 relative z-10">
+    <section className="w-full max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-8 relative z-10">
       <div className="mb-8 flex flex-col items-center sm:items-start text-center sm:text-left">
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
