@@ -4,7 +4,7 @@ import { createClient } from '@supabase/supabase-js';
 const APIFY_TOKEN = process.env.APIFY_TOKEN;
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
-const AFFILIATE_TAG = process.env.AMAZON_AFFILIATE_TAG || 'tu-tag-20';
+const AFFILIATE_TAG = process.env.AMAZON_AFFILIATE_TAG || 'theaienginela-20';
 
 if (!APIFY_TOKEN || !SUPABASE_URL || !SUPABASE_KEY) {
   console.error("Missing required environment variables. Please check your .env.local file.");

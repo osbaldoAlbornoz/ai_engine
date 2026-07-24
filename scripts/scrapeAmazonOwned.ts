@@ -19,7 +19,7 @@ import { createClient } from '@supabase/supabase-js';
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
-const AFFILIATE_TAG = process.env.AMAZON_AFFILIATE_TAG || 'tu-tag-20';
+const AFFILIATE_TAG = process.env.AMAZON_AFFILIATE_TAG || 'theaienginela-20';
 
 // User agents reales de Chrome
 const USER_AGENTS = [
