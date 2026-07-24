@@ -20,20 +20,20 @@ const orbitron = Orbitron({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://aiengine.example.com"),
-  title: "AiEngine | High-Performance AI Hardware",
+  metadataBase: new URL("https://theaienginelab.com"),
+  title: "The AI Engine Lab | High-Performance AI Hardware",
   description: "Discover and compare the best GPUs, AI Laptops, and NPU Processors for your Artificial Intelligence workloads.",
   openGraph: {
-    title: "AiEngine | High-Performance AI Hardware",
+    title: "The AI Engine Lab | High-Performance AI Hardware",
     description: "Discover and compare the best GPUs, AI Laptops, and NPU Processors for your Artificial Intelligence workloads.",
     url: "/",
-    siteName: "AiEngine",
+    siteName: "The AI Engine Lab",
     images: [
       {
         url: "/og-image.jpg", // placeholder image for social sharing
         width: 1200,
         height: 630,
-        alt: "AiEngine Cover Image",
+        alt: "The AI Engine Lab Cover Image",
       }
     ],
     locale: "en_US",

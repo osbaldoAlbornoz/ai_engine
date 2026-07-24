@@ -38,8 +38,8 @@ export function Navbar() {
             >
               <Cpu className="h-8 w-8 text-primary" />
               <span className="font-heading font-bold text-xl tracking-tight text-foreground flex items-center">
-                <span className="text-cyan-400">AI</span>
-                <span className="ml-1 text-fuchsia-500">Engine</span>
+                <span className="text-cyan-400">The AI Engine</span>
+                <span className="ml-1 text-fuchsia-500">Lab</span>
               </span>
             </Link>
           </div>

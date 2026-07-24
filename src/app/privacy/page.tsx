@@ -13,7 +13,7 @@ export default function PrivacyPolicyPage() {
           
           <h2 className="text-2xl font-bold text-white font-heading mt-8 mb-4">1. Information We Collect</h2>
           <p>
-            When you visit AiEngine, we may collect certain information about your device, your interaction with the Site, and information necessary to process your purchases. We may also collect additional information if you contact us for customer support.
+            When you visit The AI Engine Lab, we may collect certain information about your device, your interaction with the Site, and information necessary to process your purchases. We may also collect additional information if you contact us for customer support.
           </p>
           <ul className="list-disc pl-6 space-y-2 text-zinc-400">
             <li><strong>Device Information:</strong> version of web browser, IP address, time zone, cookie information, what sites or products you view, search terms, and how you interact with the Site.</li>
@@ -22,7 +22,7 @@ export default function PrivacyPolicyPage() {
 
           <h2 className="text-2xl font-bold text-white font-heading mt-8 mb-4">2. Affiliate Relationships</h2>
           <p>
-            AiEngine is a participant in the Amazon Services LLC Associates Program. As an Amazon Associate, we earn from qualifying purchases. When you click on product links on our site and make a purchase on Amazon, we may receive a commission. 
+            The AI Engine Lab is a participant in the Amazon Services LLC Associates Program. As an Amazon Associate, we earn from qualifying purchases. When you click on product links on our site and make a purchase on Amazon, we may receive a commission. 
           </p>
           <p>
             We do not collect or store your payment information. All transactions are securely processed by Amazon.com. Please review Amazon's Privacy Notice to understand how they handle your personal and financial information.

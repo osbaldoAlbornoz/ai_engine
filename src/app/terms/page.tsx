@@ -13,7 +13,7 @@ export default function TermsOfServicePage() {
           
           <h2 className="text-2xl font-bold text-white font-heading mt-8 mb-4">1. Acceptance of Terms</h2>
           <p>
-            By accessing and using AiEngine (the "Site"), you accept and agree to be bound by the terms and provision of this agreement. In addition, when using these particular services, you shall be subject to any posted guidelines or rules applicable to such services.
+            By accessing and using The AI Engine Lab (the "Site"), you accept and agree to be bound by the terms and provision of this agreement. In addition, when using these particular services, you shall be subject to any posted guidelines or rules applicable to such services.
           </p>
           <p>
             Any participation in this service will constitute acceptance of this agreement. If you do not agree to abide by the above, please do not use this service.
@@ -21,7 +21,7 @@ export default function TermsOfServicePage() {
 
           <h2 className="text-2xl font-bold text-white font-heading mt-8 mb-4">2. Affiliate Disclosure</h2>
           <p>
-            AiEngine is a participant in the Amazon Services LLC Associates Program, an affiliate advertising program designed to provide a means for sites to earn advertising fees by advertising and linking to Amazon.com.
+            The AI Engine Lab is a participant in the Amazon Services LLC Associates Program, an affiliate advertising program designed to provide a means for sites to earn advertising fees by advertising and linking to Amazon.com.
           </p>
           <p>
             When you click on product links on our site that lead to Amazon and make a purchase, we may receive a commission. This comes at no additional cost to you and helps support the maintenance of our platform. We strive to provide unbiased and accurate information about AI hardware, regardless of any affiliate partnerships.
@@ -38,12 +38,12 @@ export default function TermsOfServicePage() {
             Prices, availability, promotions, and product details on third-party websites, including Amazon.com, may change without notice.
           </p>
           <p>
-            Before making a purchase decision, users should verify the final specifications, price, and availability directly on the retailer's or manufacturer's website. AiEngine is not responsible for discrepancies between information displayed on the Site and the final product listing provided by third-party sellers.
+            Before making a purchase decision, users should verify the final specifications, price, and availability directly on the retailer's or manufacturer's website. The AI Engine Lab is not responsible for discrepancies between information displayed on the Site and the final product listing provided by third-party sellers.
           </p>
 
           <h2 className="text-2xl font-bold text-white font-heading mt-8 mb-4">4. Limitation of Liability</h2>
           <p>
-            AiEngine and its creators shall not be liable for any direct, indirect, incidental, special, or consequential damages resulting from the use or inability to use our services or any products purchased through links on our Site. The AI scores and recommendations are provided for informational purposes only and do not constitute professional advice.
+            The AI Engine Lab and its creators shall not be liable for any direct, indirect, incidental, special, or consequential damages resulting from the use or inability to use our services or any products purchased through links on our Site. The AI scores and recommendations are provided for informational purposes only and do not constitute professional advice.
           </p>
 
           <h2 className="text-2xl font-bold text-white font-heading mt-8 mb-4">5. Intellectual Property</h2>

@@ -8,7 +8,7 @@ const PopularMatchups = dynamic(() => import("@/components/home/PopularMatchups"
 // Static metadata - no Supabase calls on the server to avoid Turbopack reload loops in dev.
 // Dynamic title updates are handled client-side by CompareTool when products are selected.
 export const metadata = {
-  title: "Comparar Productos | AI Engine",
+  title: "Comparar Productos | The AI Engine Lab",
   description: "Herramienta interactiva para comparar componentes y laptops para IA.",
 };
 

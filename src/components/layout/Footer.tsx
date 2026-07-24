@@ -22,8 +22,8 @@ export function Footer() {
                 <Cpu className="h-7 w-7 text-primary relative z-10" />
               </div>
               <span className="font-heading font-bold text-2xl tracking-tight flex items-center">
-                <span className="text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]">AI</span>
-                <span className="ml-1 text-fuchsia-500 drop-shadow-[0_0_8px_rgba(217,70,239,0.5)]">Engine</span>
+                <span className="text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]">The AI Engine</span>
+                <span className="ml-1 text-fuchsia-500 drop-shadow-[0_0_8px_rgba(217,70,239,0.5)]">Lab</span>
               </span>
             </Link>
             <p className="text-subtitle text-zinc-400 text-sm max-w-md leading-relaxed mb-8">
@@ -102,7 +102,7 @@ export function Footer() {
             As an Amazon Associate I earn from qualifying purchases.
           </p>
           <p className="text-subtitle text-sm text-zinc-500 whitespace-nowrap">
-            &copy; {new Date().getFullYear()} AI Engine. All rights reserved.
+            &copy; {new Date().getFullYear()} The AI Engine Lab. All rights reserved.
           </p>
         </div>
       </div>
