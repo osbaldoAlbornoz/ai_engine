@@ -15,6 +15,7 @@ import { ProductFaqSchema } from "@/components/seo/ProductFaqSchema";
 import { ScrollIndicator } from "@/components/ui/scroll-indicator";
 import { JargonBuster } from "@/components/ui/jargon-buster";
 import { FadeIn } from "@/components/ui/fade-in";
+import { getAffiliateUrl } from "@/utils/affiliate";
 
 type Category = "gpus" | "laptops" | "npus" | "workstations";
 
@@ -90,7 +91,7 @@ export function ProductDataClient({ product }: ProductDataClientProps) {
                   product.affiliateLinks.map((link, idx) => (
                     <Link
                       key={idx}
-                      href={link.url}
+                      href={getAffiliateUrl(link.url)}
                       target="_blank"
                       rel="nofollow noopener noreferrer"
                       className="group relative inline-flex items-center justify-center gap-3 flex-1 min-w-[250px] bg-[#050505] border border-accent/30 text-white hover:text-[#050505] overflow-hidden px-6 py-4 font-heading font-bold text-sm md:text-base uppercase tracking-wider transition-all duration-300 hover:scale-[1.02] shadow-[0_0_20px_rgba(255,0,255,0.1)] hover:shadow-[0_0_30px_rgba(255,0,255,0.5)]"
@@ -103,7 +104,7 @@ export function ProductDataClient({ product }: ProductDataClientProps) {
                   ))
                 ) : (
                   <Link
-                    href={product.amazonUrl || product.amazon_url || "#"}
+                    href={getAffiliateUrl(product.amazonUrl || product.amazon_url)}
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                     className="group relative inline-flex items-center justify-center gap-3 w-full sm:w-auto bg-[#050505] border border-accent/50 text-white hover:text-[#050505] overflow-hidden px-8 py-4 font-heading font-bold text-lg uppercase tracking-wider transition-all duration-300 hover:scale-[1.02] shadow-[0_0_20px_rgba(255,0,255,0.15)] hover:shadow-[0_0_40px_rgba(255,0,255,0.6)]"

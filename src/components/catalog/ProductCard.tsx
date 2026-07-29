@@ -6,6 +6,8 @@ import { ShoppingCart, Cpu, Zap, Star, HardDrive } from 'lucide-react';
 import { Product } from '@/types/product';
 import Link from 'next/link';
 import Image from 'next/image';
+import { getAffiliateUrl } from "@/utils/affiliate";
+
 export function ProductCard({ product }: { product: Product }) {
   return (
     <motion.div
@@ -95,7 +97,7 @@ export function ProductCard({ product }: { product: Product }) {
         {/* Price and CTA */}
         <div className="mt-6 pt-5 border-t border-white/5 flex flex-col gap-3">
           <a
-            href={product.affiliateUrl || product.amazon_url}
+            href={getAffiliateUrl(product.affiliateUrl || product.amazon_url)}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center w-full gap-2 px-5 py-3 bg-primary/10 hover:bg-primary border border-primary/30 hover:border-primary text-primary hover:text-[#050505] rounded-none transition-all duration-300 shadow-[0_0_15px_rgba(0,229,255,0.1)] hover:shadow-[0_0_20px_rgba(0,229,255,0.4)] relative overflow-hidden group/btn"

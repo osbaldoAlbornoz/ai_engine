@@ -13,6 +13,7 @@ interface CatalogProduct extends Product {
   keyFeatures: string[];
 }
 import Link from "next/link";
+import { getAffiliateUrl } from "@/utils/affiliate";
 import { ShoppingCart, Filter, X, Search, ChevronRight, ChevronDown } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 
@@ -611,7 +612,7 @@ export default function CatalogViewer({ initialCategory = "all" }: { initialCate
                             View Specs
                           </Link>
                           <Link 
-                            href={product.amazonUrl}
+                            href={getAffiliateUrl(product.amazonUrl)}
                             target="_blank"
                             rel="nofollow noopener noreferrer"
                             className="flex items-center justify-center gap-1.5 py-2.5 bg-primary/10 border border-primary text-primary font-heading text-xs font-semibold uppercase hover:bg-primary hover:text-[#050505] transition-colors"

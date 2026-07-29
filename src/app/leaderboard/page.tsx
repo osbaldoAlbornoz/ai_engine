@@ -5,6 +5,7 @@ import { Product } from "@/types/product";
 import { supabase } from "@/lib/supabase";
 import { calculateAIScore, assignTier, TIERS, Tier, tierStyles, calculateValueRating, getScoreBreakdown, ScoreBreakdown } from "@/utils/scoring";
 import Link from "next/link";
+import { getAffiliateUrl } from "@/utils/affiliate";
 import { ChevronRight, Trophy, Zap, Cpu, Server, Info, X, DollarSign } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
@@ -430,7 +431,7 @@ function LeaderboardContent() {
                 {/* CTA */}
                 <div className="mt-6 flex gap-3">
                   <a
-                    href={selectedProduct.affiliateUrl}
+                    href={getAffiliateUrl(selectedProduct.affiliateUrl)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex-1 bg-primary text-black font-bold font-heading py-3 px-6 rounded-lg hover:bg-primary/80 transition-colors text-center"

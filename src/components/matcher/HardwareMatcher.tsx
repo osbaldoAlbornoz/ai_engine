@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { UseCase, Budget, FormFactor, MatcherAnswers, getTopMatches, MatchResult } from "@/utils/matcher";
 import Link from "next/link";
+import { getAffiliateUrl } from "@/utils/affiliate";
 import Image from "next/image";
 import { supabase } from "@/lib/supabase";
 import { Product } from "@/types/product";
@@ -381,7 +382,7 @@ export function HardwareMatcher() {
                                 Specs
                               </Link>
                               <a 
-                                href={result.product.amazonUrl}
+                                href={getAffiliateUrl(result.product.amazonUrl)}
                                 target="_blank"
                                 rel="nofollow noopener noreferrer"
                                 className="px-3 py-2 bg-primary hover:bg-primary/90 text-black text-sm rounded-lg transition-colors font-bold flex items-center gap-2"

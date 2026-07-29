@@ -17,6 +17,7 @@ interface CompareProduct extends Product {
   cons?: string[];
 }
 import Link from "next/link";
+import { getAffiliateUrl } from "@/utils/affiliate";
 import { calculateAIScore, assignTier, tierStyles, calculateValueRating } from "@/utils/scoring";
 import { supabase } from "@/lib/supabase";
 
@@ -766,7 +767,7 @@ export function CompareTool({ slugString }: { slugString?: string }) {
                         <span className="text-sm text-zinc-300 line-clamp-2">{decodeHtml(product.name)}</span>
                       </div>
                       <Link
-                        href={product.amazon_url || "#"}
+                        href={getAffiliateUrl(product.amazon_url)}
                         target="_blank"
                         className="font-heading inline-flex items-center justify-center gap-1.5 bg-gradient-to-r from-primary to-accent hover:opacity-90 text-[#050505] py-1.5 px-4 rounded-none font-semibold transition-all shadow-[0_0_10px_rgba(0,229,255,0.3)] text-xs sm:text-sm"
                       >
