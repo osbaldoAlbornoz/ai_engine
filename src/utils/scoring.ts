@@ -10,6 +10,10 @@ export const tierStyles: Record<Tier, { text: string; border: string; bg: string
   C: { text: "text-red-400",    border: "border-red-400",    bg: "bg-red-400",    shadow: "shadow-[0_0_30px_rgba(248,113,113,0.4)]" },
 } as const;
 
+// ─────────────────────────────────────────────────────────────────────────────
+// SHARED HELPERS
+// ─────────────────────────────────────────────────────────────────────────────
+
 /** Extracts the first number from a string. "24 GB GDDR6X" -> 24 */
 function extractNumber(str: string): number {
   if (!str) return 0;
@@ -26,12 +30,10 @@ function getSpec(specs: Record<string, unknown>, keys: string[]): string {
   const lowerKeys = keys.map((k) => k.toLowerCase().trim());
   const entries = Object.entries(specs);
 
-  // Exact match
   for (const [k, v] of entries) {
     if (lowerKeys.includes(k.toLowerCase().trim()))
       return typeof v === "object" ? JSON.stringify(v) : String(v);
   }
-  // Safe partial match (long keys only)
   for (const [k, v] of entries) {
     const ck = k.toLowerCase().trim();
     for (const sk of lowerKeys) {
@@ -42,234 +44,305 @@ function getSpec(specs: Record<string, unknown>, keys: string[]): string {
   return "";
 }
 
+/** Joins all spec values into one searchable string (lowercase). */
+function getAllSpecText(specs: Record<string, unknown>): string {
+  return Object.values(specs)
+    .map((v) => (typeof v === "object" ? JSON.stringify(v) : String(v)))
+    .join(" ")
+    .toLowerCase();
+}
+
+/**
+ * Extracts storage in GB from a spec string.
+ * Handles "2 TB" -> 2000, "512 GB" -> 512, etc.
+ */
+function extractStorageGB(raw: string): number {
+  if (!raw) return 0;
+  const tbMatch = raw.match(/(\d+(?:\.\d+)?)\s*tb/i);
+  if (tbMatch) return parseFloat(tbMatch[1]) * 1000;
+  const gbMatch = raw.match(/(\d+(?:\.\d+)?)\s*gb/i);
+  if (gbMatch) return parseFloat(gbMatch[1]);
+  return extractNumber(raw);
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
-// GPU SCORING  (max 100)
-//   VRAM        0-40 pts   (8GB=13, 16GB=26, 24GB=40) - Reduced from 55%
-//   Cores/TOPS  0-50 pts   (4060=22, 4080=37, 4090=37, 5090=50) - Increased from 35%
-//   Arch bonus  0-10 pts   (Blackwell=10, Ada high=6, Ada mid=3)
+// GPU COMPUTE SCORE  (name-based, max 30 pts)
+// This is used for dedicated GPU categories where Amazon does not publish
+// CUDA core counts. The product name is the only available source for this info.
+// VRAM (from the DB) is the primary signal (70%). This is only 30%.
 // ─────────────────────────────────────────────────────────────────────────────
-function scoreGPU(specs: Record<string, unknown>, name: string): number {
+function getGPUComputeScore(name: string): number {
   const ln = name.toLowerCase();
 
+  // NVIDIA Professional / Blackwell
+  if (ln.match(/rtx\s*pro\s*6000\s*blackwell/))       return 30;
+  // NVIDIA RTX 50 series (Blackwell consumer)
+  if (ln.match(/\b5090\b/))                            return 30;
+  if (ln.match(/\b5080\b/))                            return 26;
+  if (ln.match(/\b5070\s*ti\b/))                       return 23;
+  if (ln.match(/\b5070\b/))                            return 21;
+  if (ln.match(/\b5060\s*ti\b/))                       return 18;
+  if (ln.match(/\b5060\b/))                            return 15;
+  // NVIDIA RTX 40 series (Ada Lovelace)
+  if (ln.match(/\b4090\b/))                            return 27;
+  if (ln.match(/\b4080\s*super\b/))                    return 24;
+  if (ln.match(/\b4080\b/))                            return 23;
+  if (ln.match(/\b4070\s*ti\s*super\b/))              return 22;
+  if (ln.match(/\b4070\s*ti\b/))                       return 21;
+  if (ln.match(/\b4070\s*super\b/))                    return 20;
+  if (ln.match(/\b4070\b/))                            return 18;
+  if (ln.match(/\b4060\s*ti\b/))                       return 15;
+  if (ln.match(/\b4060\b/))                            return 12;
+  // NVIDIA RTX 30 series (Ampere)
+  if (ln.match(/\b3090\s*ti\b/))                       return 22;
+  if (ln.match(/\b3090\b/))                            return 21;
+  if (ln.match(/\b3080\s*ti\b/))                       return 19;
+  if (ln.match(/\b3080\b/))                            return 17;
+  if (ln.match(/\b3070\s*ti\b/))                       return 15;
+  if (ln.match(/\b3070\b/))                            return 14;
+  if (ln.match(/\b3060\s*ti\b/))                       return 13;
+  if (ln.match(/\b3060\b/))                            return 11;
+  if (ln.match(/\b3050\b/))                            return 8;
+  // NVIDIA Professional (Ada)
+  if (ln.match(/rtx\s*6000\s*ada/))                   return 29;
+  if (ln.match(/rtx\s*5000\s*ada/))                   return 25;
+  if (ln.match(/rtx\s*4000\s*ada/))                   return 21;
+  if (ln.match(/rtx\s*3000\s*ada/))                   return 17;
+  if (ln.match(/rtx\s*2000\s*ada/))                   return 14;
+  // AMD RDNA 4 (RX 9000)
+  if (ln.match(/\b9070\s*xt\b/))                       return 23;
+  if (ln.match(/\b9070\b/))                            return 20;
+  if (ln.match(/\b9060\s*xt\b/))                       return 16;
+  if (ln.match(/\b9060\b/))                            return 13;
+  // AMD RDNA 3 (RX 7000)
+  if (ln.match(/\b7900\s*xtx\b/))                      return 22;
+  if (ln.match(/\b7900\s*xt\b/))                       return 19;
+  if (ln.match(/\b7900\s*gre\b/))                      return 17;
+  if (ln.match(/\b7800\s*xt\b/))                       return 15;
+  if (ln.match(/\b7700\s*xt\b/))                       return 12;
+  if (ln.match(/\b7600\b/))                            return 10;
+  // Unknown but recognized as a GPU
+  return 5;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// GPU SCORING  (max 100)
+//   VRAM     0-70 pts  — from DB field, log scale (primary signal, 100% available)
+//   Compute  0-30 pts  — from product name (only available source; Amazon doesn't
+//                         publish CUDA/Stream core counts in any spec field)
+// ─────────────────────────────────────────────────────────────────────────────
+function scoreGPU(specs: Record<string, unknown>, name: string): number {
+  // VRAM — primary signal (70% of score)
   let vram = extractNumber(
     getSpec(specs, ["vram", "graphics card ram", "graphics card ram size", "video memory", "gpu memory", "graphics memory"])
   );
   if (!vram) {
+    // Last-resort fallback: first "N GB" in name (some products encode it there)
     const m = name.match(/(\d+)\s*GB/i);
     if (m) vram = parseFloat(m[1]);
   }
-  const vramScore = Math.min(40, Math.round(vram * 1.67)); // Reduced: 24GB=40, 16GB=27, 12GB=20, 8GB=13
+  // log2 scale: 4GB=28, 8GB=42, 12GB=49, 16GB=56, 24GB=64, 32GB=70, 48GB→70 (capped)
+  const vramScore = Math.min(70, Math.round(Math.log2(Math.max(vram, 1)) * 14));
 
-  let coresScore = 0;
-  const aiPerf = extractNumber(getSpec(specs, ["ai performance", "total ai tops", "ai tops", "tops"]));
-  if (aiPerf) {
-    coresScore = Math.min(35, Math.round(aiPerf * 0.175));
-  } else {
-    let cores = extractNumber(getSpec(specs, ["cuda cores", "cudacores", "stream processors", "shader processors", "compute units"]));
-    if (!cores) {
-      if      (ln.match(/5090|blackwell|b200/)) cores = 21760;
-      else if (ln.match(/rtx 6000 ada/))        cores = 18176;
-      else if (ln.match(/5080/))                cores = 10752;
-      else if (ln.match(/a6000|a40/))           cores = 10752;
-      else if (ln.match(/5070 ti/))             cores = 9728;
-      else if (ln.match(/5070/))                cores = 8192;
-      else if (ln.match(/4090|rtx 6000/))       cores = 16384;
-      else if (ln.match(/4080|rtx 5000 ada/))   cores = 9728;
-      else if (ln.match(/4070 ti/))             cores = 7680;
-      else if (ln.match(/4070|rtx 4000 ada/))   cores = 5888;
-      else if (ln.match(/4060 ti/))             cores = 4352;
-      else if (ln.match(/4060/))                cores = 3072;
-      else if (ln.match(/3090|rtx a5000/))      cores = 10496;
-      else if (ln.match(/7900 xtx/))            cores = 6144;
-      else if (ln.match(/7900 xt/))             cores = 5376;
-      else if (ln.match(/rx 9060|9060/))        cores = 4000;
-      else cores = 2000;
-    }
-    coresScore = Math.min(50, Math.round(cores / 328)); // Increased max to 50, better distribution
-  }
+  // Compute — name-based (30% of score)
+  const computeScore = getGPUComputeScore(name);
 
-  let arch = 0;
-  if      (ln.match(/5090|5080|5070|blackwell|b200/))  arch = 10;
-  else if (ln.match(/4090|4080|4070|ada|a6000|a5000/)) arch = 6;
-  else if (ln.match(/4060|3090/))                      arch = 3;
-  else if (ln.match(/7900|rx 9060/))                   arch = 4;
-
-  return Math.min(100, Math.max(0, vramScore + coresScore + arch));
+  return Math.min(100, Math.max(0, vramScore + computeScore));
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
 // LAPTOP SCORING  (max 100)
-//   RAM         0-35 pts   log scale: 8GB=10, 16GB=17, 32GB=22, 64GB=29, 128GB=35
-//   CPU tier    0-30 pts
-//   GPU tier    0-25 pts
-//   Storage     0-10 pts
+//   RAM       0-35 pts  — from DB "RAM Memory Installed" / "Unified Memory" (log scale)
+//   CPU       0-30 pts  — CPU Core Count + Processor Speed (spec-driven)
+//   GPU       0-25 pts  — Discrete VRAM (spec) > Unified memory × 0.5 > Integrated cores
+//   Storage   0-10 pts  — from DB "Hard-Drive Size" (numeric GB/TB)
 // ─────────────────────────────────────────────────────────────────────────────
 function scoreLaptop(specs: Record<string, unknown>, name: string): number {
-  const ln = name.toLowerCase();
+  const allText = getAllSpecText(specs) + " " + name.toLowerCase();
 
-  let ram = extractNumber(getSpec(specs, ["unified memory", "memory", "ram", "system memory", "installed ram"]));
+  // === RAM / Unified Memory (max 35 pts) ===
+  let ram = extractNumber(
+    getSpec(specs, ["ram memory installed", "unified memory", "memory", "ram memory installed size", "system memory", "installed ram"])
+  );
   if (!ram) {
     const m = name.match(/(\d+)\s*GB\s*(?:DDR|LPDDR|Unified|RAM|Memory)/i);
     if (m) ram = parseInt(m[1], 10);
   }
+  // log2 scale: 8GB=15, 16GB=20, 32GB=25, 64GB=30, 128GB=35
   const ramScore = Math.min(35, Math.round(Math.log2(Math.max(ram, 1)) * 5));
 
-  const cpuRaw = (getSpec(specs, ["processor", "cpu", "processor type"]) + " " + ln).toLowerCase();
-  let cpuScore = 0;
-  if      (cpuRaw.match(/m4 ultra|m3 ultra/))          cpuScore = 30;
-  else if (cpuRaw.match(/m4 max|m3 max/))              cpuScore = 26;
-  else if (cpuRaw.match(/m4 pro|m3 pro/))              cpuScore = 22;
-  else if (cpuRaw.match(/m4|m3/))                      cpuScore = 18;
-  else if (cpuRaw.match(/m2 ultra/))                   cpuScore = 24;
-  else if (cpuRaw.match(/m2 max/))                     cpuScore = 21;
-  else if (cpuRaw.match(/m2 pro/))                     cpuScore = 18;
-  else if (cpuRaw.match(/m2/))                         cpuScore = 15;
-  else if (cpuRaw.match(/m1 ultra/))                   cpuScore = 20;
-  else if (cpuRaw.match(/core ultra 9|i9-1[3-9]/))     cpuScore = 20;
-  else if (cpuRaw.match(/core ultra 7|i7-1[3-9]/))     cpuScore = 16;
-  else if (cpuRaw.match(/ryzen 9/))                    cpuScore = 18;
-  else if (cpuRaw.match(/ryzen 7/))                    cpuScore = 14;
-  else if (cpuRaw.match(/i5-1[3-9]|core ultra 5/))     cpuScore = 10;
-  else                                                  cpuScore = 8;
+  // === CPU (max 30 pts) ===
+  // Core count from spec
+  let cores = extractNumber(
+    getSpec(specs, ["processor core count", "number of cpu cores", "processor count"])
+  );
+  // Fallback: "XX-core CPU" pattern in any spec text (works for Apple "Other Special Features")
+  if (!cores) {
+    const m = allText.match(/(\d+)\s*-?\s*core\s+cpu/i);
+    if (m) cores = parseInt(m[1], 10);
+  }
+  // GHz from spec
+  let ghz = extractNumber(
+    getSpec(specs, ["processor speed", "maximum clockspeed", "cpu model speed maximum"])
+  );
+  // Apple M-series chips do not publish GHz in Amazon specs.
+  // Use a conservative 3.5 GHz equivalent so they still get a CPU score.
+  if (!ghz && cores > 0) ghz = 3.5;
 
-  const gpuRaw = (getSpec(specs, ["gpu", "graphics", "graphics card", "discrete graphics"]) + " " + ln).toLowerCase();
+  // Core score: log2 scale (max 18 pts) — 4c=8, 8c=12, 12c=14.5, 16c=16, 18c=16.7, 24c=18.5→18
+  const coreScore = Math.min(18, Math.round(Math.log2(Math.max(cores, 1)) * 4));
+  // GHz score: linear scale (max 12 pts) — 3.2GHz=7, 4.0GHz=8.7, 5.0GHz=10.9, 5.5GHz=12
+  const ghzScore  = Math.min(12, Math.round((ghz / 5.5) * 12));
+  const cpuScore  = Math.min(30, coreScore + ghzScore);
+
+  // === GPU (max 25 pts) ===
+  // Priority 1: Discrete VRAM (gaming laptops with NVIDIA/AMD GPU)
+  let vram = extractNumber(
+    getSpec(specs, ["vram", "graphics card ram", "graphics card ram size", "video memory", "gpu memory"])
+  );
+
   let gpuScore = 0;
-  if      (gpuRaw.match(/5090|5080/))          gpuScore = 25;
-  else if (gpuRaw.match(/5070|4090/))          gpuScore = 22;
-  else if (gpuRaw.match(/4080|4070 ti/))       gpuScore = 18;
-  else if (gpuRaw.match(/4070/))               gpuScore = 14;
-  else if (gpuRaw.match(/4060|3080/))          gpuScore = 10;
-  else if (gpuRaw.match(/4050|3070/))          gpuScore = 8;
-  else if (gpuRaw.match(/integrated|iris|radeon graphics/)) gpuScore = 2;
-  else                                          gpuScore = 5;
+  if (vram > 0) {
+    // Discrete GPU — score on VRAM: 4GB=8, 6GB=10, 8GB=12, 12GB=14, 16GB=16 pts
+    gpuScore = Math.min(25, Math.round(Math.log2(Math.max(vram, 1)) * 4));
+  } else {
+    // Priority 2: Unified Memory (Apple M-series)
+    // Unified memory is accessible to both CPU and GPU, applying a 50% efficiency discount
+    // vs dedicated VRAM. This is generous for Apple but reflects their real AI inference advantage.
+    // Example: 128GB unified → 64GB effective → score=24. Much better than 16GB VRAM laptop=16.
+    if (ram > 0) {
+      const effectiveVRAM = ram * 0.5;
+      gpuScore = Math.min(25, Math.round(Math.log2(Math.max(effectiveVRAM, 1)) * 4));
+    } else {
+      // Priority 3: Extract integrated GPU core count from spec text
+      // (e.g. "Apple M5 Max 40-Core GPU" → 40 cores)
+      const gpuText =
+        getSpec(specs, ["graphics coprocessor", "graphics description", "other special features of the product"]) +
+        " " + allText;
+      const coresMatch = gpuText.match(/(\d+)\s*-?\s*core\s+gpu/i);
+      if (coresMatch) {
+        const gpuCores = parseInt(coresMatch[1], 10);
+        // Integrated GPU core scale: 8-core=8, 16-core=10, 32-core=13, 40-core=14, 128-core=18 pts max
+        gpuScore = Math.min(18, Math.round(Math.log2(Math.max(gpuCores, 1)) * 2.5));
+      }
+    }
+  }
 
-  const storeRaw = (getSpec(specs, ["storage", "ssd", "hard drive", "hard disk"]) + " " + ln).toLowerCase();
+  // === Storage (max 10 pts) ===
+  const storeRaw =
+    getSpec(specs, ["hard-drive size", "hard disk", "hard disk description", "storage", "ssd"]) +
+    " " + allText;
+  const storageGB = extractStorageGB(storeRaw);
   let storageBonus = 0;
-  if      (storeRaw.match(/[24]\s*tb/))    storageBonus = 10;
-  else if (storeRaw.match(/1\s*tb/))       storageBonus = 7;
-  else if (storeRaw.match(/512\s*gb/))     storageBonus = 4;
-  else if (storeRaw.match(/256\s*gb/))     storageBonus = 2;
+  if      (storageGB >= 2000) storageBonus = 10;  // 2TB+
+  else if (storageGB >= 1000) storageBonus = 7;   // 1TB
+  else if (storageGB >= 512)  storageBonus = 4;   // 512GB
+  else if (storageGB >= 256)  storageBonus = 2;   // 256GB
 
   return Math.min(100, Math.max(0, ramScore + cpuScore + gpuScore + storageBonus));
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
 // WORKSTATION SCORING  (max 100)
-// Uses actual Amazon-scraped DB keys:
-//   RAM:  "RAM Memory Installed"       0-40 pts (log scale)
-//   GPU:  "Graphics Coprocessor"       0-35 pts
-//   CPU:  "Processor Series" / name    0-25 pts
+//   WITH dedicated GPU:  RAM (35) + GPU VRAM (40) + CPU (25)
+//   WITHOUT dedicated GPU (mini PC / integrated): RAM (55) + CPU (45)
+//   Detection: if no VRAM in specs → integrated mode
 // ─────────────────────────────────────────────────────────────────────────────
 function scoreWorkstation(specs: Record<string, unknown>, name: string): number {
-  const ln = name.toLowerCase();
+  const allText = getAllSpecText(specs) + " " + name.toLowerCase();
 
-  // RAM — actual Amazon key is "RAM Memory Installed"
-  let ram = extractNumber(getSpec(specs, [
-    "ram memory installed", "ram memory installed size",
-    "memory", "ram", "installed memory", "system memory",
-  ]));
+  // RAM — from DB field (workstations use "RAM Memory Installed")
+  let ram = extractNumber(
+    getSpec(specs, ["ram memory installed", "ram memory installed size", "memory", "ram", "installed memory", "system memory"])
+  );
   if (!ram) {
     const m = name.match(/(\d+)\s*GB\s*(?:DDR|RAM|SDRAM|ECC)?/i);
     if (m) ram = parseInt(m[1], 10);
   }
-  // 32GB=28, 64GB=33, 128GB=38, 256GB=40
-  const ramScore = Math.min(40, Math.round(Math.log2(Math.max(ram, 1)) * 5.5));
 
-  // GPU — Amazon uses "Graphics Coprocessor" for the GPU model name
-  const gpuRaw = (
-    getSpec(specs, ["graphics coprocessor", "graphics card", "video processor", "gpu", "graphics"]) +
-    " " + ln
-  ).toLowerCase();
-  let gpuScore = 0;
-  if      (gpuRaw.match(/rtx 6000 ada|rtx 5090/))        gpuScore = 35;
-  else if (gpuRaw.match(/rtx 5000|rtx 5080/))            gpuScore = 30;
-  else if (gpuRaw.match(/rtx 4000 ada|rtx 4090|a6000/))  gpuScore = 26;
-  else if (gpuRaw.match(/rtx 4080|rtx 3000 ada|a5000/))  gpuScore = 22;
-  else if (gpuRaw.match(/rtx 4070|rtx 2000 ada|a4000/))  gpuScore = 18;
-  else if (gpuRaw.match(/rtx 4060|t1000|t600|a2000/))    gpuScore = 13;
-  else if (gpuRaw.match(/t400|p1000|p620|quadro p/))     gpuScore = 8;
-  else if (gpuRaw.match(/integrated|iris|onboard/))      gpuScore = 3;
-  else                                                     gpuScore = 8;
+  // CPU — core count + GHz
+  let cores = extractNumber(
+    getSpec(specs, ["processor core count", "number of cpu cores", "processor count"])
+  );
+  if (!cores) {
+    const m = allText.match(/(\d+)\s*-?\s*core\s+cpu/i);
+    if (m) cores = parseInt(m[1], 10);
+  }
+  let ghz = extractNumber(
+    getSpec(specs, ["processor speed", "cpu model speed maximum", "maximum clockspeed"])
+  );
+  if (!ghz && cores > 0) ghz = 3.5; // Conservative default if not published
 
-  // CPU — "Processor Series" has the full model (e.g. "Ryzen Threadripper PRO 7955WX")
-  const cpuRaw = (
-    getSpec(specs, ["processor series", "processor", "cpu", "processor type"]) +
-    " " + ln
-  ).toLowerCase();
-  let cpuScore = 0;
-  if      (cpuRaw.match(/threadripper pro 7[0-9]{3}|threadripper pro 59[0-9]{2}/)) cpuScore = 25;
-  else if (cpuRaw.match(/threadripper pro 3[0-9]{3}|xeon w9/))                    cpuScore = 22;
-  else if (cpuRaw.match(/threadripper [0-9]+|xeon w7/))                            cpuScore = 20;
-  else if (cpuRaw.match(/i9-1[3-9]|core ultra 9|ryzen 9 [79]/))                   cpuScore = 18;
-  else if (cpuRaw.match(/i7-1[3-9]|core ultra 7|ryzen 9 [35]/))                   cpuScore = 14;
-  else if (cpuRaw.match(/ryzen 7|i7-1[0-2]/))                                      cpuScore = 10;
-  else                                                                               cpuScore = 7;
+  // GPU VRAM — dedicated GPU detection
+  let vram = extractNumber(
+    getSpec(specs, ["vram", "graphics card ram", "graphics card ram size", "video memory", "gpu memory", "graphics memory"])
+  );
 
-  return Math.min(100, Math.max(0, ramScore + gpuScore + cpuScore));
+  if (vram > 0) {
+    // ── WORKSTATION WITH DEDICATED GPU ──────────────────────────────────────
+    // RAM (max 35): 32GB=28, 64GB=33, 128GB=38 → capped at 35
+    const ramScore = Math.min(35, Math.round(Math.log2(Math.max(ram, 1)) * 5.5));
+    // GPU VRAM (max 40): 8GB=28, 12GB=32, 16GB=36, 24GB=40, 32GB→40 (capped)
+    const gpuScore = Math.min(40, Math.round(Math.log2(Math.max(vram, 1)) * 10));
+    // CPU (max 25): cores+GHz
+    const coreScore = Math.min(15, Math.round(Math.log2(Math.max(cores, 1)) * 3.5));
+    const ghzScore  = Math.min(10, Math.round((ghz / 5.5) * 10));
+    const cpuScore  = Math.min(25, coreScore + ghzScore);
+
+    return Math.min(100, Math.max(0, ramScore + gpuScore + cpuScore));
+  } else {
+    // ── WORKSTATION WITHOUT DEDICATED GPU (mini PC / integrated) ─────────
+    // RAM (max 55): weighted more since there's no GPU
+    const ramScore = Math.min(55, Math.round(Math.log2(Math.max(ram, 1)) * 8));
+    // CPU (max 45): cores + GHz with higher ceiling
+    const coreScore = Math.min(25, Math.round(Math.log2(Math.max(cores, 1)) * 6));
+    const ghzScore  = Math.min(20, Math.round((ghz / 5.5) * 20));
+    const cpuScore  = Math.min(45, coreScore + ghzScore);
+
+    return Math.min(100, Math.max(0, ramScore + cpuScore));
+  }
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// NPU / CPU SCORING  (max 100)
-// The 'npus' category in the DB contains desktop CPUs (Ryzen, Xeon, etc.)
-// Scores TOPS if available, otherwise falls back to CPU specs.
-//   Model tier   0-30 pts  (X3D / flagship bonus)
-//   Core count   0-30 pts
-//   Clock speed  0-20 pts
-//   Cache size   0-20 pts
+// NPU / CPU DESKTOP SCORING  (max 100)
+// Amazon does not publish AI TOPS for desktop CPUs.
+// All four spec fields below are 100% available in the DB for this category.
+//   Core Count   0-35 pts  — log scale
+//   GHz Boost    0-25 pts  — linear against 5.7 GHz reference (fastest in DB)
+//   Cache MB     0-25 pts  — log scale (L2+L3 total; includes 3D V-Cache where applicable)
+//   TDP (Watts)  0-15 pts  — linear against 200W reference
 // ─────────────────────────────────────────────────────────────────────────────
 function scoreNPU(specs: Record<string, unknown>, name: string): number {
-  const ln = name.toLowerCase();
-
-  // Primary: try TOPS (real NPU chips)
-  let tops = extractNumber(
-    getSpec(specs, ["total ai tops", "ai performance", "ai tops", "tops", "nnops", "neural processing"])
+  // Core count — available at 100% in DB
+  const cores = extractNumber(
+    getSpec(specs, ["processor core count", "processor count", "number of cpu cores"])
   );
-  if (!tops) {
-    const m = name.match(/(\d+)\s*tops/i);
-    if (m) tops = parseFloat(m[1]);
-  }
-  if (tops > 0) {
-    let arch = 0;
-    if      (ln.match(/gaudi ?3|trainium ?2/))        arch = 25;
-    else if (ln.match(/gaudi ?2|trainium/))            arch = 20;
-    else if (ln.match(/neural engine|apple m[34]/))    arch = 18;
-    else if (ln.match(/snapdragon x elite/))           arch = 15;
-    else if (ln.match(/snapdragon x plus/))            arch = 12;
-    else if (ln.match(/intel core ultra|meteor lake/)) arch = 10;
-    else if (ln.match(/ryzen ai/))                     arch = 10;
-    else                                                arch = 5;
-    return Math.min(100, Math.max(0,
-      Math.min(75, Math.round((Math.log(tops + 1) / Math.log(700)) * 75)) + arch
-    ));
-  }
 
-  // Fallback: score as CPU using actual specs from DB
-  const cores   = extractNumber(getSpec(specs, ["processor core count", "processor count"]));
-  const threads = extractNumber(getSpec(specs, ["processor number of concurrent threads"]));
-  const ghz     = extractNumber(getSpec(specs, ["processor speed"]));
-  const cacheMb = extractNumber(getSpec(specs, ["cache memory installed size", "secondary cache"]));
+  // GHz boost — available at 100% in DB
+  const ghz = extractNumber(
+    getSpec(specs, ["processor speed", "maximum clockspeed"])
+  );
 
-  // Core score: 4c=15, 8c=22, 16c=27, 24c=30
-  const effectiveCores = cores || Math.max(threads / 2, 1);
-  const coreScore  = Math.min(30, Math.round(Math.log2(Math.max(effectiveCores, 1)) * 7));
-  // Clock score: 3.5GHz=13, 4.7GHz=17, 5.5GHz=20
-  const clockScore = Math.min(20, Math.round((ghz / 5.5) * 20));
-  // Cache score: 32MB=10, 64MB=15, 104MB=20 (9800X3D has 104MB!)
-  const cacheScore = Math.min(20, Math.round(Math.log2(Math.max(cacheMb || 8, 1)) * 3.3));
+  // Cache — "Cache Memory Installed Size" covers L2+L3 total; available at 100%
+  const cacheMB = extractNumber(
+    getSpec(specs, ["cache memory installed size", "secondary cache"])
+  );
 
-  // Model tier bonus (0-30)
-  let tierBonus = 0;
-  if      (ln.match(/x3d/))                                    tierBonus = 30;
-  else if (ln.match(/ryzen 9 9\d{3}|ryzen 9 7\d{3}/))         tierBonus = 22;
-  else if (ln.match(/ryzen 9 5\d{3}|ryzen 9 3\d{3}/))         tierBonus = 18;
-  else if (ln.match(/core ultra 9|i9-1[3-9]|xeon w9/))        tierBonus = 24;
-  else if (ln.match(/core ultra 7|i7-1[3-9]|xeon w7/))        tierBonus = 18;
-  else if (ln.match(/ryzen 7 [79]\d{3}/))                      tierBonus = 16;
-  else if (ln.match(/ryzen 7 5\d{3}/))                         tierBonus = 12;
-  else if (ln.match(/ryzen 5|i5-1[3-9]|core ultra 5/))        tierBonus = 8;
-  else                                                          tierBonus = 5;
+  // TDP — "Wattage" available at 100% in DB
+  const tdp = extractNumber(
+    getSpec(specs, ["wattage"])
+  );
 
-  return Math.min(100, Math.max(0, tierBonus + coreScore + clockScore + cacheScore));
+  // Core score: 4c=14, 6c=17, 8c=21, 12c=26, 16c=30, 20c=33, 24c=35
+  const coreScore  = Math.min(35, Math.round(Math.log2(Math.max(cores, 1)) * 8));
+  // GHz score: 3.5GHz=15, 4.5GHz=20, 5.0GHz=22, 5.5GHz=24, 5.7GHz=25
+  const ghzScore   = Math.min(25, Math.round((ghz / 5.7) * 25));
+  // Cache score: 16MB=18, 32MB=22, 64MB=27→25, 80MB=29→25, 96MB=30→25
+  const cacheScore = Math.min(25, Math.round(Math.log2(Math.max(cacheMB, 1)) * 4.5));
+  // TDP score: 65W=5, 105W=8, 125W=9, 170W=13, 200W=15
+  const tdpScore   = Math.min(15, Math.round((tdp / 200) * 15));
+
+  return Math.min(100, Math.max(0, coreScore + ghzScore + cacheScore + tdpScore));
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -283,22 +356,22 @@ export function calculateAIScore(product: Product | any): number {
       ? (product.specs as Record<string, unknown>)
       : {};
   const category = (product.category || "").toLowerCase();
-  const name = product.name || product.title || "";
+  const name = product.name || product.clean_name || product.title || "";
 
-  if (category === "gpu"  || category === "gpus")         return scoreGPU(specs, name);
-  if (category === "laptop"    || category === "laptops")      return scoreLaptop(specs, name);
-  if (category === "workstation" || category === "workstations") return scoreWorkstation(specs, name);
-  if (category === "npu"  || category === "npus")         return scoreNPU(specs, name);
+  if (category === "gpu"          || category === "gpus")         return scoreGPU(specs, name);
+  if (category === "laptop"       || category === "laptops")      return scoreLaptop(specs, name);
+  if (category === "workstation"  || category === "workstations") return scoreWorkstation(specs, name);
+  if (category === "npu"          || category === "npus")         return scoreNPU(specs, name);
 
   return 0;
 }
 
 /** Assigns a Tier label based on AI score. */
 export function assignTier(score: number): Tier {
-  if (score >= 80) return "S";  // Top tier: 80+ (was 90)
-  if (score >= 65) return "A";  // High tier: 65-79 (was 75)
-  if (score >= 45) return "B";  // Mid tier: 45-64 (was 55)
-  return "C";                   // Entry tier: <45 (was <55)
+  if (score >= 80) return "S";
+  if (score >= 65) return "A";
+  if (score >= 45) return "B";
+  return "C";
 }
 
 /** Calculates a value-for-money rating based on AI score and price. */
@@ -333,190 +406,139 @@ export function getScoreBreakdown(product: Product | any): ScoreBreakdown {
       ? (product.specs as Record<string, unknown>)
       : {};
   const category = (product.category || "").toLowerCase();
-  const name = product.name || product.title || "";
-  const price = product.price || 0;
+  const name = product.name || product.clean_name || product.title || "";
 
-  const breakdown: ScoreBreakdown = {
-    total: 0,
-    tier: "C",
-    components: {}
-  };
+  const breakdown: ScoreBreakdown = { total: 0, tier: "C", components: {} };
 
+  // ── GPU ──────────────────────────────────────────────────────────────────
   if (category === "gpu" || category === "gpus") {
-    const ln = name.toLowerCase();
-    const vram = extractNumber(getSpec(specs, ["vram", "graphics card ram", "graphics card ram size", "video memory", "gpu memory", "graphics memory"])) || 
-                 (name.match(/(\d+)\s*GB/i) ? parseFloat(name.match(/(\d+)\s*GB/i)![1]) : 0);
-    const vramScore = Math.min(40, Math.round(vram * 1.67));
-    
-    let cores = extractNumber(getSpec(specs, ["cuda cores", "cudacores", "stream processors", "shader processors", "compute units"]));
-    if (!cores) {
-      if      (ln.match(/5090|blackwell|b200/)) cores = 21760;
-      else if (ln.match(/rtx 6000 ada/))        cores = 18176;
-      else if (ln.match(/5080/))                cores = 10752;
-      else if (ln.match(/a6000|a40/))           cores = 10752;
-      else if (ln.match(/5070 ti/))             cores = 9728;
-      else if (ln.match(/5070/))                cores = 8192;
-      else if (ln.match(/4090|rtx 6000/))       cores = 16384;
-      else if (ln.match(/4080|rtx 5000 ada/))   cores = 9728;
-      else if (ln.match(/4070 ti/))             cores = 7680;
-      else if (ln.match(/4070|rtx 4000 ada/))   cores = 5888;
-      else if (ln.match(/4060 ti/))             cores = 4352;
-      else if (ln.match(/4060/))                cores = 3072;
-      else if (ln.match(/3090|rtx a5000/))      cores = 10496;
-      else if (ln.match(/7900 xtx/))            cores = 6144;
-      else if (ln.match(/7900 xt/))             cores = 5376;
-      else if (ln.match(/rx 9060|9060/))        cores = 4000;
-      else cores = 2000;
-    }
-    const coresScore = Math.min(50, Math.round(cores / 328));
-    
-    let arch = 0;
-    if      (ln.match(/5090|5080|5070|blackwell|b200/))  arch = 10;
-    else if (ln.match(/4090|4080|4070|ada|a6000|a5000/)) arch = 6;
-    else if (ln.match(/4060|3090/))                      arch = 3;
-    else if (ln.match(/7900|rx 9060/))                   arch = 4;
+    let vram = extractNumber(
+      getSpec(specs, ["vram", "graphics card ram", "graphics card ram size", "video memory", "gpu memory", "graphics memory"])
+    );
+    if (!vram) { const m = name.match(/(\d+)\s*GB/i); if (m) vram = parseFloat(m[1]); }
+    const vramScore    = Math.min(70, Math.round(Math.log2(Math.max(vram, 1)) * 14));
+    const computeScore = getGPUComputeScore(name);
 
-    breakdown.total = Math.min(100, Math.max(0, vramScore + coresScore + arch));
+    breakdown.total = Math.min(100, Math.max(0, vramScore + computeScore));
     breakdown.components = {
-      "VRAM": { score: vramScore, max: 40, percentage: Math.round((vramScore / 40) * 100) },
-      "CUDA Cores / Stream Processors": { score: coresScore, max: 50, percentage: Math.round((coresScore / 50) * 100) },
-      "Architecture Bonus": { score: arch, max: 10, percentage: Math.round((arch / 10) * 100) }
+      "VRAM":              { score: vramScore,    max: 70, percentage: Math.round((vramScore    / 70) * 100) },
+      "Compute (Model)":   { score: computeScore, max: 30, percentage: Math.round((computeScore / 30) * 100) },
     };
-  } else if (category === "laptop" || category === "laptops") {
-    const ln = name.toLowerCase();
-    let ram = extractNumber(getSpec(specs, ["unified memory", "memory", "ram", "system memory", "installed ram"])) ||
-              (name.match(/(\d+)\s*GB\s*(?:DDR|LPDDR|Unified|RAM|Memory)/i) ? parseInt(name.match(/(\d+)\s*GB\s*(?:DDR|LPDDR|Unified|RAM|Memory)/i)![1], 10) : 0);
+  }
+
+  // ── LAPTOP ───────────────────────────────────────────────────────────────
+  else if (category === "laptop" || category === "laptops") {
+    const allText = getAllSpecText(specs) + " " + name.toLowerCase();
+
+    let ram = extractNumber(getSpec(specs, ["ram memory installed", "unified memory", "memory", "ram memory installed size", "system memory", "installed ram"]));
+    if (!ram) { const m = name.match(/(\d+)\s*GB\s*(?:DDR|LPDDR|Unified|RAM|Memory)/i); if (m) ram = parseInt(m[1], 10); }
     const ramScore = Math.min(35, Math.round(Math.log2(Math.max(ram, 1)) * 5));
-    
-    const cpuRaw = (getSpec(specs, ["processor", "cpu", "processor type"]) + " " + ln).toLowerCase();
-    let cpuScore = 0;
-    if      (cpuRaw.match(/m4 ultra|m3 ultra/))          cpuScore = 30;
-    else if (cpuRaw.match(/m4 max|m3 max/))              cpuScore = 26;
-    else if (cpuRaw.match(/m4 pro|m3 pro/))              cpuScore = 22;
-    else if (cpuRaw.match(/m4|m3/))                      cpuScore = 18;
-    else if (cpuRaw.match(/m2 ultra/))                   cpuScore = 24;
-    else if (cpuRaw.match(/m2 max/))                     cpuScore = 21;
-    else if (cpuRaw.match(/m2 pro/))                     cpuScore = 18;
-    else if (cpuRaw.match(/m2/))                         cpuScore = 15;
-    else if (cpuRaw.match(/m1 ultra/))                   cpuScore = 20;
-    else if (cpuRaw.match(/core ultra 9|i9-1[3-9]/))     cpuScore = 20;
-    else if (cpuRaw.match(/core ultra 7|i7-1[3-9]/))     cpuScore = 16;
-    else if (cpuRaw.match(/ryzen 9/))                    cpuScore = 18;
-    else if (cpuRaw.match(/ryzen 7/))                    cpuScore = 14;
-    else if (cpuRaw.match(/i5-1[3-9]|core ultra 5/))     cpuScore = 10;
-    else                                                  cpuScore = 8;
-    
-    const gpuRaw = (getSpec(specs, ["gpu", "graphics", "graphics card", "discrete graphics"]) + " " + ln).toLowerCase();
+
+    let cores = extractNumber(getSpec(specs, ["processor core count", "number of cpu cores", "processor count"]));
+    if (!cores) { const m = allText.match(/(\d+)\s*-?\s*core\s+cpu/i); if (m) cores = parseInt(m[1], 10); }
+    let ghz = extractNumber(getSpec(specs, ["processor speed", "maximum clockspeed", "cpu model speed maximum"]));
+    if (!ghz && cores > 0) ghz = 3.5;
+    const coreScore = Math.min(18, Math.round(Math.log2(Math.max(cores, 1)) * 4));
+    const ghzScore  = Math.min(12, Math.round((ghz / 5.5) * 12));
+    const cpuScore  = Math.min(30, coreScore + ghzScore);
+
+    let vram = extractNumber(getSpec(specs, ["vram", "graphics card ram", "graphics card ram size", "video memory", "gpu memory"]));
     let gpuScore = 0;
-    if      (gpuRaw.match(/5090|5080/))          gpuScore = 25;
-    else if (gpuRaw.match(/5070|4090/))          gpuScore = 22;
-    else if (gpuRaw.match(/4080|4070 ti/))       gpuScore = 18;
-    else if (gpuRaw.match(/4070/))               gpuScore = 14;
-    else if (gpuRaw.match(/4060|3080/))          gpuScore = 10;
-    else if (gpuRaw.match(/4050|3070/))          gpuScore = 8;
-    else if (gpuRaw.match(/integrated|iris|radeon graphics/)) gpuScore = 2;
-    else                                          gpuScore = 5;
-    
-    const storeRaw = (getSpec(specs, ["storage", "ssd", "hard drive", "hard disk"]) + " " + ln).toLowerCase();
+    let gpuLabel = "";
+    if (vram > 0) {
+      gpuScore = Math.min(25, Math.round(Math.log2(Math.max(vram, 1)) * 4));
+      gpuLabel = `Discrete VRAM (${vram} GB)`;
+    } else if (ram > 0) {
+      const effectiveVRAM = ram * 0.5;
+      gpuScore = Math.min(25, Math.round(Math.log2(Math.max(effectiveVRAM, 1)) * 4));
+      gpuLabel = `Unified Memory ×0.5 (${effectiveVRAM} GB effective)`;
+    } else {
+      const gpuText = getSpec(specs, ["graphics coprocessor", "graphics description", "other special features of the product"]) + " " + allText;
+      const coresMatch = gpuText.match(/(\d+)\s*-?\s*core\s+gpu/i);
+      if (coresMatch) {
+        const gpuCores = parseInt(coresMatch[1], 10);
+        gpuScore = Math.min(18, Math.round(Math.log2(Math.max(gpuCores, 1)) * 2.5));
+        gpuLabel = `Integrated (${gpuCores}-core GPU)`;
+      } else {
+        gpuLabel = "Integrated GPU (no data)";
+      }
+    }
+
+    const storeRaw = getSpec(specs, ["hard-drive size", "hard disk", "hard disk description", "storage", "ssd"]) + " " + allText;
+    const storageGB = extractStorageGB(storeRaw);
     let storageBonus = 0;
-    if      (storeRaw.match(/[24]\s*tb/))    storageBonus = 10;
-    else if (storeRaw.match(/1\s*tb/))       storageBonus = 7;
-    else if (storeRaw.match(/512\s*gb/))     storageBonus = 4;
-    else if (storeRaw.match(/256\s*gb/))     storageBonus = 2;
+    if      (storageGB >= 2000) storageBonus = 10;
+    else if (storageGB >= 1000) storageBonus = 7;
+    else if (storageGB >= 512)  storageBonus = 4;
+    else if (storageGB >= 256)  storageBonus = 2;
 
     breakdown.total = Math.min(100, Math.max(0, ramScore + cpuScore + gpuScore + storageBonus));
     breakdown.components = {
-      "RAM": { score: ramScore, max: 35, percentage: Math.round((ramScore / 35) * 100) },
-      "CPU Tier": { score: cpuScore, max: 30, percentage: Math.round((cpuScore / 30) * 100) },
-      "GPU Tier": { score: gpuScore, max: 25, percentage: Math.round((gpuScore / 25) * 100) },
-      "Storage": { score: storageBonus, max: 10, percentage: Math.round((storageBonus / 10) * 100) }
+      "RAM":      { score: ramScore,     max: 35, percentage: Math.round((ramScore     / 35) * 100) },
+      "CPU":      { score: cpuScore,     max: 30, percentage: Math.round((cpuScore     / 30) * 100) },
+      [gpuLabel]: { score: gpuScore,     max: 25, percentage: Math.round((gpuScore     / 25) * 100) },
+      "Storage":  { score: storageBonus, max: 10, percentage: Math.round((storageBonus / 10) * 100) },
     };
-  } else if (category === "workstation" || category === "workstations") {
-    const ln = name.toLowerCase();
-    let ram = extractNumber(getSpec(specs, ["ram memory installed", "ram memory installed size", "memory", "ram", "installed memory", "system memory"])) ||
-              (name.match(/(\d+)\s*GB\s*(?:DDR|RAM|SDRAM|ECC)?/i) ? parseInt(name.match(/(\d+)\s*GB\s*(?:DDR|RAM|SDRAM|ECC)?/i)![1], 10) : 0);
-    const ramScore = Math.min(40, Math.round(Math.log2(Math.max(ram, 1)) * 5.5));
-    
-    const gpuRaw = (getSpec(specs, ["graphics coprocessor", "graphics card", "video processor", "gpu", "graphics"]) + " " + ln).toLowerCase();
-    let gpuScore = 0;
-    if      (gpuRaw.match(/rtx 6000 ada|rtx 5090/))        gpuScore = 35;
-    else if (gpuRaw.match(/rtx 5000|rtx 5080/))            gpuScore = 30;
-    else if (gpuRaw.match(/rtx 4000 ada|rtx 4090|a6000/))  gpuScore = 26;
-    else if (gpuRaw.match(/rtx 4080|rtx 3000 ada|a5000/))  gpuScore = 22;
-    else if (gpuRaw.match(/rtx 4070|rtx 2000 ada|a4000/))  gpuScore = 18;
-    else if (gpuRaw.match(/rtx 4060|t1000|t600|a2000/))    gpuScore = 13;
-    else if (gpuRaw.match(/t400|p1000|p620|quadro p/))     gpuScore = 8;
-    else if (gpuRaw.match(/integrated|iris|onboard/))      gpuScore = 3;
-    else                                                     gpuScore = 8;
-    
-    const cpuRaw = (getSpec(specs, ["processor series", "processor", "cpu", "processor type"]) + " " + ln).toLowerCase();
-    let cpuScore = 0;
-    if      (cpuRaw.match(/threadripper pro 7[0-9]{3}|threadripper pro 59[0-9]{2}/)) cpuScore = 25;
-    else if (cpuRaw.match(/threadripper pro 3[0-9]{3}|xeon w9/))                    cpuScore = 22;
-    else if (cpuRaw.match(/threadripper [0-9]+|xeon w7/))                            cpuScore = 20;
-    else if (cpuRaw.match(/i9-1[3-9]|core ultra 9|ryzen 9 [79]/))                   cpuScore = 18;
-    else if (cpuRaw.match(/i7-1[3-9]|core ultra 7|ryzen 9 [35]/))                   cpuScore = 14;
-    else if (cpuRaw.match(/ryzen 7|i7-1[0-2]/))                                      cpuScore = 10;
-    else                                                                               cpuScore = 7;
+  }
 
-    breakdown.total = Math.min(100, Math.max(0, ramScore + gpuScore + cpuScore));
-    breakdown.components = {
-      "RAM": { score: ramScore, max: 40, percentage: Math.round((ramScore / 40) * 100) },
-      "GPU": { score: gpuScore, max: 35, percentage: Math.round((gpuScore / 35) * 100) },
-      "CPU": { score: cpuScore, max: 25, percentage: Math.round((cpuScore / 25) * 100) }
-    };
-  } else if (category === "npu" || category === "npus") {
-    const ln = name.toLowerCase();
-    let tops = extractNumber(getSpec(specs, ["total ai tops", "ai performance", "ai tops", "tops", "nnops", "neural processing"])) ||
-               (name.match(/(\d+)\s*tops/i) ? parseFloat(name.match(/(\d+)\s*tops/i)![1]) : 0);
-    
-    if (tops > 0) {
-      let arch = 0;
-      if      (ln.match(/gaudi ?3|trainium ?2/))        arch = 25;
-      else if (ln.match(/gaudi ?2|trainium/))            arch = 20;
-      else if (ln.match(/neural engine|apple m[34]/))    arch = 18;
-      else if (ln.match(/snapdragon x elite/))           arch = 15;
-      else if (ln.match(/snapdragon x plus/))            arch = 12;
-      else if (ln.match(/intel core ultra|meteor lake/)) arch = 10;
-      else if (ln.match(/ryzen ai/))                     arch = 10;
-      else                                                arch = 5;
-      
-      const topsScore = Math.min(75, Math.round((Math.log(tops + 1) / Math.log(700)) * 75));
-      breakdown.total = Math.min(100, Math.max(0, topsScore + arch));
+  // ── WORKSTATION ───────────────────────────────────────────────────────────
+  else if (category === "workstation" || category === "workstations") {
+    const allText = getAllSpecText(specs) + " " + name.toLowerCase();
+
+    let ram = extractNumber(getSpec(specs, ["ram memory installed", "ram memory installed size", "memory", "ram", "installed memory", "system memory"]));
+    if (!ram) { const m = name.match(/(\d+)\s*GB\s*(?:DDR|RAM|SDRAM|ECC)?/i); if (m) ram = parseInt(m[1], 10); }
+
+    let cores = extractNumber(getSpec(specs, ["processor core count", "number of cpu cores", "processor count"]));
+    if (!cores) { const m = allText.match(/(\d+)\s*-?\s*core\s+cpu/i); if (m) cores = parseInt(m[1], 10); }
+    let ghz = extractNumber(getSpec(specs, ["processor speed", "cpu model speed maximum", "maximum clockspeed"]));
+    if (!ghz && cores > 0) ghz = 3.5;
+
+    let vram = extractNumber(getSpec(specs, ["vram", "graphics card ram", "graphics card ram size", "video memory", "gpu memory", "graphics memory"]));
+
+    if (vram > 0) {
+      const ramScore  = Math.min(35, Math.round(Math.log2(Math.max(ram, 1)) * 5.5));
+      const gpuScore  = Math.min(40, Math.round(Math.log2(Math.max(vram, 1)) * 10));
+      const coreScore = Math.min(15, Math.round(Math.log2(Math.max(cores, 1)) * 3.5));
+      const ghzScore  = Math.min(10, Math.round((ghz / 5.5) * 10));
+      const cpuScore  = Math.min(25, coreScore + ghzScore);
+      breakdown.total = Math.min(100, Math.max(0, ramScore + gpuScore + cpuScore));
       breakdown.components = {
-        "AI TOPS": { score: topsScore, max: 75, percentage: Math.round((topsScore / 75) * 100) },
-        "Architecture Bonus": { score: arch, max: 25, percentage: Math.round((arch / 25) * 100) }
+        "RAM":        { score: ramScore, max: 35, percentage: Math.round((ramScore / 35) * 100) },
+        "GPU VRAM":   { score: gpuScore, max: 40, percentage: Math.round((gpuScore / 40) * 100) },
+        "CPU":        { score: cpuScore, max: 25, percentage: Math.round((cpuScore / 25) * 100) },
       };
     } else {
-      const cores = extractNumber(getSpec(specs, ["processor core count", "processor count"]));
-      const threads = extractNumber(getSpec(specs, ["processor number of concurrent threads"]));
-      const ghz = extractNumber(getSpec(specs, ["processor speed"]));
-      const cacheMb = extractNumber(getSpec(specs, ["cache memory installed size", "secondary cache"]));
-      
-      const effectiveCores = cores || Math.max(threads / 2, 1);
-      const coreScore = Math.min(30, Math.round(Math.log2(Math.max(effectiveCores, 1)) * 7));
-      const clockScore = Math.min(20, Math.round((ghz / 5.5) * 20));
-      const cacheScore = Math.min(20, Math.round(Math.log2(Math.max(cacheMb || 8, 1)) * 3.3));
-      
-      let tierBonus = 0;
-      if      (ln.match(/x3d/))                                    tierBonus = 30;
-      else if (ln.match(/ryzen 9 9\d{3}|ryzen 9 7\d{3}/))         tierBonus = 22;
-      else if (ln.match(/ryzen 9 5\d{3}|ryzen 9 3\d{3}/))         tierBonus = 18;
-      else if (ln.match(/core ultra 9|i9-1[3-9]|xeon w9/))        tierBonus = 24;
-      else if (ln.match(/core ultra 7|i7-1[3-9]|xeon w7/))        tierBonus = 18;
-      else if (ln.match(/ryzen 7 [79]\d{3}/))                      tierBonus = 16;
-      else if (ln.match(/ryzen 7 5\d{3}/))                         tierBonus = 12;
-      else if (ln.match(/ryzen 5|i5-1[3-9]|core ultra 5/))        tierBonus = 8;
-      else                                                          tierBonus = 5;
-
-      breakdown.total = Math.min(100, Math.max(0, tierBonus + coreScore + clockScore + cacheScore));
+      const ramScore  = Math.min(55, Math.round(Math.log2(Math.max(ram, 1)) * 8));
+      const coreScore = Math.min(25, Math.round(Math.log2(Math.max(cores, 1)) * 6));
+      const ghzScore  = Math.min(20, Math.round((ghz / 5.5) * 20));
+      const cpuScore  = Math.min(45, coreScore + ghzScore);
+      breakdown.total = Math.min(100, Math.max(0, ramScore + cpuScore));
       breakdown.components = {
-        "Model Tier Bonus": { score: tierBonus, max: 30, percentage: Math.round((tierBonus / 30) * 100) },
-        "Core Count": { score: coreScore, max: 30, percentage: Math.round((coreScore / 30) * 100) },
-        "Clock Speed": { score: clockScore, max: 20, percentage: Math.round((clockScore / 20) * 100) },
-        "Cache Size": { score: cacheScore, max: 20, percentage: Math.round((cacheScore / 20) * 100) }
+        "RAM":                   { score: ramScore, max: 55, percentage: Math.round((ramScore / 55) * 100) },
+        "CPU (no dedicated GPU)": { score: cpuScore, max: 45, percentage: Math.round((cpuScore / 45) * 100) },
       };
     }
+  }
+
+  // ── NPU / CPU Desktop ─────────────────────────────────────────────────────
+  else if (category === "npu" || category === "npus") {
+    const cores    = extractNumber(getSpec(specs, ["processor core count", "processor count", "number of cpu cores"]));
+    const ghz      = extractNumber(getSpec(specs, ["processor speed", "maximum clockspeed"]));
+    const cacheMB  = extractNumber(getSpec(specs, ["cache memory installed size", "secondary cache"]));
+    const tdp      = extractNumber(getSpec(specs, ["wattage"]));
+
+    const coreScore  = Math.min(35, Math.round(Math.log2(Math.max(cores, 1)) * 8));
+    const ghzScore   = Math.min(25, Math.round((ghz / 5.7) * 25));
+    const cacheScore = Math.min(25, Math.round(Math.log2(Math.max(cacheMB, 1)) * 4.5));
+    const tdpScore   = Math.min(15, Math.round((tdp / 200) * 15));
+
+    breakdown.total = Math.min(100, Math.max(0, coreScore + ghzScore + cacheScore + tdpScore));
+    breakdown.components = {
+      "CPU Core Count":  { score: coreScore,  max: 35, percentage: Math.round((coreScore  / 35) * 100) },
+      "Clock Speed":     { score: ghzScore,   max: 25, percentage: Math.round((ghzScore   / 25) * 100) },
+      "Cache Size":      { score: cacheScore, max: 25, percentage: Math.round((cacheScore / 25) * 100) },
+      "TDP (Wattage)":   { score: tdpScore,   max: 15, percentage: Math.round((tdpScore   / 15) * 100) },
+    };
   }
 
   breakdown.tier = assignTier(breakdown.total);

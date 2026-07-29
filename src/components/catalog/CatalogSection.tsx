@@ -7,6 +7,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '@/lib/supabase';
 import { useQuery } from '@tanstack/react-query';
 
+import { calculateAIScore } from '@/utils/scoring';
+
 const CATEGORIES = ["All", "GPU", "Laptop", "NPU", "Workstation"];
 
 // Función para mapear datos de Supabase a Product
@@ -36,7 +38,7 @@ function mapDbToProduct(dbProd: any): Product {
     reviewsCount: dbProd.reviews_count || undefined,
     isPopular: dbProd.is_popular || false,
     status: dbProd.status,
-    ai_score: dbProd.ai_score,
+    ai_score: calculateAIScore(dbProd),
   };
 }
 

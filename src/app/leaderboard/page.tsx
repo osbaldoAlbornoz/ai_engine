@@ -24,7 +24,6 @@ interface ExtendedProduct extends Product {
   tier: Tier;
   valueRating: ReturnType<typeof calculateValueRating>;
   valueRatio: number;
-  dbAiScore?: number;
 }
 
 // Función para mapear datos de Supabase a ExtendedProduct
@@ -50,7 +49,6 @@ function mapDbToExtendedProduct(dbProd: any): ExtendedProduct {
     isPopular: dbProd.is_popular || false,
     status: dbProd.status,
     aiScore: computedScore,
-    dbAiScore: dbProd.ai_score || undefined,
     tier: assignTier(computedScore),
     valueRating: calculateValueRating(computedScore, dbProd.price || 0),
     valueRatio: dbProd.price > 0 ? (computedScore / dbProd.price) * 100 : 0,
@@ -310,11 +308,6 @@ function LeaderboardContent() {
                               <span className={`text-xs font-heading border px-2 py-0.5 ${product.valueRating?.bg || ''} ${product.valueRating?.color || ''} ${product.valueRating?.border || ''}`}>
                                 {product.valueRating?.label || 'N/A'}
                               </span>
-                              {product.dbAiScore && (
-                                <span className="text-xs font-heading bg-primary/10 text-primary px-2 py-0.5 border border-primary/30">
-                                  DB Score: {product.dbAiScore}
-                                </span>
-                              )}
                             </div>
                             <Link href={`/product/${product.id}`} onClick={(e) => e.stopPropagation()}>
                               <h3 className="text-xl font-bold font-heading text-white hover:text-primary transition-colors">{product.name}</h3>

@@ -14,6 +14,7 @@ interface CatalogProduct extends Product {
 }
 import Link from "next/link";
 import { getAffiliateUrl } from "@/utils/affiliate";
+import { calculateAIScore } from "@/utils/scoring";
 import { ShoppingCart, Filter, X, Search, ChevronRight, ChevronDown } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 
@@ -96,7 +97,7 @@ export default function CatalogViewer({ initialCategory = "all" }: { initialCate
           reviewsCount: dbProd.reviews_count,
           isPopular: dbProd.is_popular,
           status: dbProd.status,
-          ai_score: dbProd.ai_score,
+          ai_score: calculateAIScore(dbProd),
         }));
         
         console.log("✅ Products after mapping:", dbProducts.length);
