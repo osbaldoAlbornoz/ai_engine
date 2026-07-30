@@ -73,16 +73,21 @@ export function ProductDataClient({ product }: ProductDataClientProps) {
             </div>
 
             {/* Key Features */}
-            {(product.keyFeatures || product.features || []).length > 0 && (
-              <div className="space-y-3 mt-4">
-                {(product.keyFeatures || product.features || []).map((feature, idx) => (
-                  <div key={idx} className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-accent shrink-0 mt-0.5" />
-                    <span className="text-zinc-300">{feature}</span>
-                  </div>
-                ))}
-              </div>
-            )}
+            {(() => {
+              const raw = (product.keyFeatures && product.keyFeatures.length > 0) ? product.keyFeatures : product.features;
+              const list = Array.isArray(raw) ? raw : (typeof raw === "string" ? [raw] : []);
+              if (list.length === 0) return null;
+              return (
+                <div className="space-y-3 mt-4">
+                  {list.map((feature, idx) => (
+                    <div key={idx} className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-accent shrink-0 mt-0.5" />
+                      <span className="text-zinc-300">{feature}</span>
+                    </div>
+                  ))}
+                </div>
+              );
+            })()}
 
             {/* CTA */}
             <div className="mt-8 pt-8 border-t border-zinc-800/80">

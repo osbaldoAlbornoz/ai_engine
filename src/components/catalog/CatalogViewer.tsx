@@ -43,7 +43,9 @@ export default function CatalogViewer({ initialCategory = "all" }: { initialCate
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Contextual filters
+  // Contextual & Global filters
+  const [activePlatform, setActivePlatform] = useState<string>("all");
+  const [activeVRAMRange, setActiveVRAMRange] = useState<string>("all");
   const [activeVRAM, setActiveVRAM] = useState<string>("all");
   const [activeTOPS, setActiveTOPS] = useState<string>("all");
   const [activeMemory, setActiveMemory] = useState<string>("all");
@@ -127,10 +129,12 @@ export default function CatalogViewer({ initialCategory = "all" }: { initialCate
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [activeCategory, activeBrand, maxPrice, searchQuery, activeVRAM, activeTOPS, activeMemory, sortBy]);
+  }, [activeCategory, activeBrand, maxPrice, searchQuery, activePlatform, activeVRAMRange, activeVRAM, activeTOPS, activeMemory, sortBy]);
 
   const handleCategoryChange = (cat: Category | "all") => {
     setActiveCategory(cat);
+    setActivePlatform("all");
+    setActiveVRAMRange("all");
     setActiveVRAM("all");
     setActiveTOPS("all");
     setActiveMemory("all");
@@ -210,9 +214,36 @@ export default function CatalogViewer({ initialCategory = "all" }: { initialCate
     return Array.from(m).sort((a, b) => parseInt(a) - parseInt(b));
   }, [products, activeCategory]);
 
+  const getProductVRAMNumeric = (p: CatalogProduct): number => {
+    const specs = p.specs || {};
+    const keys = ['vram', 'video memory', 'graphics card ram', 'gpu memory', 'unified memory', 'memory', 'ram memory installed', 'ram'];
+    for (const [k, v] of Object.entries(specs)) {
+      const lk = k.toLowerCase();
+      if (keys.some(key => lk.includes(key))) {
+        const match = String(v).replace(/,/g, '').match(/(\d+(?:\.\d+)?)/);
+        if (match) {
+          const num = parseFloat(match[1]);
+          if (num > 0 && num <= 512) return num;
+        }
+      }
+    }
+    const nameMatch = p.name.match(/(\d+)\s*gb/i);
+    if (nameMatch) return parseFloat(nameMatch[1]);
+    return 0;
+  };
+
+  const getProductPlatform = (p: CatalogProduct): string => {
+    const text = (p.name + " " + p.brand + " " + JSON.stringify(p.specs || {})).toLowerCase();
+    if (text.includes("apple") || text.includes("macbook") || /\bm[1-5]\b/.test(text)) return "apple";
+    if (text.includes("nvidia") || text.includes("rtx") || text.includes("geforce") || text.includes("quadro") || text.includes("cuda")) return "nvidia";
+    if (text.includes("amd") || text.includes("radeon") || text.includes("ryzen")) return "amd";
+    if (text.includes("intel") || text.includes("core i") || text.includes("core ultra") || text.includes("arc")) return "intel";
+    return "other";
+  };
+
   const filteredProducts = useMemo(() => {
     console.log("🔍 Filter debug - activeCategory:", activeCategory, "activeBrand:", activeBrand, "maxPrice:", maxPrice, "searchQuery:", searchQuery);
-    console.log("🔍 Filter debug - activeVRAM:", activeVRAM, "activeTOPS:", activeTOPS, "activeMemory:", activeMemory);
+    console.log("🔍 Filter debug - activePlatform:", activePlatform, "activeVRAMRange:", activeVRAMRange);
     
     const result = products.filter((p) => {
       const matchCategory = activeCategory === "all" || p.category === activeCategory;
@@ -220,6 +251,22 @@ export default function CatalogViewer({ initialCategory = "all" }: { initialCate
       const matchPrice = p.price === 0 || p.price <= maxPrice; 
       const matchSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) || p.brand.toLowerCase().includes(searchQuery.toLowerCase());
       
+      let matchPlatform = true;
+      if (activePlatform !== "all") {
+        matchPlatform = getProductPlatform(p) === activePlatform;
+      }
+
+      let matchVRAMRange = true;
+      if (activeVRAMRange !== "all") {
+        const vram = getProductVRAMNumeric(p);
+        if (activeVRAMRange === "8gb")  matchVRAMRange = vram >= 8;
+        if (activeVRAMRange === "12gb") matchVRAMRange = vram >= 12;
+        if (activeVRAMRange === "16gb") matchVRAMRange = vram >= 16;
+        if (activeVRAMRange === "24gb") matchVRAMRange = vram >= 24;
+        if (activeVRAMRange === "32gb") matchVRAMRange = vram >= 32;
+        if (activeVRAMRange === "64gb") matchVRAMRange = vram >= 64;
+      }
+
       let matchContextual = true;
       if (activeCategory === "gpus" && activeVRAM !== "all") {
         const keys = ['VRAM', 'Video Memory', 'Graphics Card Ram', 'Memory'];
@@ -271,13 +318,15 @@ export default function CatalogViewer({ initialCategory = "all" }: { initialCate
         matchContextual = normalizedMem === activeMemory;
       }
 
-      const passes = matchCategory && matchBrand && matchPrice && matchSearch && matchContextual;
+      const passes = matchCategory && matchBrand && matchPrice && matchSearch && matchPlatform && matchVRAMRange && matchContextual;
       if (!passes) {
         const reasons = [];
         if (!matchCategory) reasons.push("category");
         if (!matchBrand) reasons.push("brand");
         if (!matchPrice) reasons.push(`price(${p.price} > ${maxPrice})`);
         if (!matchSearch) reasons.push("search");
+        if (!matchPlatform) reasons.push("platform");
+        if (!matchVRAMRange) reasons.push("vramRange");
         if (!matchContextual) reasons.push("contextual");
         console.log(`❌ ${p.name} filtered out: ${reasons.join(", ")}`);
       }
@@ -286,7 +335,7 @@ export default function CatalogViewer({ initialCategory = "all" }: { initialCate
     
     console.log("✅ Filtered products:", result.length, "out of", products.length);
     return result;
-  }, [products, activeCategory, activeBrand, maxPrice, searchQuery, activeVRAM, activeTOPS, activeMemory]);
+  }, [products, activeCategory, activeBrand, maxPrice, searchQuery, activePlatform, activeVRAMRange, activeVRAM, activeTOPS, activeMemory]);
 
   const sortedProducts = useMemo(() => {
     let sorted = [...filteredProducts];
@@ -385,19 +434,47 @@ export default function CatalogViewer({ initialCategory = "all" }: { initialCate
                 </div>
               </div>
 
-              {/* Brands */}
+              {/* Platform / Ecosystem Filter */}
               <div className="space-y-3">
-                <label className="text-sm font-heading font-semibold text-zinc-400 uppercase tracking-widest">Brand</label>
+                <label className="text-sm font-heading font-semibold text-zinc-400 uppercase tracking-widest flex items-center justify-between">
+                  <span>Platform</span>
+                  {activePlatform !== "all" && <span className="text-[10px] text-primary lowercase">active</span>}
+                </label>
                 <div className="relative">
                   <select 
-                    value={activeBrand} 
-                    onChange={(e) => setActiveBrand(e.target.value)}
-                    className="w-full bg-[#050505] border border-white/10 text-white px-4 py-2.5 pr-10 focus:outline-none focus:border-primary/50 transition-colors text-sm appearance-none cursor-pointer"
+                    value={activePlatform} 
+                    onChange={(e) => setActivePlatform(e.target.value)}
+                    className="w-full bg-[#050505] border border-white/10 text-white px-4 py-2.5 pr-10 focus:outline-none focus:border-primary/50 transition-colors text-sm appearance-none cursor-pointer font-heading"
                   >
-                    <option value="all">All Brands</option>
-                    {brands.map(b => (
-                      <option key={b} value={b}>{b}</option>
-                    ))}
+                    <option value="all">All Platforms</option>
+                    <option value="nvidia">NVIDIA (CUDA)</option>
+                    <option value="apple">Apple Silicon (Metal)</option>
+                    <option value="amd">AMD (RDNA/ROCm)</option>
+                    <option value="intel">Intel (OneAPI)</option>
+                  </select>
+                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500 pointer-events-none" />
+                </div>
+              </div>
+
+              {/* VRAM / Memory Capacity Filter */}
+              <div className="space-y-3">
+                <label className="text-sm font-heading font-semibold text-zinc-400 uppercase tracking-widest flex items-center justify-between">
+                  <span>Min VRAM / RAM</span>
+                  {activeVRAMRange !== "all" && <span className="text-[10px] text-primary lowercase">active</span>}
+                </label>
+                <div className="relative">
+                  <select 
+                    value={activeVRAMRange} 
+                    onChange={(e) => setActiveVRAMRange(e.target.value)}
+                    className="w-full bg-[#050505] border border-white/10 text-white px-4 py-2.5 pr-10 focus:outline-none focus:border-primary/50 transition-colors text-sm appearance-none cursor-pointer font-heading"
+                  >
+                    <option value="all">Any VRAM Size</option>
+                    <option value="8gb">8 GB+ VRAM</option>
+                    <option value="12gb">12 GB+ VRAM</option>
+                    <option value="16gb">16 GB+ VRAM</option>
+                    <option value="24gb">24 GB+ VRAM</option>
+                    <option value="32gb">32 GB+ VRAM</option>
+                    <option value="64gb">64 GB+ VRAM</option>
                   </select>
                   <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500 pointer-events-none" />
                 </div>
@@ -555,7 +632,14 @@ export default function CatalogViewer({ initialCategory = "all" }: { initialCate
                 <h3 className="text-xl font-bold text-white font-heading mb-2">No products found</h3>
                 <p className="text-zinc-400">Try adjusting your filters or search query.</p>
                 <button 
-                  onClick={() => { handleCategoryChange("all"); setActiveBrand("all"); setMaxPrice(maxPriceLimit); setSearchQuery(""); }}
+                  onClick={() => { 
+                    handleCategoryChange("all"); 
+                    setActiveBrand("all"); 
+                    setActivePlatform("all");
+                    setActiveVRAMRange("all");
+                    setMaxPrice(maxPriceLimit); 
+                    setSearchQuery(""); 
+                  }}
                   className="mt-6 text-primary hover:underline text-sm font-heading"
                 >
                   Clear all filters

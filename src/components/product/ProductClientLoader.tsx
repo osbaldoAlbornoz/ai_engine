@@ -4,6 +4,19 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { ProductDataClient } from "./ProductDataClient";
 
+function parseArray(val: any): any[] {
+  if (Array.isArray(val)) return val;
+  if (typeof val === "string") {
+    try {
+      const parsed = JSON.parse(val);
+      if (Array.isArray(parsed)) return parsed;
+    } catch {
+      return val ? [val] : [];
+    }
+  }
+  return [];
+}
+
 export function ProductClientLoader({ id }: { id: string }) {
   const [product, setProduct] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -28,6 +41,11 @@ export function ProductClientLoader({ id }: { id: string }) {
         
         if (isMounted) {
           data.name = data.clean_name || data.name;
+          data.features = parseArray(data.features);
+          data.keyFeatures = parseArray(data.keyFeatures);
+          data.pros = parseArray(data.pros);
+          data.cons = parseArray(data.cons);
+          data.gallery = parseArray(data.gallery);
           setProduct(data);
         }
       } catch (err) {

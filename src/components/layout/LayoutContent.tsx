@@ -5,6 +5,7 @@ import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
 import { ThreeColumnLayout } from "./ThreeColumnLayout";
 import { GoToTopButton } from "@/components/ui/GoToTopButton";
+import { FeedbackWidget } from "@/components/feedback/FeedbackWidget";
 
 export function LayoutContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -28,6 +29,7 @@ export function LayoutContent({ children }: { children: React.ReactNode }) {
         <main className="flex-grow flex flex-col">
           {children}
           <GoToTopButton />
+          <FeedbackWidget />
         </main>
         <Footer />
       </ThreeColumnLayout>

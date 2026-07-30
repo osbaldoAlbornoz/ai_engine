@@ -174,10 +174,14 @@ function scoreLaptop(specs: Record<string, unknown>, name: string): number {
   // === CPU (max 30 pts) ===
   // Core count from spec
   let cores = extractNumber(
-    getSpec(specs, ["processor core count", "number of cpu cores", "processor count"])
+    getSpec(specs, ["processor core count", "number of cpu cores"])
   );
+  if (!cores || cores <= 1) {
+    const procCount = extractNumber(getSpec(specs, ["processor count"]));
+    if (procCount > 1) cores = procCount;
+  }
   // Fallback: "XX-core CPU" pattern in any spec text (works for Apple "Other Special Features")
-  if (!cores) {
+  if (!cores || cores <= 1) {
     const m = allText.match(/(\d+)\s*-?\s*core\s+cpu/i);
     if (m) cores = parseInt(m[1], 10);
   }
@@ -434,8 +438,12 @@ export function getScoreBreakdown(product: Product | any): ScoreBreakdown {
     if (!ram) { const m = name.match(/(\d+)\s*GB\s*(?:DDR|LPDDR|Unified|RAM|Memory)/i); if (m) ram = parseInt(m[1], 10); }
     const ramScore = Math.min(35, Math.round(Math.log2(Math.max(ram, 1)) * 5));
 
-    let cores = extractNumber(getSpec(specs, ["processor core count", "number of cpu cores", "processor count"]));
-    if (!cores) { const m = allText.match(/(\d+)\s*-?\s*core\s+cpu/i); if (m) cores = parseInt(m[1], 10); }
+    let cores = extractNumber(getSpec(specs, ["processor core count", "number of cpu cores"]));
+    if (!cores || cores <= 1) {
+      const procCount = extractNumber(getSpec(specs, ["processor count"]));
+      if (procCount > 1) cores = procCount;
+    }
+    if (!cores || cores <= 1) { const m = allText.match(/(\d+)\s*-?\s*core\s+cpu/i); if (m) cores = parseInt(m[1], 10); }
     let ghz = extractNumber(getSpec(specs, ["processor speed", "maximum clockspeed", "cpu model speed maximum"]));
     if (!ghz && cores > 0) ghz = 3.5;
     const coreScore = Math.min(18, Math.round(Math.log2(Math.max(cores, 1)) * 4));

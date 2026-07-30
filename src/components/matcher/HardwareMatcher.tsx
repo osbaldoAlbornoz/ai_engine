@@ -16,6 +16,7 @@ import Image from "next/image";
 import { supabase } from "@/lib/supabase";
 import { Product } from "@/types/product";
 import { useQuery } from '@tanstack/react-query';
+import { calculateAIScore } from "@/utils/scoring";
 
 type Category = "gpus" | "laptops" | "npus" | "workstations";
 
@@ -88,7 +89,7 @@ export function HardwareMatcher() {
         reviewsCount: dbProd.reviews_count,
         isPopular: dbProd.is_popular,
         status: dbProd.status,
-        ai_score: dbProd.ai_score,
+        ai_score: calculateAIScore(dbProd),
         // Legacy aliases for backward compatibility
         image: dbProd.image_url || "",
         amazonUrl: dbProd.amazon_url || "#",
