@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
-import { supabase } from "@/lib/supabase";
+import { supabase, supabaseAdmin } from "@/lib/supabase";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -49,20 +49,18 @@ export async function POST(req: Request) {
       }
     }
 
-    // 2. Save Feedback to Supabase (Optional DB Audit)
-    try {
-      await supabase.from("feedback").insert([
-        {
-          category: cleanCategory,
-          name: cleanName,
-          email: cleanEmail,
-          message: cleanMessage,
-          created_at: new Date().toISOString(),
-        },
-      ]);
-    } catch (dbErr) {
-      // Ignore if table doesn't exist yet
-      console.log("Supabase insert skipped or table non-existent:", dbErr);
+    // 2. Save Feedback to Supabase (using service role to bypass RLS)
+    const { error: dbError } = await supabaseAdmin.from("feedback").insert([
+      {
+        category: cleanCategory,
+        name: cleanName,
+        email: cleanEmail,
+        message: cleanMessage,
+        created_at: new Date().toISOString(),
+      },
+    ]);
+    if (dbError) {
+      console.error("Supabase insert error:", dbError.message, dbError.details);
     }
 
     return NextResponse.json({
