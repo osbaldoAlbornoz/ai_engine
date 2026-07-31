@@ -105,14 +105,14 @@ export function CatalogSection() {
             onClick={() => handleCategoryChange(cat)}
             className={`font-heading relative px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 ${
               activeCategory === cat 
-                ? "text-white" 
-                : "text-zinc-400 hover:text-zinc-200 hover:bg-white/5"
+                ? "text-primary" 
+                : "text-primary/60 hover:text-primary hover:bg-primary/5"
             }`}
           >
             {activeCategory === cat && (
               <motion.div 
                 layoutId="activeTabIndicator"
-                className="absolute inset-0 bg-primary/20 border border-primary/50 rounded-full shadow-[0_0_15px_rgba(139,92,246,0.2)]"
+                className="absolute inset-0 bg-primary/20 border border-primary/50 rounded-full shadow-[0_0_15px_rgba(0,229,255,0.3)]"
                 transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
               />
             )}
