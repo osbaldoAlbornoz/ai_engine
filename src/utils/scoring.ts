@@ -182,7 +182,7 @@ function scoreLaptop(specs: Record<string, unknown>, name: string): number {
   }
   // Fallback: "XX-core CPU" pattern in any spec text (works for Apple "Other Special Features")
   if (!cores || cores <= 1) {
-    const m = allText.match(/(\d+)\s*-?\s*core\s+cpu/i);
+    const m = allText.match(/(\d+)\s*-?\s*core\b/i);
     if (m) cores = parseInt(m[1], 10);
   }
   // GHz from spec
@@ -269,7 +269,7 @@ function scoreWorkstation(specs: Record<string, unknown>, name: string): number 
     getSpec(specs, ["processor core count", "number of cpu cores", "processor count"])
   );
   if (!cores) {
-    const m = allText.match(/(\d+)\s*-?\s*core\s+cpu/i);
+    const m = allText.match(/(\d+)\s*-?\s*core\b/i);
     if (m) cores = parseInt(m[1], 10);
   }
   let ghz = extractNumber(
@@ -461,7 +461,7 @@ export function getScoreBreakdown(product: Product | any): ScoreBreakdown {
       const procCount = extractNumber(getSpec(specs, ["processor count"]));
       if (procCount > 1) cores = procCount;
     }
-    if (!cores || cores <= 1) { const m = allText.match(/(\d+)\s*-?\s*core\s+cpu/i); if (m) cores = parseInt(m[1], 10); }
+    if (!cores || cores <= 1) { const m = allText.match(/(\d+)\s*-?\s*core\b/i); if (m) cores = parseInt(m[1], 10); }
     let ghz = extractNumber(getSpec(specs, ["processor speed", "maximum clockspeed", "cpu model speed maximum"]));
     if (!ghz && cores > 0) ghz = 3.5;
     const coreScore = Math.min(18, Math.round(Math.log2(Math.max(cores, 1)) * 4));
@@ -515,7 +515,7 @@ export function getScoreBreakdown(product: Product | any): ScoreBreakdown {
     if (!ram) { const m = name.match(/(\d+)\s*GB\s*(?:DDR|RAM|SDRAM|ECC)?/i); if (m) ram = parseInt(m[1], 10); }
 
     let cores = extractNumber(getSpec(specs, ["processor core count", "number of cpu cores", "processor count"]));
-    if (!cores) { const m = allText.match(/(\d+)\s*-?\s*core\s+cpu/i); if (m) cores = parseInt(m[1], 10); }
+    if (!cores) { const m = allText.match(/(\d+)\s*-?\s*core\b/i); if (m) cores = parseInt(m[1], 10); }
     let ghz = extractNumber(getSpec(specs, ["processor speed", "cpu model speed maximum", "maximum clockspeed"]));
     if (!ghz && cores > 0) ghz = 3.5;
 
