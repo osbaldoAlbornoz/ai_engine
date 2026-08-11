@@ -282,6 +282,24 @@ function scoreWorkstation(specs: Record<string, unknown>, name: string): number 
     getSpec(specs, ["vram", "graphics card ram", "graphics card ram size", "video memory", "gpu memory", "graphics memory"])
   );
 
+  // Sanity check: if VRAM is extremely large and not Apple, it is likely SSD storage capacity
+  const isApple = name.toLowerCase().includes("apple") || name.toLowerCase().includes("mac studio") || name.toLowerCase().includes("mac pro") || allText.includes("apple");
+  
+  if (vram >= 128 && !isApple) {
+    vram = 0;
+  }
+
+  if (isApple && ram > 0) {
+    // Apple Silicon Unified Memory workstation
+    const effectiveVRAM = ram * 0.5;
+    const ramScore = Math.min(35, Math.round(Math.log2(Math.max(ram, 1)) * 5.5));
+    const gpuScore = Math.min(40, Math.round(Math.log2(Math.max(effectiveVRAM, 1)) * 10));
+    const coreScore = Math.min(15, Math.round(Math.log2(Math.max(cores, 1)) * 3.5));
+    const ghzScore  = Math.min(10, Math.round((ghz / 5.5) * 10));
+    const cpuScore  = Math.min(25, coreScore + ghzScore);
+    return Math.min(100, Math.max(0, ramScore + gpuScore + cpuScore));
+  }
+
   if (vram > 0) {
     // ── WORKSTATION WITH DEDICATED GPU ──────────────────────────────────────
     // RAM (max 35): 32GB=28, 64GB=33, 128GB=38 → capped at 35
@@ -503,7 +521,26 @@ export function getScoreBreakdown(product: Product | any): ScoreBreakdown {
 
     let vram = extractNumber(getSpec(specs, ["vram", "graphics card ram", "graphics card ram size", "video memory", "gpu memory", "graphics memory"]));
 
-    if (vram > 0) {
+    const isApple = name.toLowerCase().includes("apple") || name.toLowerCase().includes("mac studio") || name.toLowerCase().includes("mac pro") || allText.includes("apple");
+    
+    if (vram >= 128 && !isApple) {
+      vram = 0;
+    }
+
+    if (isApple && ram > 0) {
+      const effectiveVRAM = ram * 0.5;
+      const ramScore = Math.min(35, Math.round(Math.log2(Math.max(ram, 1)) * 5.5));
+      const gpuScore = Math.min(40, Math.round(Math.log2(Math.max(effectiveVRAM, 1)) * 10));
+      const coreScore = Math.min(15, Math.round(Math.log2(Math.max(cores, 1)) * 3.5));
+      const ghzScore  = Math.min(10, Math.round((ghz / 5.5) * 10));
+      const cpuScore  = Math.min(25, coreScore + ghzScore);
+      breakdown.total = Math.min(100, Math.max(0, ramScore + gpuScore + cpuScore));
+      breakdown.components = {
+        "RAM":                              { score: ramScore, max: 35, percentage: Math.round((ramScore / 35) * 100) },
+        [`Unified Memory ×0.5 (${effectiveVRAM} GB)`]: { score: gpuScore, max: 40, percentage: Math.round((gpuScore / 40) * 100) },
+        "CPU":                              { score: cpuScore, max: 25, percentage: Math.round((cpuScore / 25) * 100) },
+      };
+    } else if (vram > 0) {
       const ramScore  = Math.min(35, Math.round(Math.log2(Math.max(ram, 1)) * 5.5));
       const gpuScore  = Math.min(40, Math.round(Math.log2(Math.max(vram, 1)) * 10));
       const coreScore = Math.min(15, Math.round(Math.log2(Math.max(cores, 1)) * 3.5));
