@@ -15,6 +15,7 @@ import { ProductFaqSchema } from "@/components/seo/ProductFaqSchema";
 import { ScrollIndicator } from "@/components/ui/scroll-indicator";
 import { JargonBuster } from "@/components/ui/jargon-buster";
 import { FadeIn } from "@/components/ui/fade-in";
+import { ProductShareWidget } from "@/components/product/ProductShareWidget";
 import { getAffiliateUrl } from "@/utils/affiliate";
 
 type Category = "gpus" | "laptops" | "npus" | "workstations";
@@ -121,6 +122,9 @@ export function ProductDataClient({ product }: ProductDataClientProps) {
                     <div className="absolute inset-0 border-2 border-transparent group-hover:border-white/20 transition-colors z-20 pointer-events-none" />
                   </Link>
                 )}
+
+                {/* Hybrid Share Widget: Inline CTA button + Floating button above Ideas */}
+                <ProductShareWidget product={product} mode="all" />
               </div>
               <p className="text-xs text-zinc-500 mt-4 max-w-sm">
                 * As an affiliate, we earn from qualifying purchases.
